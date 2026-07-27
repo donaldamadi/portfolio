@@ -34,8 +34,8 @@ export function SiteHeader() {
     >
       <Shell>
         <div className="flex h-16 items-center justify-between gap-6">
-          <Link href="/" className="group flex items-baseline gap-2.5" aria-label="Donald Amadi — home">
-            <span className="font-display text-lg tracking-tight text-ink">Donald Amadi</span>
+          <Link href="/" className="group flex items-baseline gap-2.5" aria-label="Donald Amadi, home">
+            <span className="heading text-lg text-ink">Donald Amadi</span>
             <span className="hidden font-mono text-[0.625rem] tracking-[0.14em] text-faint sm:inline">
               MOBILE ENGINEER
             </span>

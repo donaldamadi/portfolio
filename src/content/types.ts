@@ -21,7 +21,7 @@ export type Role = {
 
 /**
  * A decision is the unit that actually signals seniority: the call that was
- * made, and — just as importantly — the credible option that was rejected.
+ * made, and, just as importantly, the credible option that was rejected.
  */
 export type Decision = {
   readonly title: string;

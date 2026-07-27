@@ -2,7 +2,7 @@
   "name": "donaldamadi-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Personal site of Donald Obinna Amadi — Senior Mobile Engineer.",
+  "description": "Personal site of Donald Obinna Amadi, Senior Mobile Engineer.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

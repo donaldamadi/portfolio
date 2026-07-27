@@ -5,7 +5,7 @@ export const experience: readonly Role[] = [
   {
     id: "zedcrest",
     company: "Zedcrest Group",
-    product: "Zedvance — personal & business banking",
+    product: "Zedvance, personal & business banking",
     title: "Mobile Engineer",
     employment: "Full-time",
     location: "Lagos, Nigeria",
@@ -13,7 +13,7 @@ export const experience: readonly Role[] = [
     end: "Present",
     current: true,
     summary:
-      "Built ExtraCash, an embedded lending product inside a live retail banking app — from open-banking underwriting through to disbursement and card repayment — plus the POS and business-banking surfaces around it.",
+      "Built ExtraCash, an embedded lending product inside a live retail banking app, covering open-banking underwriting through to disbursement and card repayment, plus the POS and business-banking surfaces around it.",
     highlights: [
       "Drove loan eligibility from open-banking statement analysis (Mono), KYC and employment/income capture, with automated decisioning and re-assessment when income changes.",
       "Shipped the full money path: instant disbursement to wallets, repayment by debit card via Rave/Flutterwave, OTP and email verification, KYC-tier gating.",
@@ -36,7 +36,7 @@ export const experience: readonly Role[] = [
       "Provider-side telemedicine: real-time consultations on Agora RTC, AI-assisted onboarding, payouts, and a bilingual codebase kept honest by CI.",
     highlights: [
       "Built provider-to-patient video and voice consultations on the Agora RTC engine, modelling the full session lifecycle from incoming request to completion.",
-      "Integrated Firebase AI (Vertex AI / Gemini) to suggest a provider’s medical specialty during onboarding — suggested, then confirmed, never inferred silently.",
+      "Integrated Firebase AI (Vertex AI / Gemini) to suggest a provider’s medical specialty during onboarding: suggested, then confirmed, never inferred silently.",
       "Delivered earnings and payouts, availability scheduling, QR generation, biometric login and document/consent capture.",
       "Led English/Spanish internationalisation: 480+ user-facing strings migrated to gen-l10n with CI parity tests that fail the build on locale drift.",
     ],
@@ -47,13 +47,13 @@ export const experience: readonly Role[] = [
     company: "SnapPay",
     title: "Flutter Engineer",
     employment: "Contract",
-    location: "Remote — Nigeria",
+    location: "Remote, Nigeria",
     start: "Apr 2026",
     end: "Jun 2026",
     summary:
       "Feature delivery on a live Nigerian fintech app, and the AES-encrypted transport layer everything else rides on.",
     highlights: [
-      "Shipped wallets, transfers, airtime/data/electricity payments, group and personal savings, invoices, QR pay, ticketing and rewards — backwards-compatible and feature-flag-gated to live users.",
+      "Shipped wallets, transfers, airtime/data/electricity payments, group and personal savings, invoices, QR pay, ticketing and rewards, all backwards-compatible and feature-flag-gated to live users.",
       "Engineered an AES-encrypted networking layer with request/response encryption, single-flight key refresh-and-replay on HTTP 403, and session teardown on 401.",
       "Integrated Prembly KYC (BVN / NIN / liveness), biometric auth, QR scan-to-pay, PDF receipts and deep linking on a layered MVVM core.",
       "Decomposed the codebase into modular, AI-loadable skill documents so agents could work inside a live production app safely.",
@@ -66,12 +66,12 @@ export const experience: readonly Role[] = [
     product: "Uplines",
     title: "Senior Frontend Developer",
     employment: "Contract",
-    location: "Saudi Arabia — Remote",
+    location: "Saudi Arabia, remote",
     start: "Oct 2024",
     end: "May 2025",
     summary: "Web and mobile delivery on the Uplines platform, including native iOS widgets and the analytics that told us whether any of it worked.",
     highlights: [
-      "Built native iOS widgets in Swift/SwiftUI — daily active users up 10%, engagement up 20% off the back of the surrounding UX work.",
+      "Built native iOS widgets in Swift/SwiftUI: daily active users up 10%, engagement up 20% off the back of the surrounding UX work.",
       "Instrumented Firebase and CleverTap analytics, cutting the loop time on product decisions by roughly a third.",
       "Shipped gift points, tutorials and onboarding; drove crash triage through Sentry and Crashlytics for a ~30% stability improvement.",
     ],
@@ -86,7 +86,7 @@ export const experience: readonly Role[] = [
     location: "Lagos, Nigeria",
     start: "Mar 2024",
     end: "Dec 2024",
-    summary: "Mobility platform work — a legacy re-architecture, a multilingual field app, and a live operations map.",
+    summary: "Mobility platform work: a legacy re-architecture, a multilingual field app, and a live operations map.",
     highlights: [
       "Re-architected a legacy codebase onto Clean Architecture, cutting defects by ~60% and making the thing extensible again.",
       "Built a multilingual testing app with voice playback, widening access for riders across language groups.",
@@ -106,7 +106,7 @@ export const experience: readonly Role[] = [
     summary: "E-commerce at half a million users, and the delivery pipeline that let a small team ship to them without fear.",
     highlights: [
       "Drove a ~40% performance gain and ~25% UX improvement in an app serving 500,000+ users through RxBloc restructuring and targeted profiling.",
-      "Stood up a Bitrise CI/CD pipeline and led code review and task tracking — release time halved, ~90% build success rate.",
+      "Stood up a Bitrise CI/CD pipeline and led code review and task tracking: release time halved, ~90% build success rate.",
       "Integrated Shorebird code push, cutting deployment time ~70% and letting fixes reach users without a store round-trip.",
     ],
     stack: ["Flutter", "RxBloc", "Bitrise", "Shorebird", "Jira", "Bitbucket"],
@@ -119,7 +119,7 @@ export const experience: readonly Role[] = [
     location: "Lagos, Nigeria",
     start: "Oct 2023",
     end: "Apr 2024",
-    summary: "Multi-currency wallet work — the first time I had to think hard about money in more than one denomination at once.",
+    summary: "Multi-currency wallet work, and the first time I had to think hard about money in more than one denomination at once.",
     highlights: [
       "Built a multi-currency wallet handling 5,000+ monthly transactions with Paystack integration.",
       "Led UI work including dark mode and design-review contributions that lifted retention.",
@@ -136,10 +136,10 @@ export const experience: readonly Role[] = [
     location: "Lagos, Nigeria",
     start: "Feb 2022",
     end: "Jan 2024",
-    summary: "Core retail banking at one of Nigeria’s oldest banks — transfers, airtime, bills, and the scrutiny that comes with the name on the door.",
+    summary: "Core retail banking at one of Nigeria’s oldest banks: transfers, airtime, bills, and the scrutiny that comes with the name on the door.",
     highlights: [
       "Built self-transfer, inter/intra-bank transfers, airtime and bill payments into a multifunctional banking app.",
-      "Worked closely with UI/UX on design feedback loops — session duration up ~30%, retention up ~15%.",
+      "Worked closely with UI/UX on design feedback loops: session duration up ~30%, retention up ~15%.",
       "Delivered inside a regulated, cross-functional environment with formal review gates.",
     ],
     stack: ["Flutter", "Dart", "Git"],

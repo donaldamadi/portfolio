@@ -17,7 +17,7 @@ type Command = {
 /**
  * ⌘K navigation. Hand-rolled: a listbox, roving focus, Escape to dismiss, focus
  * returned to the trigger on close. It exists because a single-page site this
- * long is genuinely faster to navigate with a keyboard — not because palettes
+ * long is genuinely faster to navigate with a keyboard, not because palettes
  * are fashionable.
  */
 export function CommandPalette() {

@@ -26,14 +26,14 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0a0a0b",
+          background: "#05070d",
           padding: "72px 80px",
           fontFamily: "sans-serif",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 10, height: 10, borderRadius: 999, background: "#e9a23b" }} />
-          <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, color: "#6d6a64" }}>{eyebrow}</div>
+          <div style={{ width: 10, height: 10, borderRadius: 999, background: "#34d399" }} />
+          <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, color: "#667e97" }}>{eyebrow}</div>
         </div>
 
         <div
@@ -41,7 +41,7 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
             display: "flex",
             fontSize: 66,
             lineHeight: 1.06,
-            color: "#ece9e3",
+            color: "#f3f8fd",
             letterSpacing: -2,
             maxWidth: 1000,
           }}
@@ -50,8 +50,8 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%" }}>
-          <div style={{ display: "flex", fontSize: 26, color: "#ece9e3" }}>{profile.name}</div>
-          <div style={{ display: "flex", fontSize: 20, color: "#6d6a64" }}>{footnote}</div>
+          <div style={{ display: "flex", fontSize: 26, color: "#f3f8fd" }}>{profile.name}</div>
+          <div style={{ display: "flex", fontSize: 20, color: "#667e97" }}>{footnote}</div>
         </div>
       </div>
     ),

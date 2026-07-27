@@ -17,12 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!study) return {};
 
   return {
-    title: `${study.kicker} — ${study.title}`,
+    title: `${study.kicker} · ${study.title}`,
     description: study.summary,
     alternates: { canonical: `/work/${study.slug}` },
     openGraph: {
       type: "article",
-      title: `${study.kicker} — ${study.title}`,
+      title: `${study.kicker} · ${study.title}`,
       description: study.summary,
       url: `/work/${study.slug}`,
     },
@@ -37,8 +37,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
   const index = caseStudies.findIndex((item) => item.slug === slug);
   const next = caseStudies[(index + 1) % caseStudies.length];
 
+  // Each study leans one of the two accents, so four pages in a row don't all
+  // read as the same page. Alternating off accentIndex keeps it deterministic.
+  const accent = study.accentIndex % 2 === 0 ? "var(--accent)" : "var(--accent-2)";
+
   return (
-    <article className="pb-24 pt-32 sm:pt-40">
+    <article className="pb-24 pt-32 sm:pt-40" style={{ ["--study-accent" as string]: accent }}>
       <Shell>
         <Link href="/#work" className="link inline-flex items-center gap-2 font-mono text-[0.6875rem] text-faint">
           <span aria-hidden="true">←</span> Selected work
@@ -107,7 +111,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
               <div key={decision.title} data-reveal>
                 <div className="flex items-baseline gap-4">
                   <span className="rail-index">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="font-display text-[1.625rem] leading-tight text-ink sm:text-[1.875rem]">
+                  <h3 className="heading text-[1.625rem] leading-tight text-ink sm:text-[1.875rem]">
                     {decision.title}
                   </h3>
                 </div>
@@ -116,9 +120,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
                 </p>
                 <div
                   className="mt-5 rounded-lg border-l-2 bg-surface p-5 sm:ml-11"
-                  style={{ borderColor: "var(--accent)" }}
+                  style={{ borderColor: "var(--study-accent)" }}
                 >
-                  <p className="eyebrow" style={{ color: "var(--accent)" }}>
+                  <p className="eyebrow" style={{ color: "var(--study-accent)" }}>
                     What I rejected
                   </p>
                   <p className="measure mt-2.5 text-[0.9375rem] leading-relaxed text-dim">{decision.rejected}</p>
@@ -134,7 +138,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
               <li key={item} className="measure flex gap-4 text-[1.0625rem] leading-relaxed text-dim">
                 <span
                   className="mt-2.5 size-1 shrink-0 rounded-full"
-                  style={{ background: "var(--accent)" }}
+                  style={{ background: "var(--study-accent)" }}
                   aria-hidden="true"
                 />
                 <span>{item}</span>
@@ -170,7 +174,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
           <p className="measure mt-4 text-[1.0625rem] leading-relaxed text-dim">
             I’m open to senior mobile and full-stack roles, and I’m relocation-ready.
           </p>
-          <a href={`mailto:${profile.email}`} className="link mt-5 inline-block font-display text-[1.5rem] text-ink">
+          <a href={`mailto:${profile.email}`} className="link mt-5 inline-block heading text-[1.5rem] text-ink">
             {profile.email}
           </a>
         </div>

@@ -22,7 +22,7 @@ export function Contact() {
               <div data-reveal style={{ ["--reveal-delay" as string]: "70ms" }}>
                 <a
                   href={`mailto:${profile.email}`}
-                  className="group inline-flex items-baseline gap-3 font-display text-[clamp(1.5rem,3.4vw,2.25rem)] text-ink"
+                  className="group inline-flex items-baseline gap-3 heading text-[clamp(1.5rem,3.4vw,2.25rem)] text-ink"
                 >
                   <span className="link">{profile.email}</span>
                 </a>

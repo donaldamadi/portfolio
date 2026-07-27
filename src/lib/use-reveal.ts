@@ -5,7 +5,7 @@ import { useEffect } from "react";
 /**
  * One observer for the whole document, attached once. Every element carrying
  * `data-reveal` is flipped to `data-reveal="shown"` the first time it crosses
- * the threshold and is then unobserved — so the cost is bounded by the number
+ * the threshold and is then unobserved, so the cost is bounded by the number
  * of elements, not by scroll events.
  *
  * Deliberately not a per-component hook: N components meant N observers, and

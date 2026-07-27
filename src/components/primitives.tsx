@@ -57,14 +57,6 @@ export function Section({
   );
 }
 
-export function Pill({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-line px-2.5 py-1 font-mono text-[0.6875rem] tracking-wide text-dim">
-      {children}
-    </span>
-  );
-}
-
 export function ArrowOut({ className }: { className?: string }) {
   return (
     <svg

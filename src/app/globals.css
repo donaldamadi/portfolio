@@ -3,45 +3,57 @@
 /* ------------------------------------------------------------------
    Palette
    Two themes, one set of semantic tokens. Nothing in a component ever
-   names a colour — it names a role. Ink on paper, or ember on night.
+   names a colour, it names a role.
+
+   Five pigments, and only five: black, navy, sky blue, green, white.
+   Dark mode is white type on navy-black lit by sky blue, with green as
+   the second voice. Light mode inverts it: navy type on white paper,
+   both accents pushed darker so they still clear contrast on white.
 ------------------------------------------------------------------ */
 
 :root {
   color-scheme: dark;
 
-  --bg: #0a0a0b;
-  --bg-veil: #0a0a0bd9;
-  --surface: #101012;
-  --surface-2: #17171a;
-  --line: #ffffff14;
-  --line-strong: #ffffff2b;
-  --ink: #ece9e3;
-  --dim: #a29e97;
-  --faint: #6d6a64;
-  --accent: #e9a23b;
-  --accent-soft: #e9a23b1f;
-  --shadow: 0 1px 0 #ffffff08 inset, 0 24px 60px -32px #00000099;
+  --bg: #05070d;
+  --bg-veil: #05070dd9;
+  --surface: #0a1121;
+  --surface-2: #101a30;
+  --line: #7fc3ff1c;
+  --line-strong: #7fc3ff3d;
+  --ink: #f3f8fd;
+  --dim: #a2b6ce;
+  /* Clears 4.5:1 against BOTH --bg and --surface. --faint carries the eyebrow
+     and rail labels, which are the smallest type on the page, so it is the
+     token most likely to fail an audit and the one worth over-specifying. */
+  --faint: #7189a3;
+  --accent: #38bdf8;
+  --accent-soft: #38bdf81f;
+  --accent-2: #34d399;
+  --accent-2-soft: #34d3991f;
 
-  --grain-opacity: 0.035;
+  --grain-opacity: 0.03;
 }
 
 [data-theme="light"] {
   color-scheme: light;
 
-  --bg: #faf8f4;
-  --bg-veil: #faf8f4d9;
+  --bg: #f7fafd;
+  --bg-veil: #f7fafdd9;
   --surface: #ffffff;
-  --surface-2: #f3f0ea;
-  --line: #1716140f;
-  --line-strong: #1716142e;
-  --ink: #171614;
-  --dim: #57534c;
-  --faint: #8b867d;
-  --accent: #a55c12;
-  --accent-soft: #a55c1216;
-  --shadow: 0 1px 0 #ffffff inset, 0 24px 60px -40px #17161433;
+  --surface-2: #e9f1f9;
+  --line: #0a112114;
+  --line-strong: #0a112133;
+  --ink: #06101f;
+  --dim: #3f556e;
+  /* Dark enough to clear 4.5:1 on --bg, because --faint carries the eyebrow
+     and rail labels, which are the smallest type on the page. */
+  --faint: #5e738c;
+  --accent: #0176ba;
+  --accent-soft: #0176ba14;
+  --accent-2: #05745a;
+  --accent-2-soft: #05745a14;
 
-  --grain-opacity: 0.022;
+  --grain-opacity: 0.018;
 }
 
 @theme inline {
@@ -55,9 +67,11 @@
   --color-faint: var(--faint);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-mono-jb), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --breakpoint-3xl: 100rem;
@@ -80,7 +94,7 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: "cv05" 1, "ss03" 1, "calt" 1;
+  font-feature-settings: "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -118,11 +132,31 @@ a {
    Type primitives
 ------------------------------------------------------------------ */
 
+/* Outfit is geometric, so display sizes need real weight behind them and
+   tighter tracking than the serif this replaced. Line-height opens a little
+   because the ascenders are taller. */
 .display {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+/* Sub-display headings. Body and display are now one family, so weight and
+   tracking are the only things separating a heading from a paragraph. Line
+   height is deliberately left to the call site. */
+.heading {
+  font-weight: 550;
   letter-spacing: -0.02em;
-  line-height: 0.95;
+}
+
+/* Sky blue into green, left to right. Used on the one phrase per page that
+   should carry the accent. */
+.text-gradient {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .eyebrow {
@@ -151,7 +185,7 @@ a {
 }
 
 /* ------------------------------------------------------------------
-   Reveal — hand-rolled scroll entrance. No animation library; the whole
+   Reveal: hand-rolled scroll entrance. No animation library; the whole
    thing is one IntersectionObserver and two custom properties.
 ------------------------------------------------------------------ */
 
@@ -183,7 +217,7 @@ a {
 }
 
 /* ------------------------------------------------------------------
-   Underline that grows from the left on hover — used on every outbound link.
+   Underline that grows from the left on hover, used on every outbound link.
 ------------------------------------------------------------------ */
 
 .link {

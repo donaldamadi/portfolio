@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { RevealRoot } from "@/components/reveal-root";
@@ -8,16 +8,12 @@ import { profile, SITE_URL } from "@/content/profile";
 import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
 
-const inter = Inter({
+// One variable family carries both body and display, the way zedvance.com runs
+// Outfit across the whole document. Weight and tracking do the work a second
+// typeface used to do.
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-instrument",
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -28,16 +24,16 @@ const mono = JetBrains_Mono({
 });
 
 const description =
-  "Senior mobile engineer — Flutter, Swift and Kotlin. Five years in fintech building lending, wallets, card-present payments and encrypted transport. Open-source maintainer on pub.dev. Relocation-ready.";
+  "Senior mobile engineer working in Flutter, Swift and Kotlin. Five years in fintech building lending, wallets, card-present payments and encrypted transport. Open-source maintainer on pub.dev. Relocation-ready.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${profile.shortName} — ${profile.role}`,
-    template: `%s — ${profile.shortName}`,
+    default: `${profile.shortName} · ${profile.role}`,
+    template: `%s · ${profile.shortName}`,
   },
   description,
-  applicationName: `${profile.shortName} — portfolio`,
+  applicationName: `${profile.shortName} portfolio`,
   authors: [{ name: profile.name, url: SITE_URL }],
   creator: profile.name,
   keywords: [
@@ -56,14 +52,14 @@ export const metadata: Metadata = {
     type: "profile",
     url: SITE_URL,
     siteName: profile.shortName,
-    title: `${profile.shortName} — ${profile.role}`,
+    title: `${profile.shortName} · ${profile.role}`,
     description,
     locale: "en_GB",
   },
   twitter: {
     card: "summary_large_image",
     creator: "@thatmandonald",
-    title: `${profile.shortName} — ${profile.role}`,
+    title: `${profile.shortName} · ${profile.role}`,
     description,
   },
   robots: {
@@ -76,8 +72,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
-    { media: "(prefers-color-scheme: light)", color: "#faf8f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#05070d" },
+    { media: "(prefers-color-scheme: light)", color: "#f7fafd" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -88,10 +84,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${inter.variable} ${instrument.variable} ${mono.variable}`}
+      className={`${outfit.variable} ${mono.variable}`}
     >
       <head>
-        {/* Applied before first paint — no flash of the wrong palette. */}
+        {/* Applied before first paint, so there is no flash of the wrong palette. */}
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>

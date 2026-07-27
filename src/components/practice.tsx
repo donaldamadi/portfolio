@@ -28,7 +28,7 @@ export function Practice() {
             style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
           >
             <p className="rail-index">{String(index + 1).padStart(2, "0")}</p>
-            <h3 className="mt-4 font-display text-[1.375rem] text-ink">{discipline.name}</h3>
+            <h3 className="mt-4 heading text-[1.375rem] text-ink">{discipline.name}</h3>
             <p className="mt-3 text-[0.9375rem] leading-relaxed text-dim">{discipline.body}</p>
           </article>
         ))}
@@ -70,7 +70,7 @@ export function Practice() {
       <div className="mt-20 grid gap-x-12 gap-y-10 sm:grid-cols-2">
         {profile.principles.map((principle, index) => (
           <div key={principle.title} data-reveal style={{ ["--reveal-delay" as string]: `${index * 60}ms` }}>
-            <h3 className="font-display text-[1.375rem] text-ink">{principle.title}</h3>
+            <h3 className="heading text-[1.375rem] text-ink">{principle.title}</h3>
             <p className="measure-tight mt-2.5 text-[0.9375rem] leading-relaxed text-dim">{principle.body}</p>
           </div>
         ))}

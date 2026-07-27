@@ -47,7 +47,7 @@ export function Writing() {
         ))}
       </ul>
 
-      {/* Off the clock — quiet on purpose. */}
+      {/* Off the clock, quiet on purpose. */}
       <div className="mt-24 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
         <div data-reveal>
           <p className="eyebrow">Off the clock</p>
@@ -59,7 +59,7 @@ export function Writing() {
           {offTheClock.excerpts.map((excerpt) => (
             <blockquote
               key={excerpt.body}
-              className="border-l pl-6 font-display text-[1.375rem] leading-snug text-ink sm:text-[1.625rem]"
+              className="border-l pl-6 heading text-[1.375rem] leading-snug text-ink sm:text-[1.625rem]"
               style={{ borderColor: "var(--accent)" }}
             >
               {excerpt.body}

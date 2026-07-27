@@ -17,7 +17,7 @@ export function ThemeToggle() {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, next);
     } catch {
-      /* private mode — the choice just won't persist */
+      /* private mode, the choice just won't persist */
     }
     setTheme(next);
   };

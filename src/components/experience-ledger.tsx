@@ -65,7 +65,7 @@ export function ExperienceLedger() {
 
                   <span className="flex items-center gap-4 font-mono text-[0.6875rem] text-faint">
                     <span className="whitespace-nowrap">
-                      {role.start} — {role.end}
+                      {role.start} - {role.end}
                     </span>
                     <span
                       aria-hidden="true"

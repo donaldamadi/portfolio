@@ -1,6 +1,6 @@
 import type { Link, StackGroup } from "./types";
 
-export const SITE_URL = "https://donaldamadi.vercel.app";
+export const SITE_URL = "https://donaldamadi.dev";
 
 export const profile = {
   name: "Donald Obinna Amadi",
@@ -12,7 +12,7 @@ export const profile = {
   phone: "+234 814 564 0723",
 
   /** One sentence. If a recruiter reads nothing else, they read this. */
-  tagline: "I build the software that lives in your pocket — mostly for money that has to arrive.",
+  tagline: "I build the software that lives in your pocket. Mostly for money that has to arrive.",
 
   /** The three-line version, for the hero. */
   intro: [
@@ -21,13 +21,14 @@ export const profile = {
     "Flutter, Swift and Kotlin today. Backend, systems and the teams that build them next.",
   ],
 
-  /** The paragraph version, for the about rail and for metadata. */
-  bio: [
-    "I’m a senior mobile engineer. I’ve spent most of the last five years in fintech — lending, wallets, card-present payments, encrypted transport — building the parts of an app where being approximately right is the same as being wrong.",
-    "The work I’m proudest of is rarely the work you can see. Empty states. The offline path. The retry that doesn’t double-charge anybody. A release that doesn’t page you at 3am. Good software should feel quiet.",
-    "Lately I’ve been building the layer above the code: agentic engineering workflows, and the context scaffolding that lets AI agents work safely inside a large production codebase without breaking it. I published a CLI for it.",
-    "I’m moving deliberately from mobile toward the whole stack — backend, systems design, and eventually leading the teams that own them.",
-  ],
+  /**
+   * The one thing the hero doesn't say. Rendered once, between the hero and
+   * the work, as a pause rather than a section. The other three paragraphs
+   * this used to hold said what the hero and the practice section already say,
+   * so they're gone: unrendered prose is just a file that lies about itself.
+   */
+  statement:
+    "The work I\u2019m proudest of is rarely the work you can see. Empty states. The offline path. The retry that doesn\u2019t double-charge anybody. A release that doesn\u2019t page you at 3am. Good software should feel quiet.",
 
   /** How I work. Deliberately short; each line is a claim I can defend. */
   principles: [
@@ -51,10 +52,10 @@ export const profile = {
 
   availability: {
     status: "Open to senior mobile & full-stack roles",
-    detail: "Relocation-ready — Ireland, Netherlands, Denmark, Germany, France, Canada, UK.",
+    detail: "Relocation-ready for Ireland, Netherlands, Denmark, Germany, France, Canada, UK.",
     notes: [
       "Visa sponsorship required (Nigerian passport). Familiar with Critical Skills, EU Blue Card and Specialist permit routes.",
-      "Comfortable overlapping with CET/GMT/EST — five years of fully-remote delivery across Lagos, Dubai, Riyadh and the US.",
+      "Comfortable overlapping with CET/GMT/EST, after five years of fully-remote delivery across Lagos, Dubai, Riyadh and the US.",
       "Also open to fully-remote contract work.",
     ],
   },

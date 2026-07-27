@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { Statement } from "@/components/statement";
 import { WorkIndex } from "@/components/work-index";
 import { ExperienceLedger } from "@/components/experience-ledger";
 import { Practice } from "@/components/practice";
@@ -48,6 +49,7 @@ export default function HomePage() {
     <>
       <StructuredData />
       <Hero />
+      <Statement />
       <WorkIndex />
       <ExperienceLedger />
       <Practice />
