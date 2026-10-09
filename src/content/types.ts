@@ -71,8 +71,3 @@ export type Article = {
   readonly publication: string;
   readonly href: string;
 };
-
-export type StackGroup = {
-  readonly label: string;
-  readonly items: readonly string[];
-};

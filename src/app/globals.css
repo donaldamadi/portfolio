@@ -249,6 +249,242 @@ a {
 }
 
 /* ------------------------------------------------------------------
+   Motifs. The same small set of moving pieces the GitHub README uses:
+   a blinking caret, lines that take turns, rings that ripple out from a
+   phone, an arrow that hunts and settles. All CSS, all compositor-only
+   (opacity and transform), and every one has a still frame under
+   prefers-reduced-motion further down.
+------------------------------------------------------------------ */
+
+.caret {
+  animation: caret-blink 1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Lines that take turns in the same spot. Three children, 9s loop. */
+.cycler {
+  position: relative;
+  display: block;
+  height: 1.3em;
+}
+.cycler > * {
+  position: absolute;
+  inset: 0 auto auto 0;
+  white-space: nowrap;
+  opacity: 0;
+  animation: cycler 9s infinite both;
+}
+.cycler > :nth-child(2) {
+  animation-delay: 3s;
+}
+.cycler > :nth-child(3) {
+  animation-delay: 6s;
+}
+@keyframes cycler {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  6%,
+  28% {
+    opacity: 1;
+    transform: none;
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* Rings rippling out from a point. */
+.ripple {
+  animation: ripple 4.5s infinite ease-out both;
+}
+@keyframes ripple {
+  0% {
+    transform: scale(0.35);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* The Finder's haptic beat. Duration is set inline from distance. */
+.beat {
+  animation: beat 1.6s infinite ease-out;
+}
+@keyframes beat {
+  0% {
+    transform: scale(0.82);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+
+.spin {
+  animation: spin 4s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ghost {
+  animation: ghost 3.2s ease-in-out infinite;
+}
+@keyframes ghost {
+  0%,
+  35% {
+    opacity: 1;
+  }
+  50%,
+  85% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.flare {
+  animation: flare 2.4s ease-in-out infinite;
+}
+@keyframes flare {
+  0%,
+  40%,
+  100% {
+    background-color: var(--surface-2);
+    box-shadow: none;
+  }
+  50%,
+  70% {
+    background-color: #fffbe8;
+    box-shadow: 0 0 36px 6px #fde68a99;
+  }
+}
+
+/* One letter at a time, for the Space code. */
+.pop {
+  animation: pop 4s infinite both;
+}
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  8%,
+  86% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* A short dash running round the loop diagram. */
+.comet {
+  animation: comet 10s linear infinite;
+}
+@keyframes comet {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Each loop step lights up in turn, 2s apiece over the same 10s. */
+.loop-step {
+  animation: loop-step 10s infinite both;
+}
+@keyframes loop-step {
+  0%,
+  20% {
+    border-color: var(--accent);
+    color: var(--ink);
+    background-color: var(--accent-soft);
+  }
+  24%,
+  100% {
+    border-color: var(--line-strong);
+    color: var(--dim);
+    background-color: var(--surface);
+  }
+}
+
+/* Countdown ring: two minutes of privacy, compressed into eight seconds. */
+.countdown {
+  animation: countdown 8s linear infinite;
+}
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cycler > * {
+    animation: none;
+    opacity: 0;
+  }
+  .cycler > :last-child {
+    opacity: 1;
+  }
+  .ripple,
+  .beat,
+  .spin,
+  .ghost,
+  .flare,
+  .pop,
+  .comet,
+  .countdown {
+    animation: none;
+    opacity: 1;
+  }
+  .ripple {
+    opacity: 0.35;
+  }
+  .marquee {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .marquee-dup {
+    display: none;
+  }
+  .marquee-copy {
+    flex-wrap: wrap;
+  }
+  .loop-step {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
    Scrollbar
 ------------------------------------------------------------------ */
 

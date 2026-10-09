@@ -1,64 +1,51 @@
-import type { Link, StackGroup } from "./types";
+import type { Link } from "./types";
 
 export const SITE_URL = "https://donaldamadi.dev";
 
 export const profile = {
   name: "Donald Obinna Amadi",
   shortName: "Donald Amadi",
-  role: "Senior Mobile Engineer",
+  role: "Product Engineer",
   location: "Lagos, Nigeria",
   timezone: "WAT · UTC+1",
   email: "donaldamadi15@gmail.com",
   phone: "+234 814 564 0723",
 
-  /** One sentence. If a recruiter reads nothing else, they read this. */
-  tagline: "I build the software that lives in your pocket. Mostly for money that has to arrive.",
+  /** One sentence. Feeds the manifest and anywhere a single line is all there's room for. */
+  tagline: "I started on the screen, kept zooming out, and now I build the whole thing.",
 
-  /** The three-line version, for the hero. */
-  intro: [
-    "Five years turning “wouldn’t it be good if…” into apps that stay fast on a three-year-old phone with two bars of signal.",
-    "Most of it in fintech, where a rounding error ruins someone’s day and “it works on my machine” is not a defence.",
-    "Flutter, Swift and Kotlin today. Backend, systems and the teams that build them next.",
-  ],
+  /** The hero. Short on purpose: the visuals below carry the rest. */
+  hero: {
+    prompt: "~/donald $ cat intro.md",
+    hello: "Hey, I'm Donald.",
+    /** Cycled one at a time. The last one is what shows when motion is reduced. */
+    lines: ["I started on the screen.", "Then I kept zooming out.", "Now I build the whole thing."],
+    signature: "product engineer · mobile at heart · AI in the loop",
+  },
 
   /**
-   * The one thing the hero doesn't say. Rendered once, between the hero and
-   * the work, as a pause rather than a section. The other three paragraphs
-   * this used to hold said what the hero and the practice section already say,
-   * so they're gone: unrendered prose is just a file that lies about itself.
+   * The long version, on /about, for anyone who chooses to open it. Connected
+   * paragraphs, in order, so each should lead into the next.
    */
-  statement:
-    "The work I\u2019m proudest of is rarely the work you can see. Empty states. The offline path. The retry that doesn\u2019t double-charge anybody. A release that doesn\u2019t page you at 3am. Good software should feel quiet.",
-
-  /** How I work. Deliberately short; each line is a claim I can defend. */
-  principles: [
-    {
-      title: "Failure states are the product",
-      body: "The happy path takes a week. The other paths take the rest of the quarter, and they’re what people remember.",
-    },
-    {
-      title: "Decisions beat opinions",
-      body: "I can tell you what I chose. I can also tell you what I rejected and the specific way it breaks. If I can’t do the second one, I haven’t finished thinking.",
-    },
-    {
-      title: "Boring reliability",
-      body: "Idempotency, feature flags, a rollback you’ve actually rehearsed. Cleverness is a cost you pay every time someone new opens the file.",
-    },
-    {
-      title: "Write it down",
-      body: "Architecture that only exists in one head is a single point of failure with a notice period.",
-    },
+  longVersion: [
+    "I started out building the part of software you hold in your hand. For years that was the whole world: Flutter, Swift, Kotlin, a release train, and a phone somewhere with two bars of signal that the app still had to feel fast on. Most of those years were in fintech, at a bank, a lender, a wallet, a payments company, where a rounding error ruins someone's whole day and \u201cworks on my machine\u201d has never once saved anybody. I still love that work. I still think the empty states and the offline path are where you find out who really cared.",
+    "Somewhere along the way the job got bigger than the screen. I kept following the bug past the API call, then past the server, then into the database and the queue and the cron job nobody remembered writing, and at some point I looked up and realised I wasn't really a mobile engineer anymore. I was an engineer who happened to know mobile very well, the kind who sits with a problem until the whole system around it comes into view, and then builds whatever that system needs, on whatever layer it lives.",
+    "That is how PinDey happened. It started with a very Lagos problem: you're at a party, your people are \u201cby the bar\u201d, and there are five bars. Calls drop. A pin on a map is tens of metres off and doesn't tell you which way to walk. So PinDey gives you an arrow, a distance, and the old warmer or colder game, with haptics that speed up as you close in and a sound when you finally find them.",
+    "My favourite decision in the whole thing is that the Finder is honest. When the phone genuinely can't tell which way to point, it says \u201cvery close, look around\u201d instead of confidently sending you the wrong way. It would have been easy to always show an arrow, and it would have looked more impressive in a demo. But a confident arrow pointing the wrong way is worse than no arrow at all, because people follow it. The privacy side got the same care: there's no location history, positions disappear about two minutes after the last update, and nothing gets sold.",
+    "It is mine from end to end, the iOS and Android apps, the backend, the infrastructure, the website, the back office, the product decisions nobody sees and the ones everybody does. Building it taught me more about product than any title ever did, mostly because when you own every layer there's nobody to hand the hard part to. Honestly, that's the fun bit.",
+    "I build with AI the way I used to build with a good IDE, except the conversation goes both ways now. It sits in how I sketch architectures, how I read unfamiliar code, how I ship. It's the reason one engineer can carry what used to take a small team. The craft moves up a level, toward understanding the problem properly, choosing the right shape for the system, and knowing which parts deserve your own hands. The other half is preparing a codebase so an agent can work in it without making a mess, which is where flutter_skill_gen came from.",
+    "These days my time is split between the day job, PinDey, a handful of side projects that may or may not see daylight, and writing, which is the other thing I can't stop doing. Poetry, prose, the occasional long thought about software. It turns out finding the right word and finding the right abstraction are pretty much the same muscle.",
   ],
 
-  availability: {
-    status: "Open to senior mobile & full-stack roles",
-    detail: "Relocation-ready for Ireland, Netherlands, Denmark, Germany, France, Canada, UK.",
-    notes: [
-      "Visa sponsorship required (Nigerian passport). Familiar with Critical Skills, EU Blue Card and Specialist permit routes.",
-      "Comfortable overlapping with CET/GMT/EST, after five years of fully-remote delivery across Lagos, Dubai, Riyadh and the US.",
-      "Also open to fully-remote contract work.",
-    ],
-  },
+  coda: "Think about the problem, see the system, build the thing. Then make it quiet.",
+
+  /**
+   * Logistics, kept for anyone who needs them. One paragraph, not a checklist.
+   * Lives on /about only, so the home page stays an introduction rather than a pitch.
+   * TODO(donald): confirm this is still true and still something you want on the site.
+   */
+  practicalities:
+    "If you're hiring: I'm open to remote work, and to relocating to Ireland, the Netherlands, Denmark, Germany, France, Canada or the UK. That would need visa sponsorship, since I hold a Nigerian passport. I've been working fully remote across Lagos, Dubai, Riyadh and the US for years, so overlapping with GMT, CET or EST is normal for me.",
 
   links: [
     { label: "GitHub", href: "https://github.com/donaldamadi", external: true },
@@ -76,30 +63,3 @@ export const profile = {
     note: "Five-year engineering degree. Final-year project: a hardware/Flutter system streaming fluid level and temperature in real time.",
   },
 } as const;
-
-export const stack: readonly StackGroup[] = [
-  {
-    label: "Languages",
-    items: ["Dart", "Swift", "Kotlin", "TypeScript", "JavaScript", "Python", "Java"],
-  },
-  {
-    label: "Mobile",
-    items: ["Flutter", "SwiftUI", "UIKit", "Jetpack Compose", "Kotlin Multiplatform", "Platform Channels"],
-  },
-  {
-    label: "Architecture",
-    items: ["Clean Architecture", "MVVM", "BLoC / Cubit", "Riverpod", "Provider", "get_it", "go_router"],
-  },
-  {
-    label: "Fintech",
-    items: ["Card & POS SDKs", "Open banking (Mono)", "KYC (Prembly, HyperVerge)", "AES transport", "Paystack", "Flutterwave"],
-  },
-  {
-    label: "Backend & web",
-    items: ["Node.js", "Express", "Prisma", "PostgreSQL", "Redis / BullMQ", "Next.js", "React"],
-  },
-  {
-    label: "Ship & operate",
-    items: ["GitHub Actions", "Bitrise", "Codemagic", "Fastlane", "Shorebird", "Firebase", "Sentry", "GCP"],
-  },
-];

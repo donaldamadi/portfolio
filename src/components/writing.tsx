@@ -1,44 +1,57 @@
-import { articles, offTheClock, volunteering } from "@/content/work";
+import { articles, offTheClock } from "@/content/work";
 import { profile } from "@/content/profile";
-import { ArrowOut, Section } from "./primitives";
+import { ArrowOut, Chapter, ExternalLink, Lines } from "./primitives";
+
+const LEAD = [
+  "When I'm not building, I'm writing.",
+  "Poetry, prose, long thoughts on software.",
+  "Finding the right word and finding the right abstraction are pretty much the same muscle.",
+] as const;
+
+/** The newest few. Everything else is a click away on Medium. */
+const SHOWN = 3;
 
 export function Writing() {
+  const medium = profile.links.find((link) => link.label === "Medium");
+
   return (
-    <Section
-      id="writing"
-      index="05"
-      label="Writing"
-      title={
-        <>
-          I write to find out
-          <br />
-          what I actually think.
-        </>
-      }
-      lede={
-        <p>
-          Six pieces on Medium, mostly in Level Up Coding, mostly about the parts of Flutter that only bite
-          you in production.
-        </p>
-      }
-    >
-      <ul className="border-t border-line">
-        {articles.map((article, index) => (
+    <Chapter id="writing" eyebrow="Writing">
+      <Lines lines={LEAD} />
+
+      <div className="mt-12 grid gap-4 md:grid-cols-2">
+        {offTheClock.excerpts.map((excerpt, index) => (
+          <blockquote
+            key={excerpt.body}
+            className="rounded-2xl border border-line bg-surface p-6 sm:p-8"
+            data-reveal
+            style={{ ["--reveal-delay" as string]: `${index * 90}ms` }}
+          >
+            <span aria-hidden="true" className="display block text-[3rem] leading-none text-accent">
+              &ldquo;
+            </span>
+            <p className="heading mt-2 text-[1.25rem] leading-snug text-ink sm:text-[1.5rem]">{excerpt.body}</p>
+          </blockquote>
+        ))}
+      </div>
+      <p className="mt-4 text-[0.875rem] text-faint" data-reveal>
+        {offTheClock.closer}
+      </p>
+
+      <p className="mt-16 font-mono text-[0.75rem] text-faint" data-reveal>
+        and on software, lately
+      </p>
+      <ul className="mt-4 border-t border-line">
+        {articles.slice(0, SHOWN).map((article, index) => (
           <li key={article.href} data-reveal style={{ ["--reveal-delay" as string]: `${index * 45}ms` }}>
             <a
               href={article.href}
               target="_blank"
               rel="noreferrer noopener"
-              className="group grid gap-2 border-b border-line py-6 sm:grid-cols-[7rem_1fr_auto] sm:items-baseline sm:gap-8"
+              className="group grid gap-1 border-b border-line py-5 sm:grid-cols-[6rem_1fr_auto] sm:items-baseline sm:gap-8"
             >
               <span className="rail-index">{article.date}</span>
-              <span>
-                <span className="block text-[1.0625rem] text-ink transition-colors group-hover:text-accent">
-                  {article.title}
-                </span>
-                <span className="mt-1.5 block text-[0.875rem] leading-relaxed text-faint">{article.blurb}</span>
-              </span>
-              <span className="flex items-center gap-1.5 font-mono text-[0.625rem] text-faint transition-colors group-hover:text-dim">
+              <span className="text-[1.0625rem] text-ink transition-colors group-hover:text-accent">{article.title}</span>
+              <span className="hidden items-center gap-1.5 font-mono text-[0.625rem] text-faint sm:flex">
                 {article.publication}
                 <ArrowOut />
               </span>
@@ -46,54 +59,11 @@ export function Writing() {
           </li>
         ))}
       </ul>
-
-      {/* Off the clock, quiet on purpose. */}
-      <div className="mt-24 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-        <div data-reveal>
-          <p className="eyebrow">Off the clock</p>
-          <p className="measure-tight mt-5 text-[0.9375rem] leading-relaxed text-dim">{offTheClock.intro}</p>
-          <p className="mt-6 text-[0.875rem] text-faint">{offTheClock.closer}</p>
-        </div>
-
-        <div className="space-y-10" data-reveal style={{ ["--reveal-delay" as string]: "80ms" }}>
-          {offTheClock.excerpts.map((excerpt) => (
-            <blockquote
-              key={excerpt.body}
-              className="border-l pl-6 heading text-[1.375rem] leading-snug text-ink sm:text-[1.625rem]"
-              style={{ borderColor: "var(--accent)" }}
-            >
-              {excerpt.body}
-            </blockquote>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-24 grid gap-10 border-t border-line pt-12 sm:grid-cols-[1fr_1fr] lg:gap-20">
-        <div data-reveal>
-          <p className="eyebrow">Education</p>
-          <h3 className="mt-5 text-[1.0625rem] text-ink">{profile.education.school}</h3>
-          <p className="mt-1 text-[0.9375rem] text-dim">{profile.education.degree}</p>
-          <p className="mt-1 font-mono text-[0.625rem] tracking-wide text-faint">
-            {profile.education.location} · Class of {profile.education.graduated}
-          </p>
-          <p className="measure-tight mt-4 text-[0.875rem] leading-relaxed text-faint">{profile.education.note}</p>
-        </div>
-
-        <div data-reveal style={{ ["--reveal-delay" as string]: "70ms" }}>
-          <p className="eyebrow">Also</p>
-          <ul className="mt-5 space-y-6">
-            {volunteering.map((item) => (
-              <li key={item.org}>
-                <h3 className="text-[1.0625rem] text-ink">{item.org}</h3>
-                <p className="mt-1 font-mono text-[0.625rem] tracking-wide text-faint">
-                  {item.role} · {item.period}
-                </p>
-                <p className="measure-tight mt-2 text-[0.875rem] leading-relaxed text-faint">{item.body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Section>
+      {medium ? (
+        <ExternalLink href={medium.href} className="mt-6 text-[0.875rem] text-dim">
+          Everything else on Medium
+        </ExternalLink>
+      ) : null}
+    </Chapter>
   );
 }

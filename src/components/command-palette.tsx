@@ -6,13 +6,65 @@ import { caseStudies } from "@/content/case-studies";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
 
+/**
+ * A command is plain data. What it does is decided by `run` below, in an event
+ * handler, so nothing that touches a ref is ever built or read during render.
+ */
+type Action =
+  | { kind: "section"; hash: string }
+  | { kind: "route"; href: string }
+  | { kind: "link"; href: string };
+
 type Command = {
   id: string;
   label: string;
   group: string;
   hint?: string;
-  run: () => void;
+  action: Action;
 };
+
+const section = (id: string, label: string): Command => ({
+  id,
+  label,
+  group: "Navigate",
+  action: { kind: "section", hash: `#${id}` },
+});
+
+const COMMANDS: readonly Command[] = [
+  section("story", "Zoom out"),
+  section("pindey", "PinDey"),
+  section("how", "How I work"),
+  section("now", "Right now"),
+  section("open-source", "Open source"),
+  section("work", "Earlier work"),
+  section("writing", "Writing"),
+  section("contact", "Contact"),
+  {
+    id: "long-version",
+    label: "The long version",
+    group: "Navigate",
+    hint: "/about",
+    action: { kind: "route", href: "/about" },
+  },
+  ...caseStudies.map(
+    (study): Command => ({
+      id: `cs-${study.slug}`,
+      label: study.kicker,
+      hint: study.title,
+      group: "Case studies",
+      action: { kind: "route", href: `/work/${study.slug}` },
+    }),
+  ),
+  ...profile.links.map(
+    (link): Command => ({
+      id: `link-${link.label}`,
+      label: link.label,
+      group: "Elsewhere",
+      hint: link.href.replace(/^https?:\/\//, "").replace(/^mailto:/, ""),
+      action: { kind: "link", href: link.href },
+    }),
+  ),
+];
 
 /**
  * ⌘K navigation. Hand-rolled: a listbox, roving focus, Escape to dismiss, focus
@@ -35,56 +87,26 @@ export function CommandPalette() {
     restoreFocusTo.current?.focus();
   }, []);
 
-  const goto = useCallback(
-    (hash: string) => () => {
-      close();
-      const el = document.querySelector(hash);
+  const run = (command: Command | undefined) => {
+    if (!command) return;
+    close();
+    const { action } = command;
+    if (action.kind === "section") {
+      const el = document.querySelector(action.hash);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      else router.push(`/${hash}`);
-    },
-    [close, router],
-  );
-
-  const commands = useMemo<Command[]>(() => {
-    const sections: Command[] = [
-      { id: "work", label: "Selected work", group: "Navigate", run: goto("#work") },
-      { id: "experience", label: "Experience", group: "Navigate", run: goto("#experience") },
-      { id: "practice", label: "AI practice", group: "Navigate", run: goto("#practice") },
-      { id: "open-source", label: "Open source", group: "Navigate", run: goto("#open-source") },
-      { id: "writing", label: "Writing", group: "Navigate", run: goto("#writing") },
-      { id: "contact", label: "Contact", group: "Navigate", run: goto("#contact") },
-    ];
-
-    const studies: Command[] = caseStudies.map((study) => ({
-      id: `cs-${study.slug}`,
-      label: study.kicker,
-      hint: study.title,
-      group: "Case studies",
-      run: () => {
-        close();
-        router.push(`/work/${study.slug}`);
-      },
-    }));
-
-    const links: Command[] = profile.links.map((link) => ({
-      id: `link-${link.label}`,
-      label: link.label,
-      group: "Elsewhere",
-      hint: link.href.replace(/^https?:\/\//, "").replace(/^mailto:/, ""),
-      run: () => {
-        close();
-        window.open(link.href, link.href.startsWith("mailto:") ? "_self" : "_blank", "noreferrer");
-      },
-    }));
-
-    return [...sections, ...studies, ...links];
-  }, [close, goto, router]);
+      else router.push(`/${action.hash}`);
+    } else if (action.kind === "route") {
+      router.push(action.href);
+    } else {
+      window.open(action.href, action.href.startsWith("mailto:") ? "_self" : "_blank", "noreferrer");
+    }
+  };
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return commands;
-    return commands.filter((c) => `${c.label} ${c.hint ?? ""} ${c.group}`.toLowerCase().includes(q));
-  }, [commands, query]);
+    if (!q) return COMMANDS;
+    return COMMANDS.filter((c) => `${c.label} ${c.hint ?? ""} ${c.group}`.toLowerCase().includes(q));
+  }, [query]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -113,8 +135,6 @@ export function CommandPalette() {
     }
     return undefined;
   }, [open]);
-
-  useEffect(() => setActive(0), [query]);
 
   if (!open) {
     return (
@@ -152,7 +172,10 @@ export function CommandPalette() {
           <input
             ref={inputRef}
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setActive(0);
+            }}
             onKeyDown={(event) => {
               if (event.key === "ArrowDown") {
                 event.preventDefault();
@@ -164,7 +187,7 @@ export function CommandPalette() {
               }
               if (event.key === "Enter") {
                 event.preventDefault();
-                results[active]?.run();
+                run(results[active]);
               }
             }}
             placeholder="Search sections, case studies, links…"
@@ -188,7 +211,7 @@ export function CommandPalette() {
                     role="option"
                     aria-selected={index === active}
                     onMouseEnter={() => setActive(index)}
-                    onClick={command.run}
+                    onClick={() => run(command)}
                     className={cn(
                       "flex w-full items-baseline justify-between gap-4 px-4 py-2 text-left text-sm transition-colors",
                       index === active ? "bg-accent-soft text-ink" : "text-dim",

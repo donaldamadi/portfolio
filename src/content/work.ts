@@ -3,9 +3,9 @@ import type { Article, Package, Project } from "./types";
 export const packages: readonly Package[] = [
   {
     name: "flutter_skill_gen",
-    tagline: "Context scaffolding for AI agents working inside a real codebase",
+    tagline: "Writes SKILL.md files for AI assistants, because good tooling should teach the robots too.",
     description:
-      "A CLI that scans a Flutter project and produces SKILL.md context files describing its architecture, state management, navigation, dependency injection, data layer and conventions, so an assistant arrives already knowing how the codebase is meant to be written, instead of guessing from whichever file it opened first.",
+      "Point it at a Flutter project and it reads the pubspec, the lib folder and the Dart sources, works out how the codebase is put together, and writes SKILL.md context files so an assistant shows up already knowing the architecture and conventions instead of guessing from whichever file it opened first. It writes for Claude Code, Cursor, Copilot, Windsurf and a few others, splits big projects into a core file plus smaller domain files, and can keep everything current through watch mode, git hooks or CI.",
     language: "Dart",
     license: "MIT",
     since: "2025",
@@ -21,9 +21,9 @@ export const packages: readonly Package[] = [
   },
   {
     name: "multi_image_layout",
-    tagline: "Responsive multi-media layouts without doing the layout maths",
+    tagline: "Lays out image grids so you never do that maths by hand again.",
     description:
-      "A Flutter package for arranging multiple images, videos and audio in adaptive gallery layouts: single, grouped or grid, network or local, with optional captions. Maintained across successive releases since 2022.",
+      "Give it one image or a dozen, network or local, and it picks a sensible layout for the count. Over the years it has grown video in the same grid, a fullscreen viewer you can swipe and zoom through, loading placeholders and optional captions. It's been on pub.dev since 2022 and is now on its second major version.",
     language: "Dart",
     license: "MIT",
     since: "2022",
@@ -39,15 +39,15 @@ export const projects: readonly Project[] = [
     name: "Ofin Eko",
     tagline: "Every law of Lagos State, offline, in two languages, read aloud",
     description:
-      "Architected and built solo: a bilingual (English / Yorùbá) app for reading and listening to Lagos State law. Offline-first with an aggressive cache so it works without a connection, text-to-speech and audio streaming for every statute, and deep links straight to a specific law or bookmark. Shipped and maintained on both the App Store and Google Play.",
+      "I built this one alone, start to finish. It lets people read and listen to Lagos State law in English or Yorùbá, and it keeps working without a connection. Every statute can be read aloud, any law or bookmark can be opened from a link, and it's live on both the App Store and Google Play.",
     period: "Jan 2025 - Jul 2025",
     stack: ["Flutter", "Offline-first caching", "Text-to-speech", "Deep linking", "App Store + Play Store"],
   },
   {
     name: "Job scraper platform",
-    tagline: "The backend half of the transition, built in public",
+    tagline: "Queues, scrapers and a database, for the fun of it",
     description:
-      "A TypeScript service I’m building to learn the other side of the wire properly rather than by reading about it: Express and Prisma over PostgreSQL on Supabase, Redis and BullMQ for the scraping queue, JWT auth, and a typed API surface consumed by a separate frontend.",
+      "A TypeScript service that scrapes job listings and serves them through a typed API to a separate frontend. Express and Prisma sit over PostgreSQL on Supabase, and Redis with BullMQ runs the scraping queue. It's mostly an excuse to spend time with the parts of a system that don't have a screen.",
     period: "2026 - present",
     stack: ["TypeScript", "Express", "Prisma", "PostgreSQL", "Redis / BullMQ", "JWT"],
     links: [
@@ -58,7 +58,7 @@ export const projects: readonly Project[] = [
     name: "kmm-notes-app",
     tagline: "One domain, two native UIs",
     description:
-      "A Kotlin Multiplatform notes app sharing a domain layer across a Jetpack Compose Android UI and a SwiftUI iOS one, written to understand where KMM’s seam actually falls in practice, rather than where the marketing says it does.",
+      "A small notes app with one shared Kotlin domain layer and two fully native interfaces, Jetpack Compose on Android and SwiftUI on iOS. I wrote it to find out where the Kotlin Multiplatform seam really falls once you build something, rather than where the docs say it does.",
     period: "2023",
     stack: ["Kotlin Multiplatform", "Jetpack Compose", "SwiftUI"],
     links: [{ label: "Source", href: "https://github.com/donaldamadi/kmm-notes-app", external: true }],
@@ -67,7 +67,7 @@ export const projects: readonly Project[] = [
     name: "Fluid level monitor",
     tagline: "Final-year project: hardware to phone, in real time",
     description:
-      "A hardware device measuring the level and temperature of a fluid, streaming to a Flutter application that renders it live. My first properly end-to-end system: sensor, transport, and interface.",
+      "A device that measures the level and temperature of a fluid and streams both to a Flutter app in real time. Looking back, it was the first time I built a whole system rather than a screen: sensor, transport and interface, all mine. It took me a few more years to notice that was the part I liked.",
     period: "2023",
     stack: ["Flutter", "Embedded hardware", "Real-time telemetry"],
   },
@@ -120,45 +120,10 @@ export const articles: readonly Article[] = [
 ];
 
 /**
- * The AI practice section. Three named disciplines, because "I use AI" is not
- * a differentiator in 2026 and "here is how I make it safe in a live codebase" is.
- */
-export const aiPractice = {
-  lede:
-    "I run agentic engineering workflows end to end, model-agnostic and platform-agnostic. Not autocomplete. A loop with guardrails, and a codebase prepared to be worked in.",
-  disciplines: [
-    {
-      id: "prompt",
-      name: "Prompt engineering",
-      body:
-        "Structured, role-scoped, context-bounded instructions that produce output a reviewer can actually review. The goal isn’t a clever answer, it’s a reproducible one.",
-    },
-    {
-      id: "loop",
-      name: "Loop engineering",
-      body:
-        "Plan, act, verify, correct. With explicit guardrails and, the part most people skip, explicit stopping conditions, so the loop terminates on a definition of done rather than on the model running out of enthusiasm.",
-    },
-    {
-      id: "harness",
-      name: "Harness engineering",
-      body:
-        "Decomposing a large production codebase into composable, on-demand context files so an agent loads only what a task needs and operates inside real conventions. This is what makes the difference between a demo and something you’d point at a live fintech app.",
-    },
-  ],
-  proof: [
-    "Published flutter_skill_gen on pub.dev, a CLI that generates these context files from a Flutter project’s actual structure.",
-    "Applied it to SnapPay, a live fintech app, by splitting the codebase into modular, feature-scoped skill documents agents could safely load.",
-  ],
-} as const;
-
-/**
- * Two lines of his own prose. Deliberately unlabelled and deliberately short,
+ * The other writing. Two fragments of his own prose, deliberately short:
  * enough to say a person wrote this site, not enough to make it the subject.
  */
 export const offTheClock = {
-  intro:
-    "When I’m away from the editor I’m usually still writing: poetry, mostly, and prose that never quite becomes anything. It keeps a different kind of syntax sharp, and it’s where I learned that the second draft is where the thinking actually happens.",
   excerpts: [
     {
       body:

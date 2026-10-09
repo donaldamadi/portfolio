@@ -1,15 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
 
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
+/**
+ * The theme lives on <html data-theme>, set before first paint by the bootstrap
+ * script. This component reads it as an external store rather than copying it
+ * into state, so there is one source of truth and no effect to sync it.
+ */
+function subscribe(onChange: () => void): () => void {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => observer.disconnect();
+}
 
-  useEffect(() => {
-    const current = document.documentElement.getAttribute("data-theme");
-    setTheme(current === "light" ? "light" : "dark");
-  }, []);
+const getTheme = (): Theme => (document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark");
+
+/** Unknown on the server; the icon settles on the client's first render. */
+const getServerTheme = (): Theme | null => null;
+
+export function ThemeToggle() {
+  const theme = useSyncExternalStore<Theme | null>(subscribe, getTheme, getServerTheme);
 
   const toggle = () => {
     const next: Theme = theme === "light" ? "dark" : "light";
@@ -19,7 +30,6 @@ export function ThemeToggle() {
     } catch {
       /* private mode, the choice just won't persist */
     }
-    setTheme(next);
   };
 
   const isLight = theme === "light";

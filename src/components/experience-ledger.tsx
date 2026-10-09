@@ -27,9 +27,9 @@ export function ExperienceLedger() {
       }
       lede={
         <p>
-          Lagos, Dubai, Riyadh, remote. Retail banking, lending, wallets, card-present payments, mobility,
-          healthcare, e-commerce. Every one of them taught me something about failure states I couldn’t have
-          read.
+          The full record, for anyone who wants it. Lagos, Dubai, Riyadh, and a lot of remote. Banking,
+          lending, wallets, card-present payments, then mobility, healthcare and e-commerce. Every one of them
+          pushed me a little further past the screen.
         </p>
       }
     >

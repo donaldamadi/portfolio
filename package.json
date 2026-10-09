@@ -2,12 +2,12 @@
   "name": "donaldamadi-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Personal site of Donald Obinna Amadi, Senior Mobile Engineer.",
+  "description": "Personal site of Donald Obinna Amadi, product engineer.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -16,7 +16,6 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.15.3",
     "@types/react": "^19.2.0",

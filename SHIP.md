@@ -51,6 +51,7 @@ domain is written down.
 | Path | What it does |
 | --- | --- |
 | `/work` | 308 to `/#work`, because there's no index page, so a hand-trimmed URL lands somewhere useful |
+| `/about` | The long version: the full story, the experience ledger, education and practicalities |
 | `/cv`, `/resume` | 307 to the CV PDF. Easier to say out loud than a filename |
 | `/opengraph-image` | Generated at build time, not a PNG anyone has to remember to update |
 | `/sitemap.xml`, `/robots.txt` | Generated from the content layer |
@@ -80,9 +81,11 @@ questioning, rewrite it or cut it.**
 
 Still worth a second look:
 
-- `src/content/profile.ts` → `availability`: you're presented as relocation-ready with sponsorship
-  required, naming Ireland/NL/DK/DE/FR/CA/UK. That's a deliberate filter. It costs you the recruiters
-  who won't sponsor and saves you the conversations that end at week three.
+- `src/content/pindey.ts`: verified product context only. Never use "track" or any form of it about
+  PinDey. `stack` is empty on purpose (no named tech until confirmed), and there are no store links or
+  user numbers until you add them. Both are marked `TODO(donald)`.
+- `src/content/profile.ts` → `practicalities`: relocation and sponsorship, now only on `/about`. Keep it,
+  trim it, or move it to the CV.
 - `src/content/work.ts` → `offTheClock`: two lines of your own prose, unattributed and unlabelled.
   Delete the block if you'd rather keep that separate from work.
 - The SnapPay dates (`Apr 2026 - Jun 2026`) overlap Zedcrest and MedPal. That's accurate to your CV

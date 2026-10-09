@@ -24,7 +24,7 @@ const mono = JetBrains_Mono({
 });
 
 const description =
-  "Senior mobile engineer working in Flutter, Swift and Kotlin. Five years in fintech building lending, wallets, card-present payments and encrypted transport. Open-source maintainer on pub.dev. Relocation-ready.";
+  "Product engineer in Lagos. Mobile at heart, years of fintech, now building whole products end to end. Currently building PinDey, an app that helps friends find each other in a crowd.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -38,15 +38,15 @@ export const metadata: Metadata = {
   creator: profile.name,
   keywords: [
     "Donald Amadi",
-    "Senior Mobile Engineer",
-    "Flutter engineer",
+    "product engineer",
+    "PinDey",
+    "Flutter",
     "Swift",
     "Kotlin",
-    "fintech mobile engineer",
-    "Platform Channels",
+    "fintech",
+    "AI-native engineering",
+    "Lagos",
     "Nigeria",
-    "visa sponsorship",
-    "relocation",
   ],
   openGraph: {
     type: "profile",
