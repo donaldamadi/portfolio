@@ -8,10 +8,10 @@ import { Shell } from "./primitives";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { label: "About", href: "/#about" },
-  { label: "Work", href: "/#work" },
-  { label: "Experience", href: "/#experience" },
+  { label: "PinDey", href: "/#pindey" },
+  { label: "How I work", href: "/#how" },
   { label: "Writing", href: "/#writing" },
+  { label: "Long version", href: "/about" },
 ];
 
 export function SiteHeader() {

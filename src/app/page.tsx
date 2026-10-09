@@ -1,8 +1,10 @@
 import { Hero } from "@/components/hero";
-import { About } from "@/components/about";
-import { WorkIndex } from "@/components/work-index";
+import { ZoomOut } from "@/components/zoom-out";
+import { PinDey } from "@/components/pindey";
+import { Loop } from "@/components/loop";
+import { Terminal } from "@/components/terminal";
 import { OpenSource } from "@/components/open-source";
-import { ExperienceLedger } from "@/components/experience-ledger";
+import { WorkIndex } from "@/components/work-index";
 import { Writing } from "@/components/writing";
 import { Contact } from "@/components/contact";
 import { profile, SITE_URL } from "@/content/profile";
@@ -48,10 +50,12 @@ export default function HomePage() {
     <>
       <StructuredData />
       <Hero />
-      <About />
-      <WorkIndex />
+      <ZoomOut />
+      <PinDey />
+      <Loop />
+      <Terminal />
       <OpenSource />
-      <ExperienceLedger />
+      <WorkIndex />
       <Writing />
       <Contact />
     </>

@@ -4,12 +4,15 @@ import { profile } from "@/content/profile";
 import { ExternalLink, Shell } from "./primitives";
 
 const sections = [
-  { label: "About", href: "/#about" },
-  { label: "Work", href: "/#work" },
+  { label: "Zoom out", href: "/#story" },
+  { label: "PinDey", href: "/#pindey" },
+  { label: "How I work", href: "/#how" },
+  { label: "Right now", href: "/#now" },
   { label: "Open source", href: "/#open-source" },
-  { label: "Experience", href: "/#experience" },
+  { label: "Earlier work", href: "/#work" },
   { label: "Writing", href: "/#writing" },
   { label: "Contact", href: "/#contact" },
+  { label: "The long version", href: "/about" },
 ];
 
 export function SiteFooter() {

@@ -16,7 +16,7 @@ export function ExperienceLedger() {
   return (
     <Section
       id="experience"
-      index="04"
+      index="02"
       label="Experience"
       title={
         <>
@@ -29,8 +29,7 @@ export function ExperienceLedger() {
         <p>
           The full record, for anyone who wants it. Lagos, Dubai, Riyadh, and a lot of remote. Banking,
           lending, wallets, card-present payments, then mobility, healthcare and e-commerce. Every one of them
-          taught me something about failure states I couldn’t have learned by reading, and every one pushed me a
-          little further past the screen.
+          pushed me a little further past the screen.
         </p>
       }
     >

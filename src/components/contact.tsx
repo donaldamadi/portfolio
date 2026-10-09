@@ -1,74 +1,69 @@
+import Link from "next/link";
 import { profile } from "@/content/profile";
-import { ExternalLink, Shell } from "./primitives";
+import { pindey } from "@/content/pindey";
+import { Shell } from "./primitives";
+
+const linkedin = profile.links.find((link) => link.label === "LinkedIn")?.href ?? "";
+const github = profile.links.find((link) => link.label === "GitHub")?.href ?? "";
+
+/** The README's badge row, as real buttons. */
+const BADGES = [
+  { name: "LinkedIn", verb: "say hi", href: linkedin, tone: "var(--accent)" },
+  { name: "Email", verb: "drop a line", href: `mailto:${profile.email}`, tone: "var(--accent-2)" },
+  { name: "pindey.app", verb: "live", href: pindey.links.site.href, tone: "var(--accent-2)" },
+  { name: "GitHub", verb: "poke around", href: github, tone: "var(--accent)" },
+] as const;
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-24 border-t border-line py-24 sm:py-32">
+    <section id="contact" className="scroll-mt-20 border-t border-line py-24 sm:py-32">
       <Shell>
-        <div className="grid gap-12 lg:grid-cols-[9rem_1fr] lg:gap-16">
-          <div>
-            <div className="flex items-baseline gap-3 lg:block" data-reveal>
-              <span className="rail-index">06</span>
-              <span className="eyebrow block lg:mt-2">Contact</span>
-            </div>
-          </div>
+        <p className="eyebrow" data-reveal>
+          Contact
+        </p>
+        <h2 className="display mt-6 max-w-[16ch] text-[clamp(2.5rem,7vw,5rem)] text-ink" data-reveal>
+          If any of this sounds like your kind of thing, say hi.
+        </h2>
 
-          <div>
-            <h2 className="display max-w-[16ch] text-[clamp(2.25rem,6vw,4.5rem)] text-ink" data-reveal>
-              If any of this sounds like your kind of thing, say hello.
-            </h2>
-
-            <div className="measure mt-8 space-y-4 text-[1.0625rem] leading-relaxed text-dim" data-reveal>
-              <p>
-                Email is the quickest way to reach me, and I&rsquo;m always happy to talk on LinkedIn too. A
-                product you&rsquo;re trying to get off the ground, a system that&rsquo;s grown stranger than anyone
-                meant it to, something you read here and want to argue with. Any of those is a good reason to write.
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-              <div data-reveal style={{ ["--reveal-delay" as string]: "70ms" }}>
+        <ul className="mt-12 flex flex-wrap gap-3" data-reveal style={{ ["--reveal-delay" as string]: "80ms" }}>
+          {BADGES.map((badge) => {
+            const mail = badge.href.startsWith("mailto:");
+            return (
+              <li key={badge.name}>
                 <a
-                  href={`mailto:${profile.email}`}
-                  className="group inline-flex items-baseline gap-3 heading text-[clamp(1.5rem,3.4vw,2.25rem)] text-ink"
+                  href={badge.href}
+                  target={mail ? undefined : "_blank"}
+                  rel={mail ? undefined : "noreferrer noopener"}
+                  className="group flex items-stretch overflow-hidden rounded-lg border border-line-strong font-mono text-[0.75rem] uppercase tracking-wider transition-transform hover:-translate-y-0.5"
                 >
-                  <span className="link">{profile.email}</span>
+                  <span className="bg-surface-2 px-3 py-2 text-ink">{badge.name}</span>
+                  <span className="px-3 py-2 font-bold" style={{ background: badge.tone, color: "var(--bg)" }}>
+                    {badge.verb}
+                  </span>
                 </a>
+              </li>
+            );
+          })}
+        </ul>
 
-                <div className="mt-8">
-                  <a
-                    href="/Donald-Amadi-CV.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[0.875rem] text-ink transition-colors hover:border-line-strong"
-                  >
-                    Download CV
-                    <span className="font-mono text-[0.625rem] text-faint">PDF</span>
-                  </a>
-                </div>
+        <a
+          href={`mailto:${profile.email}`}
+          className="link mt-10 inline-block heading text-[clamp(1.25rem,3.4vw,2rem)] text-ink"
+          data-reveal
+        >
+          {profile.email}
+        </a>
 
-                <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-3">
-                  {profile.links.map((link) => (
-                    <li key={link.href}>
-                      <ExternalLink href={link.href} className="text-[0.9375rem] text-dim">
-                        {link.label}
-                      </ExternalLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        <p className="mt-8 text-[1rem] text-dim" data-reveal>
+          Want the whole story first?{" "}
+          <Link href="/about" className="link-static text-ink">
+            Got five minutes? The long version.
+          </Link>
+        </p>
 
-              <div
-                className="rounded-lg border border-line bg-surface p-6 sm:p-7"
-                data-reveal
-                style={{ ["--reveal-delay" as string]: "140ms" }}
-              >
-                <p className="eyebrow">Practicalities</p>
-                <p className="mt-4 text-[0.9375rem] leading-relaxed text-dim">{profile.practicalities}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p className="mt-20 text-center text-[1rem] italic text-faint" data-reveal>
+          {profile.coda}
+        </p>
       </Shell>
     </section>
   );

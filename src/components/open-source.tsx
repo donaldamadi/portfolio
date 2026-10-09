@@ -1,67 +1,78 @@
+import type { ReactNode } from "react";
 import { packages, projects } from "@/content/work";
-import { ExternalLink, Section } from "./primitives";
+import { ImageGridArt } from "./image-grid-art";
+import { Chapter, ExternalLink } from "./primitives";
 
 export function OpenSource() {
   return (
-    <Section
-      id="open-source"
-      index="03"
-      label="Open source & side projects"
-      title={
-        <>
-          Small things I gave away,
-          <br />
-          and things I built because I wanted to.
-        </>
-      }
-      lede={
-        <p>
-          Some of the curiosity spills out as open source. Two packages live on pub.dev, both born from
-          getting annoyed at the same problem one too many times. The rest are side projects, a few shipped,
-          a few that exist mostly so I could find out how something really works.
-        </p>
-      }
-    >
-      <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+    <Chapter id="open-source" eyebrow="Open source">
+      <p className="heading mt-6 max-w-[30ch] text-[clamp(1.375rem,3.2vw,2.125rem)] leading-[1.2] text-ink" data-reveal>
+        A few things I&rsquo;ve left lying around on pub.dev.
+      </p>
+
+      <div className="mt-10 grid gap-4 md:grid-cols-2">
         {packages.map((pkg, index) => (
           <article
             key={pkg.name}
-            className="flex flex-col bg-bg p-6 sm:p-8"
+            className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface"
             data-reveal
             style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
           >
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="font-mono text-[0.9375rem] text-ink">{pkg.name}</h3>
-              <span className="font-mono text-[0.625rem] text-faint">
-                {pkg.language} · {pkg.license} · since {pkg.since}
-              </span>
+            <div className="grid h-40 place-items-center border-b border-line bg-surface-2">{PACKAGE_ART[pkg.name]}</div>
+            <div className="flex flex-1 flex-col p-6">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="font-mono text-[1rem] text-ink">{pkg.name}</h3>
+                <span className="font-mono text-[0.625rem] text-faint">
+                  {pkg.language} · {pkg.license} · since {pkg.since}
+                </span>
+              </div>
+              <p className="mt-3 text-[1rem] leading-relaxed text-dim">{pkg.tagline}</p>
+              <details className="group mt-4 flex-1">
+                <summary className="cursor-pointer font-mono text-[0.6875rem] text-faint transition-colors hover:text-ink">
+                  <span className="group-open:hidden">more</span>
+                  <span className="hidden group-open:inline">less</span>
+                </summary>
+                <p className="mt-3 text-[0.875rem] leading-relaxed text-faint">{pkg.description}</p>
+              </details>
+              <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                {pkg.links.map((link) => (
+                  <li key={link.href}>
+                    <ExternalLink href={link.href} className="text-[0.8125rem] text-dim">
+                      {link.label}
+                    </ExternalLink>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p className="mt-3 text-[0.9375rem] text-dim">{pkg.tagline}</p>
-            <p className="mt-4 flex-1 text-[0.875rem] leading-relaxed text-faint">{pkg.description}</p>
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-              {pkg.links.map((link) => (
-                <li key={link.href}>
-                  <ExternalLink href={link.href} className="text-[0.8125rem] text-dim">
-                    {link.label}
-                  </ExternalLink>
-                </li>
-              ))}
-            </ul>
           </article>
         ))}
       </div>
 
-      <ul className="mt-16 border-t border-line">
+      <p className="mt-20 font-mono text-[0.75rem] text-faint" data-reveal>
+        side projects, some shipped, some just for finding out
+      </p>
+      <ul className="mt-4 border-t border-line">
         {projects.map((project, index) => (
           <li
             key={project.name}
-            className="grid gap-3 border-b border-line py-7 sm:grid-cols-[1fr_1.6fr] sm:gap-10"
+            className="border-b border-line py-5"
             data-reveal
-            style={{ ["--reveal-delay" as string]: `${index * 55}ms` }}
+            style={{ ["--reveal-delay" as string]: `${index * 50}ms` }}
           >
-            <div>
-              <h3 className="text-[1.0625rem] text-ink">{project.name}</h3>
-              <p className="mt-1 font-mono text-[0.625rem] tracking-wide text-faint">{project.period}</p>
+            <details className="group">
+              <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <span>
+                  <span className="text-[1.0625rem] text-ink">{project.name}</span>
+                  <span className="ml-3 text-[0.9375rem] text-dim">{project.tagline}</span>
+                </span>
+                <span className="font-mono text-[0.625rem] text-faint">
+                  {project.period}
+                  <span aria-hidden="true" className="ml-3 inline-block transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </span>
+              </summary>
+              <p className="measure mt-3 text-[0.9375rem] leading-relaxed text-faint">{project.description}</p>
               {project.links?.length ? (
                 <ul className="mt-3 flex flex-wrap gap-4">
                   {project.links.map((link) => (
@@ -73,19 +84,29 @@ export function OpenSource() {
                   ))}
                 </ul>
               ) : null}
-            </div>
-            <div>
-              <p className="text-[0.9375rem] text-dim">{project.tagline}</p>
-              <p className="mt-2 text-[0.875rem] leading-relaxed text-faint">{project.description}</p>
-              <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 font-mono text-[0.625rem] text-faint">
-                {project.stack.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
+            </details>
           </li>
         ))}
       </ul>
-    </Section>
+    </Chapter>
   );
 }
+
+const PACKAGE_ART: Record<string, ReactNode> = {
+  flutter_skill_gen: (
+    <div className="w-[260px] rounded-lg border border-line-strong bg-bg p-3 font-mono text-[0.6875rem] leading-[1.7]" aria-hidden="true">
+      <p className="text-dim">
+        <span className="text-accent-2">$</span> flutter_skill_gen analyze
+      </p>
+      {["reading pubspec.yaml", "scanning lib/", "spotting the conventions"].map((line, i) => (
+        <p key={line} className="pop text-faint" style={{ animationDelay: `${0.4 + i * 0.5}s` }}>
+          <span className="text-accent-2">✓</span> {line}
+        </p>
+      ))}
+      <p className="pop text-ink" style={{ animationDelay: "1.9s" }}>
+        <span className="text-accent">→</span> wrote SKILL.md
+      </p>
+    </div>
+  ),
+  multi_image_layout: <ImageGridArt />,
+};

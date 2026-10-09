@@ -57,6 +57,59 @@ export function Section({
   );
 }
 
+/**
+ * A home-page chapter. No rail, no numbered label: the home page is meant to
+ * be looked at, so a chapter is an eyebrow, a few short lines and a visual.
+ */
+export function Chapter({
+  id,
+  eyebrow,
+  children,
+  className,
+}: {
+  id?: string;
+  eyebrow?: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <section id={id} className={cn("scroll-mt-20 border-t border-line py-20 sm:py-28", className)}>
+      <Shell>
+        {eyebrow ? (
+          <p className="eyebrow" data-reveal>
+            {eyebrow}
+          </p>
+        ) : null}
+        {children}
+      </Shell>
+    </section>
+  );
+}
+
+/**
+ * Short lines, one thought each, revealed in sequence. The first carries the
+ * ink; the rest step back so the eye lands on the opener.
+ */
+export function Lines({ lines, className }: { lines: readonly string[]; className?: string }) {
+  return (
+    <div className={cn("mt-6 max-w-[34ch] space-y-3 sm:max-w-[40ch]", className)}>
+      {lines.map((line, index) => (
+        <p
+          key={line}
+          className={cn(
+            "heading text-[clamp(1.375rem,3.2vw,2.125rem)] leading-[1.2]",
+            index === 0 ? "text-ink" : "text-dim",
+          )}
+          data-reveal
+          style={{ ["--reveal-delay" as string]: `${index * 90}ms` }}
+        >
+          {line}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 export function ArrowOut({ className }: { className?: string }) {
   return (
     <svg

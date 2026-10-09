@@ -42,13 +42,13 @@ export default function OpenGraphImage() {
             maxWidth: 1040,
           }}
         >
-          <span style={{ marginRight: 18 }}>I used to build the part of software you hold in your hand.</span>
-          <span style={{ color: "#38bdf8" }}>Now I build the whole thing.</span>
+          <span style={{ marginRight: 18 }}>Hey, I&apos;m Donald. I started on the screen, kept zooming out,</span>
+          <span style={{ color: "#38bdf8" }}>and now I build the whole thing.</span>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%" }}>
           <div style={{ display: "flex", fontSize: 30, color: "#f3f8fd" }}>{profile.name}</div>
-          <div style={{ display: "flex", fontSize: 20, color: "#667e97" }}>Building PinDey · Lagos</div>
+          <div style={{ display: "flex", fontSize: 20, color: "#667e97" }}>product engineer · mobile at heart · AI in the loop</div>
         </div>
       </div>
     ),

@@ -47,12 +47,24 @@ export function CommandPalette() {
 
   const commands = useMemo<Command[]>(() => {
     const sections: Command[] = [
-      { id: "about", label: "About", group: "Navigate", run: goto("#about") },
-      { id: "work", label: "Work", group: "Navigate", run: goto("#work") },
+      { id: "story", label: "Zoom out", group: "Navigate", run: goto("#story") },
+      { id: "pindey", label: "PinDey", group: "Navigate", run: goto("#pindey") },
+      { id: "how", label: "How I work", group: "Navigate", run: goto("#how") },
+      { id: "now", label: "Right now", group: "Navigate", run: goto("#now") },
       { id: "open-source", label: "Open source", group: "Navigate", run: goto("#open-source") },
-      { id: "experience", label: "Experience", group: "Navigate", run: goto("#experience") },
+      { id: "work", label: "Earlier work", group: "Navigate", run: goto("#work") },
       { id: "writing", label: "Writing", group: "Navigate", run: goto("#writing") },
       { id: "contact", label: "Contact", group: "Navigate", run: goto("#contact") },
+      {
+        id: "long-version",
+        label: "The long version",
+        group: "Navigate",
+        hint: "/about",
+        run: () => {
+          close();
+          router.push("/about");
+        },
+      },
     ];
 
     const studies: Command[] = caseStudies.map((study) => ({

@@ -24,7 +24,7 @@ const mono = JetBrains_Mono({
 });
 
 const description =
-  "Product engineer in Lagos. Years of Flutter, Swift and Kotlin in fintech, now building products end to end, from the app to the backend and infrastructure. Currently building PinDey.";
+  "Product engineer in Lagos. Mobile at heart, years of fintech, now building whole products end to end. Currently building PinDey, an app that helps friends find each other in a crowd.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
