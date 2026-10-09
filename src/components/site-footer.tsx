@@ -4,10 +4,10 @@ import { profile } from "@/content/profile";
 import { ExternalLink, Shell } from "./primitives";
 
 const sections = [
-  { label: "Selected work", href: "/#work" },
-  { label: "Experience", href: "/#experience" },
-  { label: "AI practice", href: "/#practice" },
+  { label: "About", href: "/#about" },
+  { label: "Work", href: "/#work" },
   { label: "Open source", href: "/#open-source" },
+  { label: "Experience", href: "/#experience" },
   { label: "Writing", href: "/#writing" },
   { label: "Contact", href: "/#contact" },
 ];

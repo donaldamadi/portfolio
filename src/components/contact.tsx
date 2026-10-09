@@ -14,9 +14,17 @@ export function Contact() {
           </div>
 
           <div>
-            <h2 className="display max-w-[14ch] text-[clamp(2.25rem,6vw,4.5rem)] text-ink" data-reveal>
-              If any of this sounds like your problem, say so.
+            <h2 className="display max-w-[16ch] text-[clamp(2.25rem,6vw,4.5rem)] text-ink" data-reveal>
+              If any of this sounds like your kind of thing, say hello.
             </h2>
+
+            <div className="measure mt-8 space-y-4 text-[1.0625rem] leading-relaxed text-dim" data-reveal>
+              <p>
+                Email is the quickest way to reach me, and I&rsquo;m always happy to talk on LinkedIn too. A
+                product you&rsquo;re trying to get off the ground, a system that&rsquo;s grown stranger than anyone
+                meant it to, something you read here and want to argue with. Any of those is a good reason to write.
+              </p>
+            </div>
 
             <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
               <div data-reveal style={{ ["--reveal-delay" as string]: "70ms" }}>
@@ -56,15 +64,7 @@ export function Contact() {
                 style={{ ["--reveal-delay" as string]: "140ms" }}
               >
                 <p className="eyebrow">Practicalities</p>
-                <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink">{profile.availability.detail}</p>
-                <ul className="mt-5 space-y-3">
-                  {profile.availability.notes.map((note) => (
-                    <li key={note} className="flex gap-3 text-[0.875rem] leading-relaxed text-dim">
-                      <span className="mt-2 size-1 shrink-0 rounded-full bg-line-strong" aria-hidden="true" />
-                      <span>{note}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-4 text-[0.9375rem] leading-relaxed text-dim">{profile.practicalities}</p>
               </div>
             </div>
           </div>

@@ -1,9 +1,8 @@
 import { Hero } from "@/components/hero";
-import { Statement } from "@/components/statement";
+import { About } from "@/components/about";
 import { WorkIndex } from "@/components/work-index";
-import { ExperienceLedger } from "@/components/experience-ledger";
-import { Practice } from "@/components/practice";
 import { OpenSource } from "@/components/open-source";
+import { ExperienceLedger } from "@/components/experience-ledger";
 import { Writing } from "@/components/writing";
 import { Contact } from "@/components/contact";
 import { profile, SITE_URL } from "@/content/profile";
@@ -24,14 +23,14 @@ function StructuredData() {
       name: profile.education.school,
     },
     knowsAbout: [
+      "Product engineering",
+      "Systems design",
       "Flutter",
-      "Dart",
       "Swift",
       "Kotlin",
       "Mobile architecture",
       "Fintech payments",
-      "Platform Channels",
-      "AI agent orchestration",
+      "AI-assisted software development",
     ],
     sameAs: profile.links.filter((link) => !link.href.startsWith("mailto:")).map((link) => link.href),
   };
@@ -49,11 +48,10 @@ export default function HomePage() {
     <>
       <StructuredData />
       <Hero />
-      <Statement />
+      <About />
       <WorkIndex />
-      <ExperienceLedger />
-      <Practice />
       <OpenSource />
+      <ExperienceLedger />
       <Writing />
       <Contact />
     </>

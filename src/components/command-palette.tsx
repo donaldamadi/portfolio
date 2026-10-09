@@ -47,10 +47,10 @@ export function CommandPalette() {
 
   const commands = useMemo<Command[]>(() => {
     const sections: Command[] = [
-      { id: "work", label: "Selected work", group: "Navigate", run: goto("#work") },
-      { id: "experience", label: "Experience", group: "Navigate", run: goto("#experience") },
-      { id: "practice", label: "AI practice", group: "Navigate", run: goto("#practice") },
+      { id: "about", label: "About", group: "Navigate", run: goto("#about") },
+      { id: "work", label: "Work", group: "Navigate", run: goto("#work") },
       { id: "open-source", label: "Open source", group: "Navigate", run: goto("#open-source") },
+      { id: "experience", label: "Experience", group: "Navigate", run: goto("#experience") },
       { id: "writing", label: "Writing", group: "Navigate", run: goto("#writing") },
       { id: "contact", label: "Contact", group: "Navigate", run: goto("#contact") },
     ];

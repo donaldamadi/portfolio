@@ -2,15 +2,6 @@ import { SparkField } from "./spark-field";
 import { Shell } from "./primitives";
 import { profile } from "@/content/profile";
 
-const proof = [
-  "First Bank of Nigeria",
-  "Zedcrest",
-  "MAX",
-  "Platnova",
-  "Creative Advanced Technologies",
-  "MedPal",
-];
-
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden pb-20 pt-36 sm:pb-28 sm:pt-44">
@@ -38,7 +29,7 @@ export function Hero() {
             />
             <span className="relative inline-flex size-1.5 rounded-full" style={{ backgroundColor: "var(--accent-2)" }} />
           </span>
-          <p className="eyebrow">{profile.availability.status}</p>
+          <p className="eyebrow">{profile.shortName} · {profile.role}</p>
         </div>
 
         <h1
@@ -46,8 +37,8 @@ export function Hero() {
           data-reveal
           style={{ ["--reveal-delay" as string]: "70ms" }}
         >
-          I build the software that lives in your pocket.{" "}
-          <span className="text-gradient">Mostly for money that has to arrive.</span>
+          I used to build the part of software you hold in your hand.{" "}
+          <span className="text-gradient">Now I build the whole thing.</span>
         </h1>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
@@ -69,8 +60,8 @@ export function Hero() {
             {[
               ["Based", profile.location],
               ["Hours", profile.timezone],
-              ["Focus", "Fintech · Flutter · Native"],
-              ["Next", "Backend & systems"],
+              ["Building", "PinDey"],
+              ["Strongest in", "Flutter · Swift · Kotlin"],
             ].map(([term, value]) => (
               <div key={term}>
                 <dt className="text-faint">{term}</dt>
@@ -78,15 +69,6 @@ export function Hero() {
               </div>
             ))}
           </dl>
-        </div>
-
-        <div className="mt-20 border-t border-line pt-6" data-reveal style={{ ["--reveal-delay" as string]: "280ms" }}>
-          <p className="eyebrow">Shipped for</p>
-          <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2 text-[0.8125rem] text-dim">
-            {proof.map((name) => (
-              <li key={name}>{name}</li>
-            ))}
-          </ul>
         </div>
       </Shell>
     </section>

@@ -51,7 +51,7 @@ you just edited is being ignored, and nothing will work.
 
 ## 3. Wait, then verify
 
-Namecheap usually propagates in 5–30 minutes. Vercel polls, and once it sees the records it issues a
+Namecheap usually propagates in 5 to 30 minutes. Vercel polls, and once it sees the records it issues a
 Let's Encrypt certificate automatically, so you do nothing for TLS.
 
 ```bash

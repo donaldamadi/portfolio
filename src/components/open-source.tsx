@@ -5,16 +5,21 @@ export function OpenSource() {
   return (
     <Section
       id="open-source"
-      index="04"
-      label="Open source & side work"
+      index="03"
+      label="Open source & side projects"
       title={
         <>
-          Two packages on pub.dev,
+          Small things I gave away,
           <br />
-          and the things I build
-          <br />
-          when nobody asked.
+          and things I built because I wanted to.
         </>
+      }
+      lede={
+        <p>
+          Some of the curiosity spills out as open source. Two packages live on pub.dev, both born from
+          getting annoyed at the same problem one too many times. The rest are side projects, a few shipped,
+          a few that exist mostly so I could find out how something really works.
+        </p>
       }
     >
       <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">

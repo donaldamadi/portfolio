@@ -8,9 +8,9 @@ import { Shell } from "./primitives";
 import { cn } from "@/lib/utils";
 
 const nav = [
+  { label: "About", href: "/#about" },
   { label: "Work", href: "/#work" },
   { label: "Experience", href: "/#experience" },
-  { label: "Practice", href: "/#practice" },
   { label: "Writing", href: "/#writing" },
 ];
 
@@ -37,7 +37,7 @@ export function SiteHeader() {
           <Link href="/" className="group flex items-baseline gap-2.5" aria-label="Donald Amadi, home">
             <span className="heading text-lg text-ink">Donald Amadi</span>
             <span className="hidden font-mono text-[0.625rem] tracking-[0.14em] text-faint sm:inline">
-              MOBILE ENGINEER
+              PRODUCT ENGINEER
             </span>
           </Link>
 

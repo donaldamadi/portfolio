@@ -17,8 +17,9 @@ export function Writing() {
       }
       lede={
         <p>
-          Six pieces on Medium, mostly in Level Up Coding, mostly about the parts of Flutter that only bite
-          you in production.
+          Poetry, prose, and now and then a long piece about software. The technical writing lives on Medium,
+          mostly in Level Up Coding, and mostly about the parts of Flutter that only bite you in production. The
+          rest is further down.
         </p>
       }
     >
@@ -47,10 +48,10 @@ export function Writing() {
         ))}
       </ul>
 
-      {/* Off the clock, quiet on purpose. */}
+      {/* The other writing, quiet on purpose. */}
       <div className="mt-24 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
         <div data-reveal>
-          <p className="eyebrow">Off the clock</p>
+          <p className="eyebrow">The other writing</p>
           <p className="measure-tight mt-5 text-[0.9375rem] leading-relaxed text-dim">{offTheClock.intro}</p>
           <p className="mt-6 text-[0.875rem] text-faint">{offTheClock.closer}</p>
         </div>

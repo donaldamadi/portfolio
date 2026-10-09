@@ -45,7 +45,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
     <article className="pb-24 pt-32 sm:pt-40" style={{ ["--study-accent" as string]: accent }}>
       <Shell>
         <Link href="/#work" className="link inline-flex items-center gap-2 font-mono text-[0.6875rem] text-faint">
-          <span aria-hidden="true">←</span> Selected work
+          <span aria-hidden="true">←</span> All work
         </Link>
 
         <header className="mt-10 border-b border-line pb-14">
@@ -170,9 +170,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
         </nav>
 
         <div className="mt-20 rounded-lg border border-line bg-surface p-6 sm:p-8">
-          <p className="eyebrow">Working on something like this?</p>
+          <p className="eyebrow">Want to talk about this one?</p>
           <p className="measure mt-4 text-[1.0625rem] leading-relaxed text-dim">
-            I’m open to senior mobile and full-stack roles, and I’m relocation-ready.
+            I’m always happy to go deeper on any of these, including what I’d do differently now.
           </p>
           <a href={`mailto:${profile.email}`} className="link mt-5 inline-block heading text-[1.5rem] text-ink">
             {profile.email}

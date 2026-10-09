@@ -1,6 +1,6 @@
 # donaldamadi.dev
 
-Personal site of **Donald Obinna Amadi**, senior mobile engineer (Flutter, Swift, Kotlin), mostly fintech.
+Personal site of **Donald Obinna Amadi**, product engineer. Mobile (Flutter, Swift, Kotlin) by background, mostly fintech, now building end to end.
 
 Live: <https://donaldamadi.dev>
 

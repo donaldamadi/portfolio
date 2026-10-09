@@ -80,9 +80,10 @@ questioning, rewrite it or cut it.**
 
 Still worth a second look:
 
-- `src/content/profile.ts` → `availability`: you're presented as relocation-ready with sponsorship
-  required, naming Ireland/NL/DK/DE/FR/CA/UK. That's a deliberate filter. It costs you the recruiters
-  who won't sponsor and saves you the conversations that end at week three.
+- `src/content/work.ts` → `flagship`: PinDey's copy only says what was confirmed (built end to end, live,
+  real users). `whatItIs` and `stack` are empty on purpose and render nothing until you fill them in.
+- `src/content/profile.ts` → `practicalities`: relocation and sponsorship, now one paragraph in the contact
+  section. Keep it, trim it, or move it to the CV if it reads too much like a pitch.
 - `src/content/work.ts` → `offTheClock`: two lines of your own prose, unattributed and unlabelled.
   Delete the block if you'd rather keep that separate from work.
 - The SnapPay dates (`Apr 2026 - Jun 2026`) overlap Zedcrest and MedPal. That's accurate to your CV
