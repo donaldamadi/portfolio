@@ -1,112 +1,77 @@
-import type { ReactNode } from "react";
-import { packages, projects } from "@/content/work";
-import { ImageGridArt } from "./image-grid-art";
-import { Chapter, ExternalLink } from "./primitives";
+import { articles, offTheClock, packages } from "@/content/work";
+import { profile } from "@/content/profile";
+import { ExternalLink, Panel, Section, Tray } from "./primitives";
 
+const SHOWN_ARTICLES = 3;
+
+/** Open source and writing, side by side: the two things I make outside of work. */
 export function OpenSource() {
-  return (
-    <Chapter id="open-source" eyebrow="Open source">
-      <p className="heading mt-6 max-w-[30ch] text-[clamp(1.375rem,3.2vw,2.125rem)] leading-[1.2] text-ink" data-reveal>
-        A few things I&rsquo;ve left lying around on pub.dev.
-      </p>
+  const medium = profile.links.find((link) => link.label === "Medium");
+  const poem = offTheClock.excerpts[0];
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
-        {packages.map((pkg, index) => (
-          <article
-            key={pkg.name}
-            className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface"
-            data-reveal
-            style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
-          >
-            <div className="grid h-40 place-items-center border-b border-line bg-surface-2">{PACKAGE_ART[pkg.name]}</div>
-            <div className="flex flex-1 flex-col p-6">
+  return (
+    <Section
+      id="open-source"
+      title="Open source and writing"
+      intro="Two Flutter packages on pub.dev, a handful of articles, and the poetry I write when I'm not building."
+    >
+      <div className="grid gap-5 lg:grid-cols-2">
+        {packages.map((pkg) => (
+          <Tray key={pkg.name}>
+            <Panel className="flex h-full flex-col p-5 sm:p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-mono text-[1rem] text-ink">{pkg.name}</h3>
-                <span className="font-mono text-[0.625rem] text-faint">
-                  {pkg.language} · {pkg.license} · since {pkg.since}
-                </span>
+                <h3 className="font-mono text-[1rem] font-medium text-ink">{pkg.name}</h3>
+                <p className="text-[0.8125rem] text-faint">
+                  {pkg.language}, {pkg.license}, since {pkg.since}
+                </p>
               </div>
-              <p className="mt-3 text-[1rem] leading-relaxed text-dim">{pkg.tagline}</p>
-              <details className="group mt-4 flex-1">
-                <summary className="cursor-pointer font-mono text-[0.6875rem] text-faint transition-colors hover:text-ink">
-                  <span className="group-open:hidden">more</span>
-                  <span className="hidden group-open:inline">less</span>
-                </summary>
-                <p className="mt-3 text-[0.875rem] leading-relaxed text-faint">{pkg.description}</p>
-              </details>
-              <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+              <p className="mt-3 text-[1rem] leading-relaxed text-ink">{pkg.tagline}</p>
+              <p className="mt-2 text-[0.9375rem] leading-relaxed text-dim">{pkg.description}</p>
+              <ul className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5">
                 {pkg.links.map((link) => (
                   <li key={link.href}>
-                    <ExternalLink href={link.href} className="text-[0.8125rem] text-dim">
+                    <ExternalLink href={link.href} className="text-[0.9375rem]">
                       {link.label}
                     </ExternalLink>
                   </li>
                 ))}
               </ul>
-            </div>
-          </article>
+            </Panel>
+          </Tray>
         ))}
       </div>
 
-      <p className="mt-20 font-mono text-[0.75rem] text-faint" data-reveal>
-        side projects, some shipped, some just for finding out
-      </p>
-      <ul className="mt-4 border-t border-line">
-        {projects.map((project, index) => (
-          <li
-            key={project.name}
-            className="border-b border-line py-5"
-            data-reveal
-            style={{ ["--reveal-delay" as string]: `${index * 50}ms` }}
-          >
-            <details className="group">
-              <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <span>
-                  <span className="text-[1.0625rem] text-ink">{project.name}</span>
-                  <span className="ml-3 text-[0.9375rem] text-dim">{project.tagline}</span>
-                </span>
-                <span className="font-mono text-[0.625rem] text-faint">
-                  {project.period}
-                  <span aria-hidden="true" className="ml-3 inline-block transition-transform group-open:rotate-45">
-                    +
-                  </span>
-                </span>
-              </summary>
-              <p className="measure mt-3 text-[0.9375rem] leading-relaxed text-faint">{project.description}</p>
-              {project.links?.length ? (
-                <ul className="mt-3 flex flex-wrap gap-4">
-                  {project.links.map((link) => (
-                    <li key={link.href}>
-                      <ExternalLink href={link.href} className="text-[0.8125rem] text-dim">
-                        {link.label}
-                      </ExternalLink>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </details>
-          </li>
-        ))}
-      </ul>
-    </Chapter>
+      <div className="mt-5 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
+        <Tray>
+          <Panel className="h-full p-5 sm:p-6">
+            <h3 className="heading text-[1.125rem] text-ink">Articles</h3>
+            <ul className="mt-3 divide-y divide-line">
+              {articles.slice(0, SHOWN_ARTICLES).map((article) => (
+                <li key={article.href} className="py-3">
+                  <a href={article.href} target="_blank" rel="noreferrer noopener" className="group block">
+                    <span className="text-[1rem] font-medium text-ink group-hover:text-accent">{article.title}</span>
+                    <span className="mt-0.5 block text-[0.875rem] text-faint">
+                      {article.publication}, {article.date}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {medium ? (
+              <ExternalLink href={medium.href} className="mt-2 text-[0.9375rem]">
+                All articles on Medium
+              </ExternalLink>
+            ) : null}
+          </Panel>
+        </Tray>
+
+        {poem ? (
+          <figure className="flex flex-col justify-center rounded-2xl border border-line p-6 sm:p-8">
+            <blockquote className="heading text-[1.25rem] leading-snug text-ink">{poem.body}</blockquote>
+            <figcaption className="mt-4 text-[0.875rem] text-faint">From my poetry. {offTheClock.closer}</figcaption>
+          </figure>
+        ) : null}
+      </div>
+    </Section>
   );
 }
-
-const PACKAGE_ART: Record<string, ReactNode> = {
-  flutter_skill_gen: (
-    <div className="w-[260px] rounded-lg border border-line-strong bg-bg p-3 font-mono text-[0.6875rem] leading-[1.7]" aria-hidden="true">
-      <p className="text-dim">
-        <span className="text-accent-2">$</span> flutter_skill_gen analyze
-      </p>
-      {["reading pubspec.yaml", "scanning lib/", "spotting the conventions"].map((line, i) => (
-        <p key={line} className="pop text-faint" style={{ animationDelay: `${0.4 + i * 0.5}s` }}>
-          <span className="text-accent-2">✓</span> {line}
-        </p>
-      ))}
-      <p className="pop text-ink" style={{ animationDelay: "1.9s" }}>
-        <span className="text-accent">→</span> wrote SKILL.md
-      </p>
-    </div>
-  ),
-  multi_image_layout: <ImageGridArt />,
-};

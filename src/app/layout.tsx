@@ -1,36 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { GeistSerifRegular } from "geist/font/serif/regular";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { RevealRoot } from "@/components/reveal-root";
-import { ProgressBar } from "@/components/progress-bar";
 import { profile, SITE_URL } from "@/content/profile";
 import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
 
-// One variable family carries both body and display, the way zedvance.com runs
-// Outfit across the whole document. Weight and tracking do the work a second
-// typeface used to do.
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono-jb",
-  display: "swap",
-});
+// Geist Serif, everywhere on the site (the CV PDF keeps its own type). It ships
+// in one weight, so hierarchy comes from size and colour; globals.css turns off
+// faux-bold synthesis so a stray font-medium never smears it.
+const serif = GeistSerifRegular;
 
 const description =
-  "Product engineer in Lagos. Mobile at heart, years of fintech, now building whole products end to end. Currently building PinDey, an app that helps friends find each other in a crowd.";
+  "Product engineer in Lagos. Five years shipping mobile apps in React Native, Flutter, Swift and Kotlin, React and Next.js on the web, and the Node services behind them. Building PinDey.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${profile.shortName} · ${profile.role}`,
-    template: `%s · ${profile.shortName}`,
+    default: `${profile.shortName}, ${profile.role.toLowerCase()}`,
+    template: `%s | ${profile.shortName}`,
   },
   description,
   applicationName: `${profile.shortName} portfolio`,
@@ -38,28 +26,30 @@ export const metadata: Metadata = {
   creator: profile.name,
   keywords: [
     "Donald Amadi",
+    "React Native developer",
+    "React developer",
     "product engineer",
-    "PinDey",
+    "mobile engineer",
     "Flutter",
-    "Swift",
-    "Kotlin",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
     "fintech",
-    "AI-native engineering",
+    "PinDey",
     "Lagos",
-    "Nigeria",
   ],
   openGraph: {
     type: "profile",
     url: SITE_URL,
     siteName: profile.shortName,
-    title: `${profile.shortName} · ${profile.role}`,
+    title: `${profile.shortName}, ${profile.role.toLowerCase()}`,
     description,
     locale: "en_GB",
   },
   twitter: {
     card: "summary_large_image",
     creator: "@thatmandonald",
-    title: `${profile.shortName} · ${profile.role}`,
+    title: `${profile.shortName}, ${profile.role.toLowerCase()}`,
     description,
   },
   robots: {
@@ -72,8 +62,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#05070d" },
-    { media: "(prefers-color-scheme: light)", color: "#f7fafd" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -84,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${outfit.variable} ${mono.variable}`}
+      className={serif.variable}
     >
       <head>
         {/* Applied before first paint, so there is no flash of the wrong palette. */}
@@ -98,11 +88,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <ProgressBar />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
-        <RevealRoot />
       </body>
     </html>
   );

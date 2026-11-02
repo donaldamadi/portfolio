@@ -4,15 +4,13 @@ import { profile } from "@/content/profile";
 import { ExternalLink, Shell } from "./primitives";
 
 const sections = [
-  { label: "Zoom out", href: "/#story" },
   { label: "PinDey", href: "/#pindey" },
+  { label: "React Native", href: "/#react-native" },
+  { label: "Work", href: "/#work" },
+  { label: "Experience", href: "/#experience" },
   { label: "How I work", href: "/#how" },
-  { label: "Right now", href: "/#now" },
-  { label: "Open source", href: "/#open-source" },
-  { label: "Earlier work", href: "/#work" },
-  { label: "Writing", href: "/#writing" },
-  { label: "Contact", href: "/#contact" },
-  { label: "The long version", href: "/about" },
+  { label: "Open source and writing", href: "/#open-source" },
+  { label: "About", href: "/about" },
 ];
 
 export function SiteFooter() {
@@ -25,7 +23,7 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2">
               {sections.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="link text-[0.875rem] text-dim">
+                  <Link href={item.href} className="link text-[0.9375rem] text-dim">
                     {item.label}
                   </Link>
                 </li>
@@ -38,7 +36,7 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2">
               {caseStudies.map((study) => (
                 <li key={study.slug}>
-                  <Link href={`/work/${study.slug}`} className="link text-[0.875rem] text-dim">
+                  <Link href={`/work/${study.slug}`} className="link text-[0.9375rem] text-dim">
                     {study.kicker}
                   </Link>
                 </li>
@@ -51,15 +49,20 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2">
               {profile.links.map((link) => (
                 <li key={link.href}>
-                  <ExternalLink href={link.href} className="text-[0.875rem] text-dim">
+                  <ExternalLink href={link.href} className="text-[0.9375rem] text-dim">
                     {link.label}
                   </ExternalLink>
                 </li>
               ))}
               <li>
+                <ExternalLink href="https://pindey.app" className="text-[0.9375rem] text-dim">
+                  pindey.app
+                </ExternalLink>
+              </li>
+              <li>
                 <a
                   href="/Donald-Amadi-CV.pdf"
-                  className="link text-[0.875rem] text-dim"
+                  className="link text-[0.9375rem] text-dim"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -71,11 +74,11 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[0.625rem] tracking-wide text-faint">
-            © {new Date().getFullYear()} {profile.name} · Built with Next.js and rather too much care
+          <p className="text-[0.8125rem] text-faint">
+            © {new Date().getFullYear()} {profile.name}. Built with Next.js and TypeScript.
           </p>
-          <p className="font-mono text-[0.625rem] tracking-wide text-faint">
-            {profile.location} · {profile.timezone}
+          <p className="text-[0.8125rem] text-faint">
+            {profile.location}, {profile.timezone}
           </p>
         </div>
       </Shell>

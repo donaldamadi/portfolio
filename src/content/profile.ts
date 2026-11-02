@@ -7,20 +7,20 @@ export const profile = {
   shortName: "Donald Amadi",
   role: "Product Engineer",
   location: "Lagos, Nigeria",
-  timezone: "WAT · UTC+1",
+  timezone: "WAT, UTC+1",
   email: "donaldamadi15@gmail.com",
   phone: "+234 814 564 0723",
 
   /** One sentence. Feeds the manifest and anywhere a single line is all there's room for. */
-  tagline: "I started on the screen, kept zooming out, and now I build the whole thing.",
+  tagline: "Product engineer. Mobile and web apps in React Native, React, Flutter and TypeScript, and the Node services behind them.",
 
-  /** The hero. Short on purpose: the visuals below carry the rest. */
+  /** The hero. Plain and specific: who, what, and the one thing to look at next. */
   hero: {
-    prompt: "~/donald $ cat intro.md",
-    hello: "Hey, I'm Donald.",
-    /** Cycled one at a time. The last one is what shows when motion is reduced. */
-    lines: ["I started on the screen.", "Then I kept zooming out.", "Now I build the whole thing."],
-    signature: "product engineer · mobile at heart · AI in the loop",
+    title: "I build mobile and web products, from the first screen to the server behind it.",
+    intro:
+      "I'm a product engineer in Lagos with five years of shipping mobile apps, mostly in fintech. I work in React Native, Flutter, and native Swift and Kotlin on mobile, React, Next.js and TypeScript on the web, and Node.js on the server.",
+    /** Rendered after "Building PinDey." with PinDey linked to pindey.app. */
+    status: "Open to React Native and senior product engineering roles.",
   },
 
   /**
@@ -28,13 +28,13 @@ export const profile = {
    * paragraphs, in order, so each should lead into the next.
    */
   longVersion: [
-    "I started out building the part of software you hold in your hand. For years that was the whole world: Flutter, Swift, Kotlin, a release train, and a phone somewhere with two bars of signal that the app still had to feel fast on. Most of those years were in fintech, at a bank, a lender, a wallet, a payments company, where a rounding error ruins someone's whole day and \u201cworks on my machine\u201d has never once saved anybody. I still love that work. I still think the empty states and the offline path are where you find out who really cared.",
-    "Somewhere along the way the job got bigger than the screen. I kept following the bug past the API call, then past the server, then into the database and the queue and the cron job nobody remembered writing, and at some point I looked up and realised I wasn't really a mobile engineer anymore. I was an engineer who happened to know mobile very well, the kind who sits with a problem until the whole system around it comes into view, and then builds whatever that system needs, on whatever layer it lives.",
-    "That is how PinDey happened. It started with a very Lagos problem: you're at a party, your people are \u201cby the bar\u201d, and there are five bars. Calls drop. A pin on a map is tens of metres off and doesn't tell you which way to walk. So PinDey gives you an arrow, a distance, and the old warmer or colder game, with haptics that speed up as you close in and a sound when you finally find them.",
-    "My favourite decision in the whole thing is that the Finder is honest. When the phone genuinely can't tell which way to point, it says \u201cvery close, look around\u201d instead of confidently sending you the wrong way. It would have been easy to always show an arrow, and it would have looked more impressive in a demo. But a confident arrow pointing the wrong way is worse than no arrow at all, because people follow it. The privacy side got the same care: there's no location history, positions disappear about two minutes after the last update, and nothing gets sold.",
-    "It is mine from end to end, the iOS and Android apps, the backend, the infrastructure, the website, the back office, the product decisions nobody sees and the ones everybody does. Building it taught me more about product than any title ever did, mostly because when you own every layer there's nobody to hand the hard part to. Honestly, that's the fun bit.",
-    "I build with AI the way I used to build with a good IDE, except the conversation goes both ways now. It sits in how I sketch architectures, how I read unfamiliar code, how I ship. It's the reason one engineer can carry what used to take a small team. The craft moves up a level, toward understanding the problem properly, choosing the right shape for the system, and knowing which parts deserve your own hands. The other half is preparing a codebase so an agent can work in it without making a mess, which is where flutter_skill_gen came from.",
-    "These days my time is split between the day job, PinDey, a handful of side projects that may or may not see daylight, and writing, which is the other thing I can't stop doing. Poetry, prose, the occasional long thought about software. It turns out finding the right word and finding the right abstraction are pretty much the same muscle.",
+    "I started out building the part of software you hold in your hand. For years that was the whole world: a release train, a store review queue, and a phone somewhere with two bars of signal that the app still had to feel fast on. Most of those years were in fintech, at a bank, a lender, a wallet, a payments company, where a rounding error ruins someone's whole day and \u201cworks on my machine\u201d has never once saved anybody. I still love that work. I still think the empty states and the offline path are where you find out who really cared.",
+    "The tools changed more than once along the way. Most of my mobile years were in Flutter, with native Swift and Kotlin whenever the platform needed it: iOS widgets in SwiftUI, a card reader SDK in Java behind a platform channel. Ofin Eko, an app for reading and listening to Lagos State law, I built alone in React Native. On the web I live in React, Next.js and TypeScript, which is also what makes React Native feel like home: same components, same hooks, same way of thinking about state.",
+    "Somewhere along the way the job got bigger than the screen. I kept following the bug past the API call, then past the server, into the database and the queue and the cron job nobody remembered writing, and at some point I realised I was an engineer who happened to know mobile very well, the kind who sits with a problem until the whole system around it comes into view, and then builds whatever that system needs, on whatever layer it lives.",
+    "That is how PinDey happened. It started with a very Lagos problem: you're at a party, your people are \u201cby the bar\u201d, and there are five bars. Calls drop. A pin on a map is tens of metres off and doesn't tell you which way to walk. So PinDey gives you an arrow, a distance, and the old warmer or colder game, with haptics that speed up as you close in and a sound when you finally find them. My favourite decision in it is that the Finder is honest: when the phone can't tell which way to point, it says \u201cvery close, look around\u201d instead of confidently sending you the wrong way.",
+    "It is mine from end to end: the Flutter app, the Next.js website and back office, the NestJS services, PostgreSQL and Redis underneath, all in one TypeScript monorepo built against a single OpenAPI contract. Building it taught me more about product than any title ever did, mostly because when you own every layer there's nobody to hand the hard part to.",
+    "I use AI the way I used to use a good IDE. It helps me read unfamiliar code faster and get through the boring parts, and tests and my own review still decide what ships. The part I care about is preparing a codebase so a coding agent can work in it without making a mess, which is where flutter_skill_gen came from.",
+    "These days my time is split between the day job, PinDey, a handful of side projects, and writing, which is the other thing I can't stop doing. Poetry, prose, the occasional long thought about software. It turns out finding the right word and finding the right abstraction are pretty much the same muscle.",
   ],
 
   coda: "Think about the problem, see the system, build the thing. Then make it quiet.",

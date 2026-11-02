@@ -17,12 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!study) return {};
 
   return {
-    title: `${study.kicker} · ${study.title}`,
+    title: `${study.kicker}: ${study.title}`,
     description: study.summary,
     alternates: { canonical: `/work/${study.slug}` },
     openGraph: {
       type: "article",
-      title: `${study.kicker} · ${study.title}`,
+      title: `${study.kicker}: ${study.title}`,
       description: study.summary,
       url: `/work/${study.slug}`,
     },
@@ -39,38 +39,33 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
   // Each study leans one of the two accents, so four pages in a row don't all
   // read as the same page. Alternating off accentIndex keeps it deterministic.
-  const accent = study.accentIndex % 2 === 0 ? "var(--accent)" : "var(--accent-2)";
+  // One accent across every study; green is reserved for PinDey.
+  const accent = "var(--accent)";
 
   return (
     <article className="pb-24 pt-32 sm:pt-40" style={{ ["--study-accent" as string]: accent }}>
       <Shell>
-        <Link href="/#work" className="link inline-flex items-center gap-2 font-mono text-[0.6875rem] text-faint">
-          <span aria-hidden="true">←</span> All work
+        <Link href="/#work" className="link text-[0.9375rem] text-dim">
+          Back to all work
         </Link>
 
         <header className="mt-10 border-b border-line pb-14">
-          <p className="eyebrow" data-reveal>
-            {study.kicker} · {study.company}
+          <p className="eyebrow">
+            {study.kicker}, {study.company}
           </p>
           <h1
             className="display mt-6 max-w-[18ch] text-[clamp(2.5rem,6.6vw,5rem)] text-ink"
-            data-reveal
-            style={{ ["--reveal-delay" as string]: "60ms" }}
           >
             {study.title}
           </h1>
           <p
             className="measure mt-8 text-[1.125rem] leading-relaxed text-dim"
-            data-reveal
-            style={{ ["--reveal-delay" as string]: "120ms" }}
           >
             {study.summary}
           </p>
 
           <dl
-            className="mt-12 grid grid-cols-2 gap-x-10 gap-y-6 font-mono text-[0.6875rem] sm:grid-cols-4"
-            data-reveal
-            style={{ ["--reveal-delay" as string]: "180ms" }}
+            className="mt-12 grid grid-cols-2 gap-x-10 gap-y-6 text-[0.9375rem] sm:grid-cols-4"
           >
             {[
               ["Role", study.role],
@@ -108,7 +103,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
         <Block index="03" label="Decisions">
           <div className="space-y-14">
             {study.decisions.map((decision, i) => (
-              <div key={decision.title} data-reveal>
+              <div key={decision.title}>
                 <div className="flex items-baseline gap-4">
                   <span className="rail-index">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="heading text-[1.625rem] leading-tight text-ink sm:text-[1.875rem]">
@@ -149,7 +144,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
             {study.stack.map((item) => (
               <li
                 key={item}
-                className="rounded-full border border-line px-3 py-1.5 font-mono text-[0.6875rem] text-dim"
+                className="rounded-md bg-surface-2 px-2 py-0.5 text-[0.8125rem] font-medium text-dim"
               >
                 {item}
               </li>
@@ -163,8 +158,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
             <h2 className="display max-w-[20ch] text-[clamp(1.75rem,4vw,3rem)] text-ink transition-colors group-hover:text-accent">
               {next?.title}
             </h2>
-            <p className="mt-3 font-mono text-[0.6875rem] text-faint">
-              {next?.kicker} · {next?.company}
+            <p className="mt-3 text-[0.9375rem] text-faint">
+              {next?.kicker}, {next?.company}
             </p>
           </Link>
         </nav>
@@ -195,12 +190,12 @@ function Block({
   return (
     <section className="grid gap-6 border-b border-line py-14 lg:grid-cols-[9rem_1fr] lg:gap-16">
       <div className="lg:sticky lg:top-28 lg:self-start">
-        <div className="flex items-baseline gap-3 lg:block" data-reveal>
+        <div className="flex items-baseline gap-3 lg:block">
           <span className="rail-index">{index}</span>
           <h2 className="eyebrow block lg:mt-2">{label}</h2>
         </div>
       </div>
-      <div className="min-w-0 space-y-5" data-reveal>
+      <div className="min-w-0 space-y-5">
         {children}
       </div>
     </section>

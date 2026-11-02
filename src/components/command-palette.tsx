@@ -31,17 +31,16 @@ const section = (id: string, label: string): Command => ({
 });
 
 const COMMANDS: readonly Command[] = [
-  section("story", "Zoom out"),
   section("pindey", "PinDey"),
+  section("react-native", "React Native"),
+  section("work", "Work"),
+  section("experience", "Experience"),
   section("how", "How I work"),
-  section("now", "Right now"),
-  section("open-source", "Open source"),
-  section("work", "Earlier work"),
-  section("writing", "Writing"),
+  section("open-source", "Open source and writing"),
   section("contact", "Contact"),
   {
     id: "long-version",
-    label: "The long version",
+    label: "About",
     group: "Navigate",
     hint: "/about",
     action: { kind: "route", href: "/about" },
@@ -144,9 +143,9 @@ export function CommandPalette() {
           restoreFocusTo.current = event.currentTarget;
           setOpen(true);
         }}
-        className="hidden items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-[0.6875rem] text-faint transition-colors hover:border-line-strong hover:text-dim sm:inline-flex"
+        className="hidden items-center gap-2 rounded-[9px] border border-line bg-surface px-2.5 py-1.5 text-[0.8125rem] text-faint shadow-card transition-colors hover:border-line-strong hover:text-dim sm:inline-flex"
       >
-        <span>Jump to</span>
+        <span>Search</span>
         <kbd className="rounded border border-line px-1 py-px text-[0.625rem]">⌘K</kbd>
       </button>
     );
@@ -168,7 +167,7 @@ export function CommandPalette() {
 
       <div className="relative w-full max-w-lg overflow-hidden rounded-xl border border-line-strong bg-surface shadow-2xl">
         <div className="flex items-center gap-3 border-b border-line px-4">
-          <span className="font-mono text-xs text-faint">›</span>
+          <span className="text-sm text-faint" aria-hidden="true">⌕</span>
           <input
             ref={inputRef}
             value={query}
@@ -219,7 +218,7 @@ export function CommandPalette() {
                   >
                     <span>{command.label}</span>
                     {command.hint ? (
-                      <span className="truncate font-mono text-[0.6875rem] text-faint">{command.hint}</span>
+                      <span className="truncate text-[0.8125rem] text-faint">{command.hint}</span>
                     ) : null}
                   </button>
                 </li>

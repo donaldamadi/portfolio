@@ -11,11 +11,11 @@ export const themeBootstrapScript = `
 (function () {
   try {
     var stored = localStorage.getItem("${THEME_STORAGE_KEY}");
-    var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-    var theme = stored === "light" || stored === "dark" ? stored : (prefersLight ? "light" : "dark");
+    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var theme = stored === "light" || stored === "dark" ? stored : (prefersDark ? "dark" : "light");
     document.documentElement.setAttribute("data-theme", theme);
   } catch (e) {
-    document.documentElement.setAttribute("data-theme", "dark");
+    document.documentElement.setAttribute("data-theme", "light");
   }
 })();
 `.trim();

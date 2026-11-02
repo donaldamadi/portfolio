@@ -1,4 +1,4 @@
-import type { Article, Package, Project } from "./types";
+import type { Article, Package, Project, Work } from "./types";
 
 export const packages: readonly Package[] = [
   {
@@ -34,31 +34,115 @@ export const packages: readonly Package[] = [
   },
 ];
 
-export const projects: readonly Project[] = [
+/**
+ * The work list on the home page, newest and most relevant first. Facts come
+ * from the CV; anything not confirmed there is left out or marked TODO.
+ */
+export const work: readonly Work[] = [
   {
+    id: "ofin-eko",
     name: "Ofin Eko",
-    tagline: "Every law of Lagos State, offline, in two languages, read aloud",
-    description:
-      "I built this one alone, start to finish. It lets people read and listen to Lagos State law in English or Yorùbá, and it keeps working without a connection. Every statute can be read aloud, any law or bookmark can be opened from a link, and it's live on both the App Store and Google Play.",
+    org: "Solo project",
     period: "Jan 2025 - Jul 2025",
-    stack: ["Flutter", "Offline-first caching", "Text-to-speech", "Deep linking", "App Store + Play Store"],
+    platforms: ["React Native"],
+    what: "Every law of Lagos State, in English or Yorùbá, offline and read aloud.",
+    body:
+      "I built it alone, start to finish, in React Native, and shipped it to the App Store and Google Play. It caches aggressively so it works without a connection, reads every statute aloud, and opens any law or bookmark straight from a link.",
+    // TODO(donald): Expo or bare React Native? Add it to the stack if you want it shown.
+    // TODO(donald): store links, if you want them on the card.
+    stack: ["React Native", "Offline-first caching", "Text-to-speech", "Deep linking", "iOS and Android"],
   },
   {
-    name: "Job scraper platform",
-    tagline: "Queues, scrapers and a database, for the fun of it",
-    description:
-      "A TypeScript service that scrapes job listings and serves them through a typed API to a separate frontend. Express and Prisma sit over PostgreSQL on Supabase, and Redis with BullMQ runs the scraping queue. It's mostly an excuse to spend time with the parts of a system that don't have a screen.",
-    period: "2026 - present",
-    stack: ["TypeScript", "Express", "Prisma", "PostgreSQL", "Redis / BullMQ", "JWT"],
-    links: [
-      { label: "Backend source", href: "https://github.com/donaldamadi/job-scraper-backend", external: true },
-    ],
+    id: "uplines",
+    name: "Uplines",
+    org: "Equivator",
+    period: "Oct 2024 - May 2025",
+    platforms: ["React", "Native"],
+    what: "A web and mobile platform, where I worked on the React web app and native iOS widgets.",
+    body:
+      "As senior frontend developer I worked across the React web platform and the mobile app, and built native iOS widgets in SwiftUI that lifted daily active users by about 10%. I also wired up Firebase and CleverTap analytics, and ran crash triage through Sentry and Crashlytics.",
+    stack: ["React", "Swift", "SwiftUI", "Firebase", "CleverTap", "Sentry"],
   },
+  {
+    id: "adduce",
+    name: "Adduce",
+    org: "Founding, early stage",
+    period: "Aug 2026 - present",
+    platforms: ["React", "Node.js"],
+    what: "Signed, clause-mapped evidence that a product meets EN 301 549 and the European Accessibility Act.",
+    body:
+      "An early-stage SaaS I'm founding. I wrote the architecture, data model, API, security model and decision log, the interface is React, and Postgres is provisioned in the EU.",
+    stack: ["React", "TypeScript", "PostgreSQL", "API design"],
+  },
+  {
+    id: "extracash",
+    name: "ExtraCash",
+    org: "Zedcrest Group, Zedvance",
+    period: "2024 - present",
+    platforms: ["Flutter"],
+    what: "Embedded lending inside a banking app people already used for their salary.",
+    body:
+      "Eligibility from open-banking statements, KYC tiers, instant disbursement and card repayment. The loan journey is a resumable state machine, so someone who drops off at statement consent comes back to exactly that step.",
+    stack: ["Flutter", "Mono", "Flutterwave", "State machines", "Idempotent money flows"],
+    caseStudy: "extracash-embedded-lending",
+  },
+  {
+    id: "snappay",
+    name: "Encrypted transport",
+    org: "SnapPay",
+    period: "Apr 2026 - Jun 2026",
+    platforms: ["Flutter"],
+    what: "A networking layer that loses its key mid-transfer and recovers without the user noticing.",
+    body:
+      "Every request and response encrypted on top of TLS with a server-issued key. When the key rotates, the first rejection refreshes it once and every waiting request replays, exactly once.",
+    stack: ["Flutter", "AES", "MVVM", "Prembly KYC"],
+    caseStudy: "aes-encrypted-transport",
+  },
+  {
+    id: "medpal",
+    name: "MedPal Provider",
+    org: "MedPal",
+    period: "2025 - present",
+    platforms: ["Flutter"],
+    what: "Video and voice consultations for doctors, in English and Spanish.",
+    body:
+      "Consultations on Agora with every call state handled, including the network going away, plus payouts and scheduling. All 480+ strings moved to gen-l10n, with CI failing the build if the two languages drift.",
+    stack: ["Flutter", "Agora RTC", "Firebase AI", "Cubit", "gen-l10n"],
+    caseStudy: "medpal-telemedicine",
+  },
+  {
+    id: "pos",
+    name: "Card-present POS",
+    org: "Zedcrest Group",
+    period: "2024 - 2025",
+    platforms: ["Flutter", "Native"],
+    what: "A Flutter screen in front of a vendor's card reader SDK written in Java.",
+    body:
+      "Commands go down a method channel and the terminal's own timeline comes back up an event channel, so the screen always knows whether it's safe to remove the card.",
+    stack: ["Flutter", "Kotlin", "Java", "Platform Channels"],
+    caseStudy: "pos-platform-channels",
+  },
+  {
+    id: "job-scraper",
+    name: "Job scraper",
+    org: "Side project",
+    period: "2026 - present",
+    platforms: ["React", "Node.js"],
+    what: "A job aggregator with a Next.js dashboard and a queue of scrapers behind it.",
+    body:
+      "Dashboard, filters, CV and document pages in Next.js and React. Behind it, an Express and Prisma API on PostgreSQL, with Redis and BullMQ running scheduled scraping jobs with retries.",
+    stack: ["Next.js", "React", "Express", "Prisma", "PostgreSQL", "BullMQ"],
+    links: [{ label: "Backend source", href: "https://github.com/donaldamadi/job-scraper-backend", external: true }],
+  },
+];
+
+/** Smaller things, listed on /about. */
+export const projects: readonly Project[] = [
   {
     name: "kmm-notes-app",
     tagline: "One domain, two native UIs",
     description:
-      "A small notes app with one shared Kotlin domain layer and two fully native interfaces, Jetpack Compose on Android and SwiftUI on iOS. I wrote it to find out where the Kotlin Multiplatform seam really falls once you build something, rather than where the docs say it does.",
+      "A small notes app with one shared Kotlin domain layer and two fully native interfaces, Jetpack Compose on Android and SwiftUI on iOS. I wrote it to find out where the Kotlin Multiplatform seam really falls once you build something.",
     period: "2023",
     stack: ["Kotlin Multiplatform", "Jetpack Compose", "SwiftUI"],
     links: [{ label: "Source", href: "https://github.com/donaldamadi/kmm-notes-app", external: true }],
@@ -67,7 +151,7 @@ export const projects: readonly Project[] = [
     name: "Fluid level monitor",
     tagline: "Final-year project: hardware to phone, in real time",
     description:
-      "A device that measures the level and temperature of a fluid and streams both to a Flutter app in real time. Looking back, it was the first time I built a whole system rather than a screen: sensor, transport and interface, all mine. It took me a few more years to notice that was the part I liked.",
+      "A device that measures the level and temperature of a fluid and streams both to a Flutter app in real time. Sensor, transport and interface, all mine.",
     period: "2023",
     stack: ["Flutter", "Embedded hardware", "Real-time telemetry"],
   },

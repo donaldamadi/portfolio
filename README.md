@@ -16,17 +16,17 @@ types (`Role`, `CaseStudy`, `Decision`, `Package`). Adding a role is a data chan
 touched. The `Decision` type is the interesting one. It forces every architectural claim to carry the
 alternative that was rejected, because that's the part that actually demonstrates judgement.
 
-**No animation library.** Scroll reveals are a single document-level `IntersectionObserver` that
-unobserves on first intersection (`src/lib/use-reveal.ts`). One observer for the whole page rather than
-one per component, because the per-component version was measurable on mid-range Android. The hero particle
-field is ~100 hand-written lines of canvas that pauses when off-screen or when the tab is hidden, and
-renders exactly one static frame under `prefers-reduced-motion`.
+**Almost no motion.** The one moving piece is the PinDey Finder demo, and it moves because you
+moved it (it also walks itself while on screen, never under `prefers-reduced-motion`). No scroll
+reveals, no particle field, no animation library.
 
 **No flash of the wrong theme.** A tiny bootstrap script in `<head>` resolves the stored/system theme
 and sets `data-theme` before first paint (`src/lib/theme.ts`). Colours are semantic tokens
 (`--ink`, `--dim`, `--line`, `--accent`, `--accent-2`) mapped into Tailwind v4's `@theme inline`, so no
-component ever names a colour, it names a role, and both themes come free. The palette is five pigments:
-black, navy, sky blue, green, white.
+component ever names a colour, it names a role, and both themes come free. The visual language follows
+BoardUI (MIT): neutral greys, one blue accent, and a grey tray holding a white panel for cards. The
+type is Geist Serif throughout, in its single weight.
+PinDey's green is used only inside PinDey.
 
 **Keyboard first.** ⌘K opens a hand-rolled command palette with roving focus, Escape-to-dismiss and
 focus restoration. Skip link, visible focus rings, `aria-expanded` on the experience ledger,
@@ -43,7 +43,7 @@ OG images are generated with `next/og` rather than being five PNGs someone has t
 | Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript, `strict` + `noUncheckedIndexedAccess` |
 | Styling | Tailwind CSS v4 (`@theme inline` tokens) |
-| Type | Outfit · JetBrains Mono, via `next/font` |
+| Type | Geist Serif (the `geist` package, `next/font/local`) everywhere on the site; the CV PDF keeps its own type |
 | Hosting | Vercel, custom domain on Namecheap DNS |
 | CI | GitHub Actions: typecheck, lint, build on every push and PR |
 

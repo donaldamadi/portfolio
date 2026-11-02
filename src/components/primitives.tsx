@@ -2,112 +2,107 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export function Shell({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("mx-auto w-full max-w-[1180px] px-6 sm:px-10", className)}>{children}</div>;
+  return <div className={cn("mx-auto w-full max-w-[1120px] px-5 sm:px-8", className)}>{children}</div>;
 }
 
 /**
- * Every section carries a number and a label in a left rail. It's a small thing,
- * but it makes a long single-page site navigable by eye and gives the layout a
- * spine that a stack of centred cards doesn't have.
+ * A home-page section: a plain heading, an optional one-line intro, then the
+ * content. No numbered rail and no label above the heading; the heading says
+ * what the section is.
  */
 export function Section({
   id,
-  index,
-  label,
   title,
-  lede,
-  children,
-  className,
-}: {
-  id: string;
-  index: string;
-  label: string;
-  title?: ReactNode;
-  lede?: ReactNode;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section id={id} className={cn("scroll-mt-24 border-t border-line py-20 sm:py-28", className)}>
-      <Shell>
-        <div className="grid gap-10 lg:grid-cols-[9rem_1fr] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="flex items-baseline gap-3 lg:block" data-reveal>
-              <span className="rail-index">{index}</span>
-              <span className="eyebrow block lg:mt-2">{label}</span>
-            </div>
-          </div>
-
-          <div className="min-w-0">
-            {title ? (
-              <h2 className="display text-[clamp(2rem,4.4vw,3.25rem)] text-ink" data-reveal>
-                {title}
-              </h2>
-            ) : null}
-            {lede ? (
-              <div className="measure mt-6 text-[1.0625rem] leading-relaxed text-dim" data-reveal style={{ ["--reveal-delay" as string]: "60ms" }}>
-                {lede}
-              </div>
-            ) : null}
-            <div className={cn(title || lede ? "mt-12 sm:mt-16" : undefined)}>{children}</div>
-          </div>
-        </div>
-      </Shell>
-    </section>
-  );
-}
-
-/**
- * A home-page chapter. No rail, no numbered label: the home page is meant to
- * be looked at, so a chapter is an eyebrow, a few short lines and a visual.
- */
-export function Chapter({
-  id,
-  eyebrow,
+  intro,
+  aside,
   children,
   className,
 }: {
   id?: string;
-  eyebrow?: string;
+  title: ReactNode;
+  intro?: ReactNode;
+  /** Something small on the right of the heading row, like a filter or a link. */
+  aside?: ReactNode;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("scroll-mt-20 border-t border-line py-20 sm:py-28", className)}>
+    <section id={id} className={cn("scroll-mt-20 py-16 sm:py-24", className)}>
       <Shell>
-        {eyebrow ? (
-          <p className="eyebrow" data-reveal>
-            {eyebrow}
-          </p>
-        ) : null}
-        {children}
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+          <div className="max-w-[44rem]">
+            <h2 className="heading text-[1.75rem] leading-tight text-ink sm:text-[2.125rem]">{title}</h2>
+            {intro ? <p className="mt-3 text-[1.0625rem] leading-relaxed text-dim">{intro}</p> : null}
+          </div>
+          {aside}
+        </div>
+        <div className="mt-10 sm:mt-12">{children}</div>
       </Shell>
     </section>
   );
 }
 
 /**
- * Short lines, one thought each, revealed in sequence. The first carries the
- * ink; the rest step back so the eye lands on the opener.
+ * BoardUI's two-level card: a grey tray holding a white panel. The tray groups,
+ * the panel holds the content. Radii step down a level, so the two never read
+ * as the same box drawn twice.
  */
-export function Lines({ lines, className }: { lines: readonly string[]; className?: string }) {
+export function Tray({ children, className }: { children: ReactNode; className?: string }) {
+  return <div className={cn("rounded-2xl bg-surface-2 p-1.5", className)}>{children}</div>;
+}
+
+export function Panel({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("mt-6 max-w-[34ch] space-y-3 sm:max-w-[40ch]", className)}>
-      {lines.map((line, index) => (
-        <p
-          key={line}
-          className={cn(
-            "heading text-[clamp(1.375rem,3.2vw,2.125rem)] leading-[1.2]",
-            index === 0 ? "text-ink" : "text-dim",
-          )}
-          data-reveal
-          style={{ ["--reveal-delay" as string]: `${index * 90}ms` }}
-        >
-          {line}
-        </p>
-      ))}
-    </div>
+    <div className={cn("rounded-[12px] border border-line bg-surface shadow-card", className)}>{children}</div>
   );
+}
+
+/** A small stack or status chip. */
+export function Badge({
+  children,
+  tone = "neutral",
+  className,
+}: {
+  children: ReactNode;
+  tone?: "neutral" | "accent" | "pindey";
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-md px-2 py-0.5 text-[0.8125rem] font-medium leading-5",
+        tone === "neutral" && "bg-surface-2 text-dim",
+        tone === "accent" && "bg-accent-soft text-accent",
+        tone === "pindey" && "bg-accent-2-soft text-accent-2",
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
+export function BadgeList({ items, className }: { items: readonly string[]; className?: string }) {
+  return (
+    <ul className={cn("flex flex-wrap gap-1.5", className)}>
+      {items.map((item) => (
+        <li key={item}>
+          <Badge>{item}</Badge>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const BUTTON = {
+  base: "inline-flex h-10 items-center justify-center gap-2 rounded-[10px] px-4 text-[0.9375rem] font-medium transition-colors",
+  primary: "bg-ink text-bg hover:opacity-90",
+  outline: "border border-line-strong bg-surface text-ink shadow-card hover:border-faint",
+  quiet: "text-dim hover:bg-surface-2 hover:text-ink",
+} as const;
+
+export function buttonClass(variant: "primary" | "outline" | "quiet" = "outline", className?: string): string {
+  return cn(BUTTON.base, BUTTON[variant], className);
 }
 
 export function ArrowOut({ className }: { className?: string }) {
@@ -115,7 +110,7 @@ export function ArrowOut({ className }: { className?: string }) {
     <svg
       viewBox="0 0 12 12"
       aria-hidden="true"
-      className={cn("size-2.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5", className)}
+      className={cn("size-2.5 shrink-0", className)}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.4"
@@ -127,6 +122,7 @@ export function ArrowOut({ className }: { className?: string }) {
   );
 }
 
+/** An outbound link. The small arrow says "opens elsewhere", which is information, not decoration. */
 export function ExternalLink({
   href,
   children,
@@ -144,10 +140,10 @@ export function ExternalLink({
       href={href}
       target={isMail ? undefined : "_blank"}
       rel={isMail ? undefined : "noreferrer noopener"}
-      className={cn("group inline-flex items-center gap-1.5 link text-ink", className)}
+      className={cn("inline-flex items-center gap-1.5 text-ink", className)}
     >
-      {children}
-      {showArrow ? <ArrowOut /> : null}
+      <span className="link">{children}</span>
+      {showArrow && !isMail ? <ArrowOut className="text-faint" /> : null}
     </a>
   );
 }

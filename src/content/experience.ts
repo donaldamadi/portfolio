@@ -3,6 +3,26 @@ import type { Role } from "./types";
 /** Newest first. Dates are kept as written on the record, not prettified. */
 export const experience: readonly Role[] = [
   {
+    id: "pindey",
+    company: "PinDey",
+    product: "pindey.app",
+    title: "Founder and engineer",
+    employment: "Full-time",
+    location: "Lagos, Nigeria",
+    start: "Sep 2026",
+    end: "Present",
+    current: true,
+    summary:
+      "My own product, built end to end: a Flutter app, Next.js website and back office, and NestJS services on PostgreSQL and Redis, in one TypeScript monorepo.",
+    highlights: [
+      "Built the public site and no-install browser tools in React and Next.js, deployed to Cloudflare via OpenNext.",
+      "Built the admin back office in React and Next.js: users, Spaces, moderation, remote config, analytics, roles and an audit log, with two-factor sign-in.",
+      "Ran live presence through a WebSocket gateway, with a transactional outbox so a crash between write and publish can never drop or invent an update.",
+      "Put an idempotency key on every write, so retries over flaky mobile networks replay the original answer instead of applying twice.",
+    ],
+    stack: ["Flutter", "React", "Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ"],
+  },
+  {
     id: "zedcrest",
     company: "Zedcrest Group",
     product: "Zedvance, personal & business banking",
@@ -69,18 +89,18 @@ export const experience: readonly Role[] = [
     location: "Saudi Arabia, remote",
     start: "Oct 2024",
     end: "May 2025",
-    summary: "Web and mobile delivery on the Uplines platform, including native iOS widgets and the analytics that told us whether any of it worked.",
+    summary: "The React web platform and mobile app for Uplines, including native iOS widgets and the analytics that told us whether any of it worked.",
     highlights: [
       "Built native iOS widgets in Swift/SwiftUI: daily active users up 10%, engagement up 20% off the back of the surrounding UX work.",
       "Instrumented Firebase and CleverTap analytics, cutting the loop time on product decisions by roughly a third.",
       "Shipped gift points, tutorials and onboarding; drove crash triage through Sentry and Crashlytics for a ~30% stability improvement.",
     ],
-    stack: ["Swift", "SwiftUI", "Flutter", "Firebase", "CleverTap", "Sentry"],
+    stack: ["React", "Swift", "SwiftUI", "Flutter", "Firebase", "CleverTap", "Sentry"],
   },
   {
     id: "max",
     company: "MAX",
-    product: "PAMS Mobile · Falcon",
+    product: "PAMS Mobile and Falcon",
     title: "Flutter Mobile Developer",
     employment: "Full-time",
     location: "Lagos, Nigeria",
@@ -97,7 +117,7 @@ export const experience: readonly Role[] = [
   {
     id: "creative-advanced",
     company: "Creative Advanced Technologies",
-    product: "Tamata · Taza",
+    product: "Tamata and Taza",
     title: "Flutter Mobile Developer",
     employment: "Contract",
     location: "Dubai, United Arab Emirates",
@@ -162,7 +182,7 @@ export const experience: readonly Role[] = [
   {
     id: "algorism",
     company: "Algorism Limited",
-    product: "RealtyProx · TaskProx",
+    product: "RealtyProx and TaskProx",
     title: "Software Developer Intern",
     employment: "Internship",
     location: "Lagos, Nigeria",
