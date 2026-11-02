@@ -38,7 +38,7 @@ export function subscribeSound(cb: () => void): () => void {
 
 /* ---------------------------------------------------------------- engine */
 
-const MASTER_VOL = 0.5;
+const MASTER_VOL = 0.8;
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
 
@@ -55,6 +55,24 @@ export function audioBus(): { ctx: AudioContext; master: GainNode } | null {
   }
   if (ctx.state === "suspended") void ctx.resume();
   return master ? { ctx, master } : null;
+}
+
+type AudioSessionNavigator = Navigator & { audioSession?: { type: string } };
+
+/**
+ * On iPhone, Safari silences web audio while the ring/silent switch is on
+ * silent. Interface sounds respect that, as they should. The game's music asks
+ * for "playback" while it runs, the way a game app would, and hands the
+ * session back when it stops. No-op where the API doesn't exist.
+ */
+export function preferPlayback(on: boolean): void {
+  const session = (navigator as AudioSessionNavigator).audioSession;
+  if (!session) return;
+  try {
+    session.type = on ? "playback" : "auto";
+  } catch {
+    /* unsupported type */
+  }
 }
 
 /** One enveloped oscillator note on the given bus. */
@@ -108,42 +126,42 @@ export function playUi(name: UiSound, detail = 0): void {
   const t = c.currentTime + 0.005;
   switch (name) {
     case "tap":
-      tone(out, 1180, t, 0.045, "triangle", 0.035, 880);
+      tone(out, 1180, t, 0.05, "triangle", 0.07, 880);
       break;
     case "toggle-on":
-      tone(out, 660, t, 0.06, "triangle", 0.05);
-      tone(out, 990, t + 0.06, 0.08, "triangle", 0.05);
+      tone(out, 660, t, 0.06, "triangle", 0.08);
+      tone(out, 990, t + 0.06, 0.08, "triangle", 0.08);
       break;
     case "toggle-off":
-      tone(out, 990, t, 0.06, "triangle", 0.05);
-      tone(out, 660, t + 0.06, 0.08, "triangle", 0.05);
+      tone(out, 990, t, 0.06, "triangle", 0.08);
+      tone(out, 660, t + 0.06, 0.08, "triangle", 0.08);
       break;
     case "open":
-      tone(out, 440, t, 0.16, "sine", 0.06, 880);
+      tone(out, 440, t, 0.16, "sine", 0.1, 880);
       break;
     case "close":
-      tone(out, 880, t, 0.14, "sine", 0.05, 440);
+      tone(out, 880, t, 0.14, "sine", 0.08, 440);
       break;
     case "unlock":
-      [784, 988, 1175, 1568].forEach((f, i) => tone(out, f, t + i * 0.07, 0.14, "triangle", 0.06));
+      [784, 988, 1175, 1568].forEach((f, i) => tone(out, f, t + i * 0.07, 0.14, "triangle", 0.09));
       break;
     case "answer":
-      tone(out, 880, t, 0.08, "sine", 0.05);
-      tone(out, 1319, t + 0.08, 0.12, "sine", 0.05);
+      tone(out, 880, t, 0.08, "sine", 0.08);
+      tone(out, 1319, t + 0.08, 0.12, "sine", 0.08);
       break;
     case "error":
-      tone(out, 220, t, 0.2, "triangle", 0.06, 165);
+      tone(out, 220, t, 0.2, "triangle", 0.1, 165);
       break;
     case "found":
       // PinDey plays a sound when you find your friend; so does the demo.
-      [1047, 1319, 1568, 2093].forEach((f, i) => tone(out, f, t + i * 0.08, 0.18, "sine", 0.07));
+      [1047, 1319, 1568, 2093].forEach((f, i) => tone(out, f, t + i * 0.08, 0.18, "sine", 0.1));
       break;
     case "warmer":
       // Pitch rises as you close in: detail is 0 (far) to 1 (right there).
-      tone(out, 520 + detail * 900, t, 0.05, "sine", 0.04);
+      tone(out, 520 + detail * 900, t, 0.05, "sine", 0.07);
       break;
     case "colder":
-      tone(out, 330, t, 0.06, "sine", 0.03, 260);
+      tone(out, 330, t, 0.06, "sine", 0.05, 260);
       break;
   }
 }

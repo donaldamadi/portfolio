@@ -21,7 +21,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-const MODEL = "claude-opus-5-5";
+// Fast and inexpensive, and plenty for answering from retrieved passages.
+const MODEL = "claude-haiku-5-5";
 const MAX_QUESTION = 600;
 const MAX_TURNS = 8;
 const RATE = { windowMs: 10 * 60 * 1000, max: 15 };
@@ -164,21 +165,19 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const context = found.map((r, i) => `<passage index="${i + 1}" source="${r.source.title}"${r.source.url ? ` url="${r.source.url}"` : ""}>\n${r.text}\n</passage>`).join("\n");
-  const messages: Anthropic.Beta.BetaMessageParam[] = turns.map((t, i) =>
+  const messages: Anthropic.MessageParam[] = turns.map((t, i) =>
     i === turns!.length - 1
       ? { role: "user", content: `<context>\n${context || "(no matching passages)"}\n</context>\n\nVisitor's question: ${t.content}` }
       : { role: t.role, content: t.content },
   );
 
   const client = new Anthropic();
-  const stream = client.beta.messages.stream(
+  const stream = client.messages.stream(
     {
       model: MODEL,
       // A deliberate cap: answers are meant to be short, and this is a public endpoint.
       max_tokens: 2000,
       output_config: { effort: "low" },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
       system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
       messages,
     },

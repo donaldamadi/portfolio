@@ -7,7 +7,7 @@
  * header's sound toggle mutes it too. The bus is woken from the Start button.
  */
 
-import { audioBus, soundEnabled, tone } from "./sound";
+import { audioBus, preferPlayback, soundEnabled, tone } from "./sound";
 
 const BPM = 118;
 const STEP = 60 / BPM / 2; // eighth notes
@@ -53,11 +53,13 @@ export class Chiptune {
 
   startMusic(): void {
     if (!this.ctx || this.timer) return;
+    preferPlayback(true);
     this.nextTime = this.ctx.currentTime + 0.05;
     this.timer = window.setInterval(() => this.schedule(), 25);
   }
 
   stopMusic(): void {
+    if (this.timer) preferPlayback(false);
     window.clearInterval(this.timer);
     this.timer = 0;
   }
