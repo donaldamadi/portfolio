@@ -1,24 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { GeistSerifRegular } from "geist/font/serif/regular";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { profile, SITE_URL } from "@/content/profile";
 import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
 
-// One family for everything, Inter, as BoardUI uses it. Weight, size and
-// tracking separate a heading from a paragraph; a second typeface isn't needed.
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono-jb",
-  display: "swap",
-});
+// Geist Serif, everywhere on the site (the CV PDF keeps its own type). It ships
+// in one weight, so hierarchy comes from size and colour; globals.css turns off
+// faux-bold synthesis so a stray font-medium never smears it.
+const serif = GeistSerifRegular;
 
 const description =
   "Product engineer in Lagos. Five years shipping mobile apps in React Native, Flutter, Swift and Kotlin, React and Next.js on the web, and the Node services behind them. Building PinDey.";
@@ -83,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${inter.variable} ${mono.variable}`}
+      className={serif.variable}
     >
       <head>
         {/* Applied before first paint, so there is no flash of the wrong palette. */}

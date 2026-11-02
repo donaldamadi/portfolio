@@ -1,4 +1,5 @@
 import { profile } from "@/content/profile";
+import { pindey } from "@/content/pindey";
 import { Shell, Tray, buttonClass } from "./primitives";
 
 const github = profile.links.find((link) => link.label === "GitHub")?.href ?? "";
@@ -25,7 +26,13 @@ export function Hero() {
             <h1 className="display mt-6 text-[clamp(2.25rem,4.6vw,3.25rem)] text-ink">{hero.title}</h1>
 
             <p className="measure mt-6 text-[1.125rem] leading-relaxed text-dim">{hero.intro}</p>
-            <p className="mt-4 text-[1rem] text-ink">{hero.status}</p>
+            <p className="mt-4 text-[1rem] text-ink">
+              Building{" "}
+              <a href={pindey.links.site.href} target="_blank" rel="noreferrer noopener" className="link font-medium text-accent-2">
+                PinDey
+              </a>
+              . {hero.status}
+            </p>
 
             <div className="mt-9 flex flex-wrap gap-2.5">
               <a href={`mailto:${profile.email}`} className={buttonClass("primary")}>

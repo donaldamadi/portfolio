@@ -25,8 +25,11 @@ export function PinDey() {
       title="PinDey, built end to end"
       intro={
         <>
-          {pindey.oneLiner} <span className="italic text-accent-2">&ldquo;{pindey.tagline}&rdquo;</span> Live at
-          pindey.app, and every layer of it is mine.
+          {pindey.oneLiner} <span className="italic text-accent-2">&ldquo;{pindey.tagline}&rdquo;</span> Live at{" "}
+          <a href={pindey.links.site.href} target="_blank" rel="noreferrer noopener" className="link text-ink">
+            pindey.app
+          </a>
+          , and every layer of it is mine.
         </>
       }
       aside={

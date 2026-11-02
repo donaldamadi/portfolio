@@ -55,6 +55,11 @@ export function SiteFooter() {
                 </li>
               ))}
               <li>
+                <ExternalLink href="https://pindey.app" className="text-[0.9375rem] text-dim">
+                  pindey.app
+                </ExternalLink>
+              </li>
+              <li>
                 <a
                   href="/Donald-Amadi-CV.pdf"
                   className="link text-[0.9375rem] text-dim"

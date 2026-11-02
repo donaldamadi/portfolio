@@ -89,6 +89,9 @@ Still worth a second look:
 - `src/content/work.ts` → `work`: Ofin Eko is listed as React Native (confirmed Nov 2026). Expo or bare,
   and store links, are TODOs. React work is PinDey's web apps, Uplines (Equivator), Adduce and the job
   scraper. Don't add a React Native claim that you can't demo or talk through.
+- `public/Donald-Amadi-CV.pdf` is the full-stack CV (Nov 2026) with an Ofin Eko entry (React Native)
+  added under Projects & Open Source. It was spliced into the LaTeX PDF, not regenerated, so when you
+  next edit the CV's LaTeX source, add the Ofin Eko entry there too or it will drop out.
 - `src/content/work.ts` → `offTheClock`: two lines of your own prose, unattributed and unlabelled.
   Delete the block if you'd rather keep that separate from work.
 - The SnapPay dates (`Apr 2026 - Jun 2026`) overlap Zedcrest and MedPal. That's accurate to your CV

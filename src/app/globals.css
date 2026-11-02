@@ -77,9 +77,10 @@
   --shadow-panel: var(--shadow-panel);
   --shadow-float: var(--shadow-float);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-mono-jb), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Geist Serif carries everything, including what used to be monospace. */
+  --font-sans: var(--font-geist-serif-regular), "Times New Roman", Times, serif;
+  --font-display: var(--font-geist-serif-regular), "Times New Roman", Times, serif;
+  --font-mono: var(--font-geist-serif-regular), "Times New Roman", Times, serif;
 }
 
 /* ------------------------------------------------------------------
@@ -103,7 +104,8 @@
     background-color: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans);
-    font-feature-settings: "cv11" 1, "ss01" 1;
+    /* One weight only: never let the browser fake a bold. */
+    font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -127,20 +129,21 @@
 }
 
 /* ------------------------------------------------------------------
-   Type. One family, Inter. Weight, size and tracking do the work.
+   Type. One family, Geist Serif, in its single weight. Size and colour
+   do the work weight would do in a sans.
 ------------------------------------------------------------------ */
 
 @layer components {
   .display {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
   }
 
   .heading {
-    font-weight: 600;
-    letter-spacing: -0.015em;
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
 
   /* A small label in sentence case. Says what a block is, quietly. */

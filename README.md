@@ -24,7 +24,8 @@ reveals, no particle field, no animation library.
 and sets `data-theme` before first paint (`src/lib/theme.ts`). Colours are semantic tokens
 (`--ink`, `--dim`, `--line`, `--accent`, `--accent-2`) mapped into Tailwind v4's `@theme inline`, so no
 component ever names a colour, it names a role, and both themes come free. The visual language follows
-BoardUI (MIT): neutral greys, one blue accent, Inter, and a grey tray holding a white panel for cards.
+BoardUI (MIT): neutral greys, one blue accent, and a grey tray holding a white panel for cards. The
+type is Geist Serif throughout, in its single weight.
 PinDey's green is used only inside PinDey.
 
 **Keyboard first.** ⌘K opens a hand-rolled command palette with roving focus, Escape-to-dismiss and
@@ -42,7 +43,7 @@ OG images are generated with `next/og` rather than being five PNGs someone has t
 | Framework | Next.js 16 (App Router, Turbopack) |
 | Language | TypeScript, `strict` + `noUncheckedIndexedAccess` |
 | Styling | Tailwind CSS v4 (`@theme inline` tokens) |
-| Type | Inter, via `next/font` (JetBrains Mono only for package names and codes) |
+| Type | Geist Serif (the `geist` package, `next/font/local`) everywhere on the site; the CV PDF keeps its own type |
 | Hosting | Vercel, custom domain on Namecheap DNS |
 | CI | GitHub Actions: typecheck, lint, build on every push and PR |
 
