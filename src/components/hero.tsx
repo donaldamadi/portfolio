@@ -22,7 +22,7 @@ export function Hero() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent-2 opacity-60" style={{ animationDuration: "2.4s" }} />
                 <span className="relative inline-flex size-2 rounded-full bg-accent-2" />
               </span>
-              {profile.shortName}, {profile.role.toLowerCase()} in {profile.location.split(",")[0]}
+              {profile.shortName}, {profile.role.toLowerCase()} across mobile, web and backend
             </p>
 
             <h1 className="display mt-6 text-[clamp(2.25rem,4.6vw,3.25rem)] text-ink">{hero.title}</h1>

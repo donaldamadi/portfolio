@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { unlock } from "@/lib/achievements";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
+import { playUi } from "@/lib/sound";
 
 /* ---------------------------------------------------------------- opening from anywhere */
 
@@ -16,7 +17,7 @@ export function openAsk(question?: string): void {
 /** A button that opens the assistant. Used in the header and the hero. */
 export function AskButton({ className, children }: { className?: string; children?: React.ReactNode }) {
   return (
-    <button type="button" onClick={() => openAsk()} className={className}>
+    <button type="button" data-sound="open" onClick={() => openAsk()} className={className}>
       {children ?? (
         <>
           <Sparkle className="size-4" />
@@ -141,6 +142,7 @@ export function AskAI() {
       saveHistory(final);
       setBusy(false);
       setAnnounce(answer.error ?? answer.content);
+      if (!controller.signal.aborted) playUi(answer.error && !answer.content ? "error" : "answer");
       abortRef.current = null;
       inputRef.current?.focus();
     },
@@ -163,6 +165,7 @@ export function AskAI() {
   }, [ask]);
 
   const close = useCallback(() => {
+    playUi("close");
     abortRef.current?.abort();
     setOpen(false);
     returnTo.current?.focus();
@@ -212,7 +215,7 @@ export function AskAI() {
 
   return (
     <div className="fixed inset-0 z-[120] flex items-end justify-center sm:items-center sm:p-6">
-      <button type="button" aria-label="Close" tabIndex={-1} onClick={close} className="absolute inset-0 cursor-default bg-black/45 backdrop-blur-[2px]" />
+      <button type="button" aria-label="Close" tabIndex={-1} data-sound="none" onClick={close} className="absolute inset-0 cursor-default bg-black/45 backdrop-blur-[2px]" />
 
       <div
         ref={panelRef}
@@ -235,6 +238,7 @@ export function AskAI() {
             </div>
             <button
               type="button"
+              data-sound="none"
               onClick={close}
               aria-label="Close"
               className="grid size-9 shrink-0 place-items-center rounded-[9px] border border-line text-dim transition-colors hover:border-line-strong hover:text-ink"

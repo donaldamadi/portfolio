@@ -21,6 +21,8 @@ import {
 } from "@/lib/career-run";
 import { unlock } from "@/lib/achievements";
 import { Chiptune, type Sfx } from "@/lib/chiptune";
+import { soundEnabled, subscribeSound } from "@/lib/sound";
+import { toggleSound as toggleSiteSound } from "./sound-layer";
 import { Panel, Section, Tray, buttonClass } from "./primitives";
 import { cn } from "@/lib/utils";
 
@@ -48,31 +50,6 @@ function saveBest(score: number): void {
 function subscribeBest(cb: () => void): () => void {
   window.addEventListener(BEST_EVENT, cb);
   return () => window.removeEventListener(BEST_EVENT, cb);
-}
-
-/* ---------------------------------------------------------------- sound preference */
-
-const SOUND_KEY = "da-career-run-sound";
-const SOUND_EVENT = "da:career-sound";
-
-function readSound(): boolean {
-  try {
-    return localStorage.getItem(SOUND_KEY) !== "off";
-  } catch {
-    return true;
-  }
-}
-function writeSound(on: boolean): void {
-  try {
-    localStorage.setItem(SOUND_KEY, on ? "on" : "off");
-  } catch {
-    /* private mode */
-  }
-  window.dispatchEvent(new Event(SOUND_EVENT));
-}
-function subscribeSound(cb: () => void): () => void {
-  window.addEventListener(SOUND_EVENT, cb);
-  return () => window.removeEventListener(SOUND_EVENT, cb);
 }
 
 /* ---------------------------------------------------------------- colours */
@@ -138,7 +115,30 @@ function draw(ctx: CanvasRenderingContext2D, s: RunState, W: number, c: Palette,
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   for (const t of s.things) {
-    if (t.kind === "bug") {
+    if (t.kind === "bug" && t.air) {
+      // A flyer: wings instead of legs, and it hovers just above head height.
+      const cx = t.x + t.w / 2;
+      const cy = t.y + t.h / 2;
+      const flap = still ? 0.6 : 0.35 + Math.abs(Math.sin(s.clock * 18 + t.x * 0.05)) * 0.65;
+      ctx.fillStyle = c.line;
+      ctx.beginPath();
+      ctx.ellipse(cx - 9, cy - 9 * flap, 9, 5 * flap + 1, -0.5, 0, Math.PI * 2);
+      ctx.ellipse(cx + 9, cy - 9 * flap, 9, 5 * flap + 1, 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = c.danger;
+      ctx.globalAlpha = 0.85;
+      pill(ctx, t.x + 4, t.y + 4, t.w - 8, t.h - 6, 9);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = c.bg;
+      ctx.beginPath();
+      ctx.arc(cx - 5, cy, 2.2, 0, Math.PI * 2);
+      ctx.arc(cx + 5, cy, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = c.dim;
+      ctx.font = `13px ${c.font}`;
+      ctx.fillText(t.label, cx, t.y - 14);
+    } else if (t.kind === "bug") {
       const cx = t.x + t.w / 2;
       ctx.fillStyle = c.danger;
       pill(ctx, t.x, t.y + 6, t.w, t.h - 6, 8);
@@ -274,14 +274,13 @@ export function CareerRun() {
   const [ui, setUi] = useState<Ui>({ phase: "ready", chapter: 0, lives: 3, score: 0, clean: false, mode: "normal" });
   const [message, setMessage] = useState("");
   const best = useSyncExternalStore(subscribeBest, readBest, () => 0);
-  const soundOn = useSyncExternalStore(subscribeSound, readSound, () => true);
+  const soundOn = useSyncExternalStore(subscribeSound, soundEnabled, () => true);
   const audioRef = useRef<Chiptune | null>(null);
   const play = useCallback((kind: Sfx) => audioRef.current?.sfx(kind), []);
 
   /** Audio can only start from a click or key press, so this runs inside those handlers. */
   const wakeAudio = useCallback(() => {
     if (!audioRef.current) audioRef.current = new Chiptune();
-    audioRef.current.setMuted(!readSound());
     audioRef.current.unlock();
   }, []);
 
@@ -345,7 +344,7 @@ export function CareerRun() {
     if (ui.phase === "running") audioRef.current?.startMusic();
     else audioRef.current?.stopMusic();
   }, [ui.phase]);
-  useEffect(() => () => audioRef.current?.close(), []);
+  useEffect(() => () => audioRef.current?.stopMusic(), []);
 
   // Size the canvas to its box, keep the palette in step with the theme, and
   // respect reduced motion.
@@ -431,10 +430,8 @@ export function CareerRun() {
   }, [sync, wakeAudio]);
 
   const toggleSound = () => {
-    const next = !soundOn;
-    writeSound(next);
     wakeAudio();
-    audioRef.current?.setMuted(!next);
+    toggleSiteSound(soundOn);
   };
 
   const toggleMode = () => {
@@ -528,7 +525,8 @@ export function CareerRun() {
                     <>
                       <p className="text-[1.25rem] text-ink">Eight chapters, 2021 to 2026.</p>
                       <p className="mt-2 text-[0.9375rem] leading-relaxed text-dim">
-                        Jump the bugs. The fix for each chapter is a shield that takes one hit. Three lives.
+                        Jump the bugs on the ground. Stay down for the ones flying overhead. The fix for each chapter is a
+                        shield that takes one hit. Three lives.
                       </p>
                       <p className="mt-2 text-[0.8125rem] text-faint">
                         Space, up arrow or tap to jump, twice for a double jump. P pauses.
@@ -565,8 +563,8 @@ export function CareerRun() {
                       <p className="text-[1.25rem] text-ink">You shipped the whole career.</p>
                       <p className="mt-2 text-[0.9375rem] text-dim">
                         Score {ui.score}
-                        {ui.clean ? ", with zero incidents" : ""}. The real one is open to React Native and product
-                        engineering roles.
+                        {ui.clean ? ", with zero incidents" : ""}. The real one is open to senior product engineering roles,
+                        on whatever layer the work needs.
                       </p>
                       <a href={`mailto:${profile.email}`} className="link mt-2 inline-block text-[0.9375rem] text-ink">
                         Email the real Donald
@@ -610,6 +608,7 @@ export function CareerRun() {
             <div className="flex items-center gap-1">
               <button
                 type="button"
+                data-sound="none"
                 aria-pressed={soundOn}
                 onClick={toggleSound}
                 className={cn(buttonClass("quiet"), "h-8 px-3 text-[0.875rem]")}

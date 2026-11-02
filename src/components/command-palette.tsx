@@ -7,6 +7,7 @@ import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
 import { unlock } from "@/lib/achievements";
 import { openAsk } from "./ask-ai";
+import { playUi } from "@/lib/sound";
 
 /**
  * A command is plain data. What it does is decided by `run` below, in an event
@@ -100,6 +101,7 @@ export function CommandPalette() {
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       else router.push(`/${action.hash}`);
     } else if (action.kind === "ask") {
+      playUi("open");
       openAsk();
     } else if (action.kind === "route") {
       router.push(action.href);

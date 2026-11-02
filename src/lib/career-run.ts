@@ -17,7 +17,7 @@ const JUMP_V = -860;
 const DOUBLE_JUMP_V = -720;
 const BASE_SPEED = 300;
 const SPEED_PER_CHAPTER = 22;
-const CHAPTER_SECONDS = 13;
+const CHAPTER_SECONDS = 18;
 const INVULNERABLE_S = 1.2;
 const LIVES = 3;
 
@@ -25,7 +25,8 @@ export type Mode = "normal" | "relaxed";
 export type Phase = "ready" | "running" | "paused" | "cleared" | "over" | "won";
 
 export type Thing =
-  | { kind: "bug"; x: number; y: number; w: number; h: number; label: string }
+  /** air: a flying bug, just above head height. Safe on the ground, a hit if you jump into it. */
+  | { kind: "bug"; x: number; y: number; w: number; h: number; label: string; air: boolean }
   | { kind: "token"; x: number; y: number; w: number; h: number; label: string; taken: boolean }
   | { kind: "shield"; x: number; y: number; w: number; h: number; label: string; taken: boolean };
 
@@ -60,6 +61,8 @@ export type RunState = {
   bonus: number;
   things: Thing[];
   spawnIn: number;
+  /** Seconds since the last ground bug: a flyer never arrives while you might still be mid-jump. */
+  sinceGroundBug: number;
   shieldSpawned: boolean;
   seed: number;
   /** Seconds of running time, for animation. */
@@ -103,6 +106,7 @@ export function createRun(seed = 1, mode: Mode = "normal"): RunState {
     bonus: 0,
     things: [],
     spawnIn: 1.2,
+    sinceGroundBug: 9,
     shieldSpawned: false,
     seed,
     clock: 0,
@@ -120,6 +124,7 @@ export function advance(state: RunState): void {
     state.travelled = 0;
     state.things = [];
     state.spawnIn = 1.2;
+    state.sinceGroundBug = 9;
     state.shieldSpawned = false;
     state.hitsThisChapter = 0;
     state.length = speedOf(state) * CHAPTER_SECONDS;
@@ -163,9 +168,18 @@ function spawn(state: RunState, chapter: Chapter, width: number): void {
     return;
   }
   const label = chapter.bugs[Math.floor(nextRandom(state) * chapter.bugs.length)] ?? "bug";
+  // Flyers arrive from the second chapter, and only once you've surely landed.
+  if (state.chapter >= 1 && r < 0.3 + 0.24 && state.sinceGroundBug > 1.2) {
+    const h = 22;
+    state.things.push({ kind: "bug", x, y: GROUND_Y - PLAYER.h - 14 - h, w: 38, h, label, air: true });
+    // Give it time to pass overhead before the next ground bug asks for a jump.
+    state.spawnIn = 1.0 + nextRandom(state) * 0.6;
+    return;
+  }
   const w = 28 + Math.floor(nextRandom(state) * 3) * 10;
   const h = 26 + Math.floor(nextRandom(state) * 3) * 8;
-  state.things.push({ kind: "bug", x, y: GROUND_Y - h, w, h, label });
+  state.things.push({ kind: "bug", x, y: GROUND_Y - h, w, h, label, air: false });
+  state.sinceGroundBug = 0;
   // Gaps shrink a little each chapter, but always leave room for a jump.
   const minGap = Math.max(0.62, 1.05 - state.chapter * 0.05);
   state.spawnIn = minGap + nextRandom(state) * 0.75;
@@ -188,6 +202,7 @@ export function step(state: RunState, dt: number, width: number, chapters: reado
   state.travelled += dx;
   state.scroll += dx;
   state.invulnerable = Math.max(0, state.invulnerable - dt);
+  state.sinceGroundBug += dt;
 
   // Player physics.
   state.playerVY += GRAVITY * dt;

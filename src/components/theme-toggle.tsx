@@ -40,6 +40,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
+      data-sound={isLight ? "toggle-off" : "toggle-on"}
       aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
       title={isLight ? "Dark" : "Light"}
       className="grid size-8 place-items-center rounded-[9px] border border-line bg-surface text-dim shadow-card transition-colors hover:border-line-strong hover:text-ink"

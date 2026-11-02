@@ -7,6 +7,7 @@ import { ThemeToggle } from "./theme-toggle";
 import { Shell } from "./primitives";
 import { cn } from "@/lib/utils";
 import { AskButton, Sparkle } from "./ask-ai";
+import { SoundToggle } from "./sound-layer";
 
 const nav = [
   { label: "PinDey", href: "/#pindey" },
@@ -61,6 +62,7 @@ export function SiteHeader() {
               <span className="sr-only sm:hidden">Ask my AI</span>
             </AskButton>
             <CommandPalette />
+            <SoundToggle />
             <ThemeToggle />
 
             <Link

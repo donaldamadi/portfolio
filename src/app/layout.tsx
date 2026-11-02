@@ -7,6 +7,7 @@ import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
 import { Explorer } from "@/components/explorer";
 import { AskAI } from "@/components/ask-ai";
+import { SoundLayer } from "@/components/sound-layer";
 
 // Geist Serif, everywhere on the site (the CV PDF keeps its own type). It ships
 // in one weight, so hierarchy comes from size and colour; globals.css turns off
@@ -14,7 +15,7 @@ import { AskAI } from "@/components/ask-ai";
 const serif = GeistSerifRegular;
 
 const description =
-  "Product engineer in Lagos. Five years shipping mobile apps in React Native, Flutter, Swift and Kotlin, React and Next.js on the web, and the Node services behind them. Building PinDey.";
+  "Product engineer across mobile, web and backend. Five years shipping apps in React Native, Flutter, Swift and Kotlin, web apps in React and Next.js, and the Node.js services behind them. Building PinDey.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -95,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteFooter />
         <Explorer />
         <AskAI />
+        <SoundLayer />
       </body>
     </html>
   );

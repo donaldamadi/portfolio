@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { unlock } from "@/lib/achievements";
+import { playUi } from "@/lib/sound";
 
 /**
  * A working, browser-sized PinDey Finder.
@@ -80,9 +81,12 @@ export function FinderDemo() {
     if (nd < refDistance.current - HYSTERESIS) {
       refDistance.current = nd;
       setTrend("warmer");
+      // Like PinDey's haptics: the closer you get, the higher the tick.
+      if (byHand) playUi("warmer", Math.max(0, Math.min(1, 1 - nd / 34)));
     } else if (nd > refDistance.current + HYSTERESIS) {
       refDistance.current = nd;
       setTrend("colder");
+      if (byHand) playUi("colder");
     }
 
     // Keep the arrow's rotation continuous, so it never spins the long way round.
@@ -94,6 +98,7 @@ export function FinderDemo() {
     const nextPhase = phaseOf(nd);
     if (byHand && nextPhase === "found" && phaseRef.current !== "found") {
       navigator.vibrate?.([30, 50, 30]);
+      playUi("found");
       unlock("found-tolu");
     }
     phaseRef.current = nextPhase;

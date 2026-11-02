@@ -18,9 +18,12 @@ export const profile = {
   hero: {
     title: "I build mobile and web products, from the first screen to the server behind it.",
     intro:
-      "I'm a product engineer in Lagos with five years of shipping mobile apps, mostly in fintech. I work in React Native, Flutter, and native Swift and Kotlin on mobile, React, Next.js and TypeScript on the web, and Node.js on the server.",
-    /** Rendered after "Building PinDey." with PinDey linked to pindey.app. */
-    status: "Open to React Native and senior product engineering roles.",
+      "I'm a product engineer with five years of shipping products people use for their money, their health and their weekends. On mobile I work in React Native, Flutter, Swift and Kotlin; on the web in React, Next.js and TypeScript; and on the server in Node.js, NestJS and PostgreSQL.",
+    /**
+     * Rendered after "Building PinDey." with PinDey linked to pindey.app. Says
+     * what kind of role, not which stack: the range is the point.
+     */
+    status: "Open to senior product engineering roles, whether the work lives on mobile, the web, the backend, or all three.",
   },
 
   /**
