@@ -126,17 +126,41 @@ function sourceList(found: Retrieved[]) {
     .map((s) => ({ title: s.title.replace(/^(Case study|Medium|Substack|GitHub): /, ""), url: s.url ?? null, kind: s.kind }));
 }
 
-/** Without an API key, answer with the passages themselves rather than failing. */
-function offlineAnswer(found: Retrieved[]): string {
+/**
+ * Without a working API key, answer with the passages themselves rather than
+ * failing. The opening differs by cause so a broken setup is easy to tell
+ * apart: "switched off" means no key in this deployment, "couldn't connect"
+ * means Anthropic rejected the key.
+ */
+function offlineAnswer(found: Retrieved[], cause: "no-key" | "auth"): string {
   if (!found.length) return "I couldn't find anything on that in Donald's notes. Email him at donaldamadi15@gmail.com and he'll answer himself.";
+  const lead = cause === "no-key" ? "The AI is switched off right now" : "The AI couldn't connect just now";
   const excerpt = found
     .slice(0, 2)
     .map((r) => r.text.replace(/^\[[^\]]*\]\n/, "").replace(/\s+/g, " ").slice(0, 420))
     .join("\n\n");
-  return `The AI is switched off right now, so here's the most relevant part of Donald's notes:\n\n${excerpt}`;
+  return `${lead}, so here's the most relevant part of Donald's notes:\n\n${excerpt}`;
 }
 
 /* ---------------------------------------------------------------- handler */
+
+/** Read once per request. Trimmed, because a pasted key often carries a stray space or newline. */
+const apiKey = () => process.env.ANTHROPIC_API_KEY?.trim() || "";
+
+/**
+ * GET /api/ask: a setup check you can open in a browser. Says whether this
+ * deployment has a key and whether it looks like an Anthropic one. Never
+ * reveals any part of the key, and makes no API call.
+ */
+export function GET(): Response {
+  const key = apiKey();
+  const ai = !key
+    ? "off: this deployment has no ANTHROPIC_API_KEY. Add it in Vercel for this environment, then redeploy."
+    : key.startsWith("sk-ant-")
+      ? "on: a key is set and looks like an Anthropic key."
+      : "off: ANTHROPIC_API_KEY is set but doesn't look like an Anthropic key (those start with sk-ant-).";
+  return Response.json({ ai, model: MODEL }, { headers: { "cache-control": "no-store" } });
+}
 
 export async function POST(req: Request): Promise<Response> {
   if (!sameOrigin(req)) return single([{ type: "error", message: "Ask from donaldamadi.dev." }, { type: "done" }], 403);
@@ -160,8 +184,10 @@ export async function POST(req: Request): Promise<Response> {
   const found = retrieve([userTurns.at(-2)?.content ?? "", question].join(" "), 8);
   const sources = sourceList(found);
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return single([{ type: "sources", sources }, { type: "text", text: offlineAnswer(found) }, { type: "done" }]);
+  const key = apiKey();
+  if (!key) {
+    console.warn("[ask] ANTHROPIC_API_KEY is not set for this deployment; answering from notes.");
+    return single([{ type: "sources", sources }, { type: "text", text: offlineAnswer(found, "no-key") }, { type: "done" }]);
   }
 
   const context = found.map((r, i) => `<passage index="${i + 1}" source="${r.source.title}"${r.source.url ? ` url="${r.source.url}"` : ""}>\n${r.text}\n</passage>`).join("\n");
@@ -171,7 +197,7 @@ export async function POST(req: Request): Promise<Response> {
       : { role: t.role, content: t.content },
   );
 
-  const client = new Anthropic();
+  const client = new Anthropic({ apiKey: key });
   const stream = client.messages.stream(
     {
       model: MODEL,
@@ -204,10 +230,13 @@ export async function POST(req: Request): Promise<Response> {
           } else if (error instanceof Anthropic.RateLimitError) {
             controller.enqueue(line({ type: "error", message: "The AI is busy right now. Try again in a minute." }));
           } else if (error instanceof Anthropic.AuthenticationError) {
-            controller.enqueue(line({ type: "text", text: offlineAnswer(found) }));
+            console.error("[ask] Anthropic rejected the API key (401). Check ANTHROPIC_API_KEY in Vercel.");
+            controller.enqueue(line({ type: "text", text: offlineAnswer(found, "auth") }));
           } else if (error instanceof Anthropic.APIError) {
+            console.error(`[ask] Anthropic API error ${error.status ?? "?"}: ${error.message}`);
             controller.enqueue(line({ type: "error", message: "Something went wrong on the AI's side. Try again, or email Donald." }));
           } else {
+            console.error("[ask] Unexpected error:", error);
             controller.enqueue(line({ type: "error", message: "Something went wrong. Try again, or email Donald." }));
           }
         }
