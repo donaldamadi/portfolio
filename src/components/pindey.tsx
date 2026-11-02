@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { pindey } from "@/content/pindey";
 import { FinderDemo } from "./finder-demo";
 import { BadgeList, Panel, Section, Tray, buttonClass } from "./primitives";
 import { cn } from "@/lib/utils";
+import { unlock } from "@/lib/achievements";
 
 type SurfaceId = (typeof pindey.surfaces)[number]["id"];
 
@@ -17,6 +18,13 @@ type SurfaceId = (typeof pindey.surfaces)[number]["id"];
  */
 export function PinDey() {
   const [active, setActive] = useState<SurfaceId>("app");
+  const seen = useRef(new Set<SurfaceId>(["app"]));
+
+  const choose = (id: SurfaceId) => {
+    setActive(id);
+    seen.current.add(id);
+    if (seen.current.size === pindey.surfaces.length) unlock("pindey-tour");
+  };
   const surface = pindey.surfaces.find((s) => s.id === active) ?? pindey.surfaces[0];
 
   return (
@@ -58,7 +66,7 @@ export function PinDey() {
               id={`tab-${s.id}`}
               aria-selected={on}
               aria-controls={`panel-${s.id}`}
-              onClick={() => setActive(s.id)}
+              onClick={() => choose(s.id)}
               className={cn(
                 "whitespace-nowrap rounded-[9px] px-3.5 py-1.5 text-[0.9375rem] font-medium transition-colors",
                 on ? "bg-surface text-ink shadow-card" : "text-dim hover:text-ink",

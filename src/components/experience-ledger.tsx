@@ -4,6 +4,7 @@ import { useState } from "react";
 import { experience } from "@/content/experience";
 import { BadgeList, Panel, Section, Tray } from "./primitives";
 import { cn } from "@/lib/utils";
+import { unlock } from "@/lib/achievements";
 
 /**
  * One line per role, so the whole arc is visible at once; the detail is one
@@ -29,7 +30,10 @@ export function ExperienceLedger() {
                 <h3>
                   <button
                     type="button"
-                    onClick={() => setOpenId(open ? null : role.id)}
+                    onClick={() => {
+                      setOpenId(open ? null : role.id);
+                      if (!open && role.id !== experience[0]?.id) unlock("read-record");
+                    }}
                     aria-expanded={open}
                     aria-controls={panelId}
                     className="grid w-full grid-cols-[1fr_auto] items-center gap-4 px-5 py-4 text-left transition-colors hover:bg-surface-2/60 sm:grid-cols-[1.1fr_1fr_auto] sm:px-6"

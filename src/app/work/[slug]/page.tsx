@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
 import { Shell } from "@/components/primitives";
+import { UnlockOnMount } from "@/components/unlock-on-mount";
 import { profile } from "@/content/profile";
 
 type Params = { slug: string };
@@ -44,6 +45,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
   return (
     <article className="pb-24 pt-32 sm:pt-40" style={{ ["--study-accent" as string]: accent }}>
+      <UnlockOnMount id="case-study" />
       <Shell>
         <Link href="/#work" className="link text-[0.9375rem] text-dim">
           Back to all work

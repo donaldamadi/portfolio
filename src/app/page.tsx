@@ -2,6 +2,7 @@ import { Hero } from "@/components/hero";
 import { PinDey } from "@/components/pindey";
 import { ReactNative } from "@/components/react-native";
 import { WorkIndex } from "@/components/work-index";
+import { CareerRun } from "@/components/career-run";
 import { ExperienceLedger } from "@/components/experience-ledger";
 import { HowIWork } from "@/components/how-i-work";
 import { OpenSource } from "@/components/open-source";
@@ -54,6 +55,7 @@ export default function HomePage() {
       <PinDey />
       <ReactNative />
       <WorkIndex />
+      <CareerRun />
       <ExperienceLedger />
       <HowIWork />
       <OpenSource />

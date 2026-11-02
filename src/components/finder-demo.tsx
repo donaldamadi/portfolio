@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { unlock } from "@/lib/achievements";
 
 /**
  * A working, browser-sized PinDey Finder.
@@ -93,6 +94,7 @@ export function FinderDemo() {
     const nextPhase = phaseOf(nd);
     if (byHand && nextPhase === "found" && phaseRef.current !== "found") {
       navigator.vibrate?.([30, 50, 30]);
+      unlock("found-tolu");
     }
     phaseRef.current = nextPhase;
     setYou(p);

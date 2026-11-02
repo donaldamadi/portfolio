@@ -1,5 +1,6 @@
 import { profile } from "@/content/profile";
 import { pindey } from "@/content/pindey";
+import { HeroFinder } from "./hero-finder";
 import { Shell, Tray, buttonClass } from "./primitives";
 
 const github = profile.links.find((link) => link.label === "GitHub")?.href ?? "";
@@ -123,16 +124,7 @@ function ProductShot() {
         <div className="absolute -bottom-2 right-0 w-[150px] rounded-[28px] border border-line-strong bg-surface p-2 shadow-float sm:w-[184px]">
           <div className="rounded-[22px] bg-surface-2 px-3 pb-4 pt-3">
             <span className="mx-auto block h-1 w-10 rounded-full bg-line-strong" />
-            <p className="mt-3 text-center text-[0.6875rem] text-faint">Finding Tolu</p>
-            <div className="relative mx-auto mt-2 grid size-[92px] place-items-center rounded-full border border-line-strong bg-surface sm:size-[108px]">
-              <svg viewBox="-60 -60 120 120" className="absolute inset-[16%]" style={{ transform: "rotate(38deg)" }}>
-                <path d="M0 -50 L24 4 L7 -3 L7 44 L-7 44 L-7 -3 L-24 4 Z" fill="var(--accent-2)" />
-              </svg>
-            </div>
-            <p className="mt-3 text-center text-[1.25rem] font-semibold tabular-nums text-ink">
-              24<span className="ml-0.5 text-[0.75rem] font-normal text-faint">m</span>
-            </p>
-            <p className="text-center text-[0.75rem] font-medium text-accent-2">warmer</p>
+            <HeroFinder />
           </div>
         </div>
       </div>

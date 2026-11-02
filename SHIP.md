@@ -92,6 +92,9 @@ Still worth a second look:
 - `public/Donald-Amadi-CV.pdf` is the full-stack CV (Nov 2026) with an Ofin Eko entry (React Native)
   added under Projects & Open Source. It was spliced into the LaTeX PDF, not regenerated, so when you
   next edit the CV's LaTeX source, add the Ofin Eko entry there too or it will drop out.
+- `src/content/career-run.ts`: the game's eight chapters. Every bug, fix and "Shipped:" line is drawn
+  from your experience and case studies. If a role or date changes there, change it here too.
+- `src/lib/achievements.ts`: the ten things to find. Progress lives only in the visitor's browser.
 - `src/content/work.ts` → `offTheClock`: two lines of your own prose, unattributed and unlabelled.
   Delete the block if you'd rather keep that separate from work.
 - The SnapPay dates (`Apr 2026 - Jun 2026`) overlap Zedcrest and MedPal. That's accurate to your CV

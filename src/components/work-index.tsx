@@ -6,6 +6,7 @@ import { work } from "@/content/work";
 import type { Platform } from "@/content/types";
 import { BadgeList, ExternalLink, Panel, Section, Tray } from "./primitives";
 import { cn } from "@/lib/utils";
+import { unlock } from "@/lib/achievements";
 
 const FILTERS: readonly ("All" | Platform)[] = ["All", "React Native", "React", "Flutter", "Native", "Node.js"];
 
@@ -34,7 +35,10 @@ export function WorkIndex() {
               key={f}
               type="button"
               aria-pressed={on}
-              onClick={() => setFilter(f)}
+              onClick={() => {
+                setFilter(f);
+                if (f !== "All") unlock("platform-filter");
+              }}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-[9px] border px-3 py-1.5 text-[0.875rem] font-medium transition-colors",
                 on ? "border-ink bg-ink text-bg" : "border-line bg-surface text-dim shadow-card hover:border-line-strong hover:text-ink",

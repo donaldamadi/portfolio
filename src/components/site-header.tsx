@@ -11,6 +11,7 @@ const nav = [
   { label: "PinDey", href: "/#pindey" },
   { label: "React Native", href: "/#react-native" },
   { label: "Work", href: "/#work" },
+  { label: "Play", href: "/#play" },
   { label: "Experience", href: "/#experience" },
   { label: "About", href: "/about" },
 ];

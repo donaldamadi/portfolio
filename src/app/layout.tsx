@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { profile, SITE_URL } from "@/content/profile";
 import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
+import { Explorer } from "@/components/explorer";
 
 // Geist Serif, everywhere on the site (the CV PDF keeps its own type). It ships
 // in one weight, so hierarchy comes from size and colour; globals.css turns off
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f7fb" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <Explorer />
       </body>
     </html>
   );

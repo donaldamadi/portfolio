@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { caseStudies } from "@/content/case-studies";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
+import { unlock } from "@/lib/achievements";
 
 /**
  * A command is plain data. What it does is decided by `run` below, in an event
@@ -34,6 +35,7 @@ const COMMANDS: readonly Command[] = [
   section("pindey", "PinDey"),
   section("react-native", "React Native"),
   section("work", "Work"),
+  section("play", "Play the career run"),
   section("experience", "Experience"),
   section("how", "How I work"),
   section("open-source", "Open source and writing"),
@@ -113,6 +115,7 @@ export function CommandPalette() {
         event.preventDefault();
         restoreFocusTo.current = document.activeElement as HTMLElement | null;
         setOpen((prev) => !prev);
+        unlock("shortcut");
       }
       if (event.key === "Escape" && open) {
         event.preventDefault();
@@ -142,6 +145,7 @@ export function CommandPalette() {
         onClick={(event) => {
           restoreFocusTo.current = event.currentTarget;
           setOpen(true);
+          unlock("shortcut");
         }}
         className="hidden items-center gap-2 rounded-[9px] border border-line bg-surface px-2.5 py-1.5 text-[0.8125rem] text-faint shadow-card transition-colors hover:border-line-strong hover:text-dim sm:inline-flex"
       >
