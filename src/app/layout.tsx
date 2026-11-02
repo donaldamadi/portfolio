@@ -6,6 +6,7 @@ import { profile, SITE_URL } from "@/content/profile";
 import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
 import { Explorer } from "@/components/explorer";
+import { AskAI } from "@/components/ask-ai";
 
 // Geist Serif, everywhere on the site (the CV PDF keeps its own type). It ships
 // in one weight, so hierarchy comes from size and colour; globals.css turns off
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <SiteFooter />
         <Explorer />
+        <AskAI />
       </body>
     </html>
   );

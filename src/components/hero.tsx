@@ -1,6 +1,7 @@
 import { profile } from "@/content/profile";
 import { pindey } from "@/content/pindey";
 import { HeroFinder } from "./hero-finder";
+import { AskButton } from "./ask-ai";
 import { Shell, Tray, buttonClass } from "./primitives";
 
 const github = profile.links.find((link) => link.label === "GitHub")?.href ?? "";
@@ -42,6 +43,7 @@ export function Hero() {
               <a href="/Donald-Amadi-CV.pdf" target="_blank" rel="noreferrer" className={buttonClass("outline")}>
                 Download CV
               </a>
+              <AskButton className={buttonClass("outline")} />
               <a href={github} target="_blank" rel="noreferrer noopener" className={buttonClass("quiet")}>
                 GitHub
               </a>

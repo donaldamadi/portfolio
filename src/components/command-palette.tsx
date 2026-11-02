@@ -6,6 +6,7 @@ import { caseStudies } from "@/content/case-studies";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
 import { unlock } from "@/lib/achievements";
+import { openAsk } from "./ask-ai";
 
 /**
  * A command is plain data. What it does is decided by `run` below, in an event
@@ -14,7 +15,8 @@ import { unlock } from "@/lib/achievements";
 type Action =
   | { kind: "section"; hash: string }
   | { kind: "route"; href: string }
-  | { kind: "link"; href: string };
+  | { kind: "link"; href: string }
+  | { kind: "ask" };
 
 type Command = {
   id: string;
@@ -32,6 +34,7 @@ const section = (id: string, label: string): Command => ({
 });
 
 const COMMANDS: readonly Command[] = [
+  { id: "ask", label: "Ask my AI", group: "Navigate", hint: "Questions about my work", action: { kind: "ask" } },
   section("pindey", "PinDey"),
   section("react-native", "React Native"),
   section("work", "Work"),
@@ -96,6 +99,8 @@ export function CommandPalette() {
       const el = document.querySelector(action.hash);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       else router.push(`/${action.hash}`);
+    } else if (action.kind === "ask") {
+      openAsk();
     } else if (action.kind === "route") {
       router.push(action.href);
     } else {

@@ -1,0 +1,71 @@
+# Backend CV (Node.js/TypeScript)
+
+DONALD AMADI
+Senior Product Engineer | Node.js/TypeScript Backend | Fintech | AI-Forward  donaldamadi15@gmail.com linkedin.com/in/donald-amadi github.com/donaldamadi  donaldamadi.dev
+Professional Summary Senior Product Engineer with 5+ years in fintech, building payment and lending products around the failure states that matter in money movement: retries, reconciliation and idempotent disbursement. I designed and run the Node.js/TypeScript backend behind PinDey (live at pindey.app): RESTful APIs on PostgreSQL, a transactional outbox for event-driven fan-out, idempotency keys, rotating refresh tokens, RBAC with an audit log, and versioned migrations. I integrate payment and identity providers (Mono, Prembly, Paystack, Rave/Flutterwave) and ship AI-forward through agent loops and skill files I author.
+Core Skills Backend: Node.js, TypeScript, Express, RESTful API design, PostgreSQL + PostGIS, SQL and versioned migrations, Prisma, Redis, BullMQ job queues, Supabase, JWT with refresh-token rotation, OAuth (Apple, Google), email OTP, push fan-out. Architecture: event-driven systems with a transactional outbox, idempotency keys, ledger-safe retries and reconciliation, state machines, RBAC and audit logging, data retention by design, Clean Architecture. Payments & fintech: wallets and ledgers, disbursement and card repayment (Rave/Flutterwave, Paystack), open banking (Mono), KYC (Prembly, HyperVerge; BVN/NIN/liveness), AES request/response encryption. Testing & ops: automated tests, GitHub Actions, Sentry, GCP, Vercel, Supabase. Languages: TypeScript, JavaScript, SQL, Java, Python.
+AI-Forward Engineering How I ship: agentic loops (plan, act, verify, correct) with explicit guardrails and stop conditions. Coding agents implement, refactor and review; static analysis, tests and my own review gate every merge. Harness & context engineering: skill files and CLAUDE.md/AGENTS.md hierarchies that let agents work inside real conventions; decomposed a live fintech codebase into feature-scoped skill documents and published the approach as an open-source CLI (flutter skill gen). Tools: Claude Code, Cursor, Copilot, MCP servers, Claude API.
+Education
+University of Lagos Bachelor of Science in Computer Engineering
+August 2023 Lagos, Nigeria
+Experience PinDey | pindey.app
+September 2026 – Present Founder & Product Engineer, own product (Backend, API, Back Office) Lagos, Nigeria
+• Designed, built and run the backend for PinDey, a live friend-finding product: a Node.js/TypeScript REST API on PostgreSQL + PostGIS (Supabase), serving its mobile clients, the web tools at pindey.app and an admin back office.
+• Modelled users, devices, Spaces (events), Crews (groups) and memberships, hosts, venues, reports, blocks and announcements, evolved through 12 versioned, checksummed SQL migrations by a custom migration runner.
+• Made real-time delivery reliable with a transactional outbox: state changes and their publish events commit in one transaction, and a relay publishes with attempt counts and last-error tracking, so a crash between write and publish can never drop or invent an update.
+• Protected every mutating endpoint with idempotency keys (request hash + stored response) so mobile retries over flaky networks replay the original result instead of double-applying; sessions use rotating refresh tokens, federated identities (Apple, Google) and email OTP.
+• Live positions expire about 2 minutes after the last update with no location history kept; the back office runs on RBAC admin roles, an audit log of admin actions with diffs, moderation, remote config overrides and announcements.
+Zedcrest Group
+March 2024 – Current Mobile Engineer, Full-time (Zedvance Personal & Business Banking) Lagos, Nigeria
+• Built ExtraCash, embedded digital lending inside Zedvance: eligibility from open-banking bank-statement analysis (Mono), KYC tiers and employment/income capture, with automated decisioning and reason-carrying limit reassessment when income changes.
+• Modelled the loan journey as a resumable, persisted state machine with capability gating: a user who drops at statement consent or KYC returns to the exact step, and deep links, push notifications or app resume can never skip a gate.
+Implemented the money flow end to end: instant disbursement to wallet, retried against Zedvance’s wallet ledger with idempotent keys; repayment via debit card and Rave/Flutterwave reconciled against the card rail instead of optimistic local balances; OTP/email verification and KYC-upgrade gating.
+• AI-forward delivery: turned 20 Figma screens for the ExtraCash revamp into a 1,852-line design spec and a single orchestrated agent brief covering 15 implementation areas, then built against it with agents under review.
+•
+SnapPay
+April 2026 – June 2026 Flutter Engineer, Contract (SnapPay) Remote (Nigeria)
+• Delivered features for a production Nigerian fintech app (wallets, transfers, airtime/data/electricity bill payments, group & personal savings, invoices, QR pay, ticketing, rewards), shipping backwards-compatible, feature-flag-gated changes to live users.
+• Engineered an AES-encrypted networking layer with request/response encryption and automatic encryption-key refresh-and-retry on HTTP 403, plus session-expiry auto-logout on HTTP 401.
+• Integrated Prembly KYC (BVN/NIN/liveness), biometric authentication, QR scan-to-pay, PDF receipt generation and deep linking, on a layered MVVM core (Provider, get it, dartz functional error handling).
+• Authored modular, AI-loadable skill documents decomposing the codebase by feature so AI agents could work safely within it, applying harness and context engineering to a live app.
+MedPal
+June 2025 – Present Flutter Engineer, Contract (MedPal Provider)
+Remote
+• Built real-time provider-to-patient video and voice consultations with the Agora RTC engine, wired into the full telemedicine session lifecycle (incoming request, accept, in-call controls, completion) for a healthcare-provider platform.
+• Integrated Firebase AI (Vertex AI / Gemini) to power AI-assisted medical-specialty selection during provider onboarding.
+• Delivered provider earnings and payouts (available balance), payments, availability scheduling, QR generation, biometric login, and document/consent capture.
+• Led full English/Spanish internationalisation, migrating every user-facing string to gen-l10n (480+ keys) with CI parity tests, across a Clean Architecture, Cubit (flutter bloc), go router and get it codebase with multi-flavor Firebase (dev/staging/prod).
+Equivator
+October 2024 – May 2025 Senior Frontend Developer, Contract (Uplines Web/Mobile) Saudi Arabia (Remote)
+• Contributed to web and mobile platforms for the Uplines project, including native iOS widgets (Swift/SwiftUI) that boosted daily active users by 10% and UX enhancements that increased engagement by 20%.
+• Integrated advanced analytics (Firebase, CleverTap), enabling 30% faster data-driven decisions, and partnered with backend/design teams to improve scalability by 15%.
+• Spearheaded new features (gift points, tutorials, onboarding) and resolved critical bugs via Sentry and Firebase Crashlytics, improving stability by 30%.
+MAX
+March 2024 – December 2024 Flutter Mobile Developer, Full-time (PAMS Mobile, Falcon Web App) Lagos, Nigeria
+• Re-architected a legacy codebase to Clean Architecture, cutting bugs by 60% and improving scalability.
+• Built a multilingual testing app with voice playback, improving accessibility for diverse demographics.
+• Built and enhanced Falcon web app’s real-time map interface to track and monitor riders/drivers, integrating live geolocation, speed, and distance data for improved operational visibility.
+Creative Advanced Technologies
+June 2022 – August 2024 Flutter Mobile Developer, Contract (Tamata, Taza) Dubai, United Arab Emirates
+• Delivered a 25% UX improvement and 40% performance gain in an e-commerce app serving 500,000+ users through RxBloc optimisation and targeted performance tuning.
+• Improved workflows by leading code reviews and task tracking (Bitbucket, Jira) and deploying a Bitrise CI/CD pipeline, cutting release times by 50% and achieving a 90% build success rate.
+• Integrated Shorebird for code push, reducing deployment time by 70% and enabling faster delivery of updates on Android and iOS.
+Platnova
+October 2023 – April 2024 Flutter Mobile Developer, Full-time (Platnova) Lagos, Nigeria
+• Built a multi-currency wallet (5,000+ monthly transactions) with Paystack integration, improving efficiency and engagement.
+• Led UI enhancements including a dark mode and design review contributions, boosting retention.
+First Bank of Nigeria Flutter Mobile Developer, Contract (LitApp)
+February 2022 – January 2024 Lagos, Nigeria
+Built core flows of a multifunctional banking app: self-transfer, inter/intra-bank transfers, airtime purchases and bill payments, contributing to a 35% improvement in user experience and a 50% rise in customer satisfaction ratings.
+• Iterated on usability with the UI/UX team, driving a 30% increase in session duration, a 15% improvement in retention and 10% more positive app reviews.
+•
+Student Paddy
+June 2021 – June 2022 Lead Mobile Developer (StudentPaddy) Lagos, Nigeria
+• Led the build of an educational social app for iOS and Android in Flutter, with real-time in-app chat, Firebase push notifications and deep linking to drive engagement.
+Algorism Limited
+May 2021 – November 2021 Software Developer Intern (RealtyProx, TaskProx) Lagos, Nigeria
+• Designed a real-time bidding system for real estate and built reusable, performance-optimised Flutter components for property transactions.
+Projects & Open Source Job scraper platform | TypeScript, Express, Prisma, PostgreSQL, Redis, BullMQ 2026 – Current
+• Building a TypeScript job-aggregation service: an Express REST API with Prisma over PostgreSQL (Supabase), Redis and BullMQ queues for scheduled scraping jobs with retries, JWT authentication, and a typed API contract consumed by a separate frontend. Adduce | SaaS, PostgreSQL, API design August 2026 – Current
+• Founding an early-stage SaaS that produces signed, clause-mapped accessibility-compliance evidence (EN 301 549 / European Accessibility Act). Authored the architecture, data model, API, security model and decision log; Postgres provisioned in the EU.
+Leadership & Community Melodia Academy, Lead Tutor (2022): mentored a team of 3 engineers in Flutter and ran code review on their projects. Andela Hackathon for Justice (2021): built a prison record-keeping app to tackle pretrial overcrowding. Writing: technical articles on Level Up Coding (Medium), most recently on context engineering for AI coding agents (2026).

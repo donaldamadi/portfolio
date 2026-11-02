@@ -68,6 +68,19 @@ domain is written down.
   eyebrow and rail labels, which are the smallest type on the page, so if you ever darken it in dark
   mode or lighten it in light mode, re-measure.
 
+## Turning on "Ask my AI"
+
+The assistant needs one environment variable in Vercel: **Settings → Environment Variables →
+`ANTHROPIC_API_KEY`** (Production and Preview), then redeploy. Until it's set, the assistant still
+answers, by showing the most relevant passage from your notes instead of a written answer.
+
+- Model: Claude Opus 5.5 at low effort, with server-side refusal fallbacks on.
+- Knowledge: `knowledge/` plus Medium, Substack and GitHub, rebuilt before every build. See
+  `knowledge/README.md`. The Substack feed is assumed to be `donaldamadi.substack.com/feed`; if your
+  publication lives elsewhere, change `FEEDS` in `scripts/build-knowledge.mts`.
+- Cost guard: 15 questions per visitor per 10 minutes, per server instance. For a hard limit, add a
+  Vercel Firewall rate-limit rule on `/api/ask`, and set a monthly spend limit on the Anthropic key.
+
 ## Read this before you send the link to anyone
 
 Everything factual comes from your CVs, your GitHub and your Medium posts. But the four case studies

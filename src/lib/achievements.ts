@@ -18,7 +18,8 @@ export type AchievementId =
   | "shortcut"
   | "first-ship"
   | "clean-release"
-  | "full-career";
+  | "full-career"
+  | "asked-ai";
 
 export type Achievement = {
   readonly id: AchievementId;
@@ -38,6 +39,7 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   { id: "first-ship", title: "First ship", hint: "Clear the first chapter of the career run." },
   { id: "clean-release", title: "Clean release", hint: "Clear a career-run chapter without a single hit." },
   { id: "full-career", title: "Whole career", hint: "Play the career run to the end." },
+  { id: "asked-ai", title: "Asked my AI", hint: "Ask my AI a question about my work." },
 ];
 
 export const UNLOCK_EVENT = "da:achievement";

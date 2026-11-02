@@ -20,6 +20,7 @@ import {
   type RunState,
 } from "@/lib/career-run";
 import { unlock } from "@/lib/achievements";
+import { Chiptune, type Sfx } from "@/lib/chiptune";
 import { Panel, Section, Tray, buttonClass } from "./primitives";
 import { cn } from "@/lib/utils";
 
@@ -47,6 +48,31 @@ function saveBest(score: number): void {
 function subscribeBest(cb: () => void): () => void {
   window.addEventListener(BEST_EVENT, cb);
   return () => window.removeEventListener(BEST_EVENT, cb);
+}
+
+/* ---------------------------------------------------------------- sound preference */
+
+const SOUND_KEY = "da-career-run-sound";
+const SOUND_EVENT = "da:career-sound";
+
+function readSound(): boolean {
+  try {
+    return localStorage.getItem(SOUND_KEY) !== "off";
+  } catch {
+    return true;
+  }
+}
+function writeSound(on: boolean): void {
+  try {
+    localStorage.setItem(SOUND_KEY, on ? "on" : "off");
+  } catch {
+    /* private mode */
+  }
+  window.dispatchEvent(new Event(SOUND_EVENT));
+}
+function subscribeSound(cb: () => void): () => void {
+  window.addEventListener(SOUND_EVENT, cb);
+  return () => window.removeEventListener(SOUND_EVENT, cb);
 }
 
 /* ---------------------------------------------------------------- colours */
@@ -248,6 +274,16 @@ export function CareerRun() {
   const [ui, setUi] = useState<Ui>({ phase: "ready", chapter: 0, lives: 3, score: 0, clean: false, mode: "normal" });
   const [message, setMessage] = useState("");
   const best = useSyncExternalStore(subscribeBest, readBest, () => 0);
+  const soundOn = useSyncExternalStore(subscribeSound, readSound, () => true);
+  const audioRef = useRef<Chiptune | null>(null);
+  const play = useCallback((kind: Sfx) => audioRef.current?.sfx(kind), []);
+
+  /** Audio can only start from a click or key press, so this runs inside those handlers. */
+  const wakeAudio = useCallback(() => {
+    if (!audioRef.current) audioRef.current = new Chiptune();
+    audioRef.current.setMuted(!readSound());
+    audioRef.current.unlock();
+  }, []);
 
   const sync = useCallback((clean = false) => {
     const s = runRef.current;
@@ -269,19 +305,26 @@ export function CareerRun() {
     (events: RunEvent[]) => {
       for (const e of events) {
         const chapter = CHAPTERS[runRef.current.chapter];
-        if (e.type === "hit") {
+        if (e.type === "token") {
+          play("token");
+        } else if (e.type === "hit") {
+          play("hit");
           setMessage(`Hit by ${e.bug}. ${e.lives} ${e.lives === 1 ? "life" : "lives"} left.`);
           sync();
         } else if (e.type === "shield-used") {
+          play("shield");
           setMessage(`${e.bug}, fixed with ${e.fix}.`);
         } else if (e.type === "shield-picked") {
+          play("shield");
           setMessage(`Picked up ${e.label}. It takes the next hit.`);
         } else if (e.type === "cleared") {
           if (e.chapter === 0) unlock("first-ship");
           if (e.clean) unlock("clean-release");
+          play("cleared");
           setMessage(`Chapter ${e.chapter + 1} cleared. Shipped: ${chapter?.shipped ?? ""}.`);
           sync(e.clean);
         } else if (e.type === "over") {
+          play("over");
           saveBest(scoreOf(runRef.current));
           setMessage("Out of lives. Run it again when you're ready.");
           sync();
@@ -293,8 +336,16 @@ export function CareerRun() {
         }
       }
     },
-    [sync],
+    [sync, play],
   );
+
+  // Music plays only while a chapter is running; it stops for pauses, chapter
+  // cards and the end screens, and when the component goes away.
+  useEffect(() => {
+    if (ui.phase === "running") audioRef.current?.startMusic();
+    else audioRef.current?.stopMusic();
+  }, [ui.phase]);
+  useEffect(() => () => audioRef.current?.close(), []);
 
   // Size the canvas to its box, keep the palette in step with the theme, and
   // respect reduced motion.
@@ -363,6 +414,7 @@ export function CareerRun() {
   }, [sync]);
 
   const go = useCallback(() => {
+    wakeAudio();
     const s = runRef.current;
     if (s.phase === "over" || s.phase === "won") {
       runRef.current = createRun(SEED + Math.floor(performance.now()), s.mode);
@@ -376,7 +428,14 @@ export function CareerRun() {
     }
     sync();
     canvasRef.current?.focus({ preventScroll: true });
-  }, [sync]);
+  }, [sync, wakeAudio]);
+
+  const toggleSound = () => {
+    const next = !soundOn;
+    writeSound(next);
+    wakeAudio();
+    audioRef.current?.setMuted(!next);
+  };
 
   const toggleMode = () => {
     const s = runRef.current;
@@ -396,6 +455,7 @@ export function CareerRun() {
           event.preventDefault();
           const events: RunEvent[] = [];
           jump(s, events);
+          if (events.length) audioRef.current?.sfx("jump");
         } else if (event.key === "p" || event.key === "Escape") {
           event.preventDefault();
           pause();
@@ -456,6 +516,7 @@ export function CareerRun() {
                 event.preventDefault();
                 const events: RunEvent[] = [];
                 jump(runRef.current, events);
+                if (events.length) play("jump");
               }}
               className="block w-full touch-none select-none outline-none"
             />
@@ -546,14 +607,24 @@ export function CareerRun() {
             <p className="text-[0.8125rem] text-faint">
               {ui.phase === "running" ? "Space, up arrow or tap to jump. P to pause." : "Every bug in here is one I actually met."}
             </p>
-            <button
-              type="button"
-              onClick={ui.phase === "running" ? pause : go}
-              disabled={ui.phase === "cleared" || ui.phase === "won" || ui.phase === "over"}
-              className={cn(buttonClass("quiet"), "h-8 px-3 text-[0.875rem] disabled:opacity-40")}
-            >
-              {ui.phase === "running" ? "Pause" : ui.phase === "paused" ? "Resume" : "Play"}
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                aria-pressed={soundOn}
+                onClick={toggleSound}
+                className={cn(buttonClass("quiet"), "h-8 px-3 text-[0.875rem]")}
+              >
+                {soundOn ? "Sound on" : "Sound off"}
+              </button>
+              <button
+                type="button"
+                onClick={ui.phase === "running" ? pause : go}
+                disabled={ui.phase === "cleared" || ui.phase === "won" || ui.phase === "over"}
+                className={cn(buttonClass("quiet"), "h-8 px-3 text-[0.875rem] disabled:opacity-40")}
+              >
+                {ui.phase === "running" ? "Pause" : ui.phase === "paused" ? "Resume" : "Play"}
+              </button>
+            </div>
           </div>
           <p className="sr-only" aria-live="polite">
             {message}

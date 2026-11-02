@@ -6,6 +6,7 @@ import { CommandPalette } from "./command-palette";
 import { ThemeToggle } from "./theme-toggle";
 import { Shell } from "./primitives";
 import { cn } from "@/lib/utils";
+import { AskButton, Sparkle } from "./ask-ai";
 
 const nav = [
   { label: "PinDey", href: "/#pindey" },
@@ -54,6 +55,11 @@ export function SiteHeader() {
               ))}
             </nav>
 
+            <AskButton className="inline-flex h-8 items-center gap-1.5 rounded-[9px] border border-line bg-surface px-2.5 text-[0.875rem] text-ink shadow-card transition-colors hover:border-line-strong">
+              <Sparkle className="size-4 text-accent-2" />
+              <span className="hidden sm:inline">Ask AI</span>
+              <span className="sr-only sm:hidden">Ask my AI</span>
+            </AskButton>
             <CommandPalette />
             <ThemeToggle />
 
