@@ -4,17 +4,16 @@
  * House rules for this file, because they're product rules, not style:
  *   - Never describe PinDey with the word "track" or any form of it. People
  *     find, share and point to each other. That's the whole product stance.
- *   - No named technologies, frameworks or cloud providers until they're confirmed.
+ *   - Name only the technologies confirmed on the CV (Nov 2026): the Flutter app,
+ *     the Next.js web apps, the NestJS/Fastify services and their data stores.
  *   - No store availability and no user numbers until they're confirmed.
  *
- * TODO(donald): the stack per layer (app, backend, infra, and what powers precise
- * mode). Add it to `stack` below if and when you want it public.
+ * TODO(donald): what powers precise mode, if you want it named.
  * TODO(donald): App Store and Google Play links. Add them to `links` once you're
  * happy to claim store availability.
  */
 export const pindey = {
   name: "PinDey",
-  status: "Live in production",
   oneLiner: "Find your friends in a crowd, phone to phone.",
   tagline: "Where you dey? We go find you.",
 
@@ -32,14 +31,12 @@ export const pindey = {
 
   /** The Finder demo's caption, and the decision worth the most room. */
   finder: {
-    caption: "Drag yourself around the party, or tap anywhere. Use the arrow keys if you'd rather.",
     honest: {
       title: "My favourite decision: the Finder is honest.",
       body: [
         "When the phone can't tell which way to point, it doesn't guess. The arrow steps aside and it says “very close, look around”.",
         "Always showing an arrow would look better in a demo. But a confident arrow pointing the wrong way is worse than no arrow, because people follow it.",
       ],
-      tryIt: "Walk right up to Tolu in the demo and you'll see it.",
     },
   },
 
@@ -90,13 +87,40 @@ export const pindey = {
     { big: "Nothing", small: "sold. Ever." },
   ],
 
-  /** Where it's for. Rendered as a slow marquee. */
-  places: ["owambes", "house parties", "concerts", "festivals", "markets", "campuses", "weddings", "church"],
-  reach: "Lagos first. Built for anywhere people gather.",
-
-  /** Every layer, one person. */
-  layers: ["iOS app", "Android app", "Backend", "Infra", "pindey.app", "Admin back office", "Product"],
-  ownership: "Every ring from earlier, one person.",
-
-  stack: [] as readonly string[],
+  /**
+   * The four surfaces, shown as tabs. One product, one TypeScript monorepo,
+   * one OpenAPI contract that every client is built against.
+   */
+  monorepo:
+    "One pnpm and Turborepo monorepo. Every client is built against one shared OpenAPI contract, and Playwright, axe-core and Testcontainers-backed tests gate changes across web and API.",
+  surfaces: [
+    {
+      id: "app",
+      name: "Mobile app",
+      stack: ["Flutter", "iOS", "Android"],
+      summary:
+        "The Finder, Spaces, Crews, Flare and Radar. Searching keeps going in the background, with lock-screen updates, and sign-in is Apple, Google or an email code.",
+    },
+    {
+      id: "web",
+      name: "Website",
+      stack: ["React", "Next.js App Router", "Tailwind", "Cloudflare via OpenNext"],
+      summary:
+        "pindey.app: the landing page, an interactive walkthrough, and invite links that survive the app install. Plus browser tools that need no install, like dropping a meet point, where the location lives only in the URL fragment and never reaches the server.",
+    },
+    {
+      id: "admin",
+      name: "Back office",
+      stack: ["React", "Next.js", "Server-only data access", "Two-factor sign-in"],
+      summary:
+        "Users, Spaces, reports and moderation, testers, remote config, analytics, admin roles and an audit log, behind authenticator-app sign-in.",
+    },
+    {
+      id: "api",
+      name: "API and realtime",
+      stack: ["Node.js", "NestJS on Fastify", "PostgreSQL + PostGIS", "Redis", "BullMQ", "WebSockets"],
+      summary:
+        "A REST API, a WebSocket gateway for live presence and a BullMQ worker for push. State changes and their events commit in one transaction through an outbox, and every write takes an idempotency key, so a retry on a flaky network replays the answer instead of applying twice.",
+    },
+  ],
 } as const;

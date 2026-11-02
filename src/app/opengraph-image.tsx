@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { profile } from "@/content/profile";
 
-export const alt = `${profile.shortName} · ${profile.role}`;
+export const alt = `${profile.shortName}, ${profile.role.toLowerCase()}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -19,36 +19,52 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#05070d",
+          background: "#fafafa",
           padding: "72px 80px",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 10, height: 10, borderRadius: 999, background: "#34d399" }} />
-          <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, color: "#667e97" }}>
-            PRODUCT ENGINEER
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 52,
+              height: 52,
+              borderRadius: 12,
+              background: "#0a0a0a",
+              color: "#fafafa",
+              fontSize: 22,
+              fontWeight: 600,
+            }}
+          >
+            DA
           </div>
+          <div style={{ display: "flex", fontSize: 28, color: "#0a0a0a", fontWeight: 600 }}>{profile.shortName}</div>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            fontSize: 64,
-            lineHeight: 1.04,
-            color: "#f3f8fd",
-            letterSpacing: -2,
-            maxWidth: 1040,
-          }}
-        >
-          <span style={{ marginRight: 18 }}>Hey, I&apos;m Donald. I started on the screen, kept zooming out,</span>
-          <span style={{ color: "#38bdf8" }}>and now I build the whole thing.</span>
+        <div style={{ display: "flex", fontSize: 64, lineHeight: 1.08, color: "#0a0a0a", letterSpacing: -2, maxWidth: 1000 }}>
+          {profile.hero.title}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%" }}>
-          <div style={{ display: "flex", fontSize: 30, color: "#f3f8fd" }}>{profile.name}</div>
-          <div style={{ display: "flex", fontSize: 20, color: "#667e97" }}>product engineer · mobile at heart · AI in the loop</div>
+        <div style={{ display: "flex", gap: 12 }}>
+          {["React Native", "React", "Flutter", "TypeScript", "Node.js"].map((item) => (
+            <div
+              key={item}
+              style={{
+                display: "flex",
+                padding: "8px 16px",
+                borderRadius: 10,
+                background: "#f4f4f5",
+                border: "1px solid #e5e5e5",
+                fontSize: 22,
+                color: "#525252",
+              }}
+            >
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     ),

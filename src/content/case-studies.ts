@@ -5,7 +5,7 @@ export const caseStudies: readonly CaseStudy[] = [
     slug: "extracash-embedded-lending",
     title: "Lending, inside a bank people already trusted",
     kicker: "ExtraCash",
-    company: "Zedcrest Group · Zedvance",
+    company: "Zedcrest Group, Zedvance",
     period: "2024 - present",
     role: "Mobile Engineer",
     accentIndex: 0,
@@ -118,7 +118,7 @@ export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "pos-platform-channels",
     title: "Flutter on the screen, a vendor’s card kernel on the reader",
-    kicker: "POS · Platform Channels",
+    kicker: "POS and Platform Channels",
     company: "Zedcrest Group",
     period: "2024 - 2025",
     role: "Mobile Engineer",

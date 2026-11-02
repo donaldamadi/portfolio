@@ -2,58 +2,61 @@
 
 /* ------------------------------------------------------------------
    Palette
-   Two themes, one set of semantic tokens. Nothing in a component ever
-   names a colour, it names a role.
 
-   Five pigments, and only five: black, navy, sky blue, green, white.
-   Dark mode is white type on navy-black lit by sky blue, with green as
-   the second voice. Light mode inverts it: navy type on white paper,
-   both accents pushed darker so they still clear contrast on white.
+   A calm product-UI language, borrowed in spirit from BoardUI (MIT):
+   neutral greys doing nearly all the work, one blue accent for things you
+   can act on, and PinDey's green kept for PinDey alone. Light is the
+   default; dark is the same neutrals inverted, never a tinted near-black.
+
+   Nothing in a component names a colour. It names a role.
 ------------------------------------------------------------------ */
 
 :root {
+  color-scheme: light;
+
+  --bg: #fafafa;
+  --bg-veil: #fafafae6;
+  /* A panel that sits on the page. */
+  --surface: #ffffff;
+  /* The grey tray a panel sits in, and quiet fills. */
+  --surface-2: #f4f4f5;
+  --line: #e5e5e5;
+  --line-strong: #d4d4d4;
+  --ink: #0a0a0a;
+  --dim: #525252;
+  /* Clears 4.5:1 on both --bg and --surface. */
+  --faint: #6b6b6b;
+  --accent: #2563eb;
+  --accent-soft: #2563eb14;
+  /* PinDey's own colour. Only the PinDey section uses it. */
+  --accent-2: #047857;
+  --accent-2-soft: #04785714;
+
+  --shadow-card: 0 1px 1px 0 rgb(0 0 0 / 0.05);
+  --shadow-panel: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.08);
+  --shadow-float: 0 4px 6px -2px rgb(0 0 0 / 0.05), 0 12px 24px -6px rgb(0 0 0 / 0.12);
+}
+
+[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #05070d;
-  --bg-veil: #05070dd9;
-  --surface: #0a1121;
-  --surface-2: #101a30;
-  --line: #7fc3ff1c;
-  --line-strong: #7fc3ff3d;
-  --ink: #f3f8fd;
-  --dim: #a2b6ce;
-  /* Clears 4.5:1 against BOTH --bg and --surface. --faint carries the eyebrow
-     and rail labels, which are the smallest type on the page, so it is the
-     token most likely to fail an audit and the one worth over-specifying. */
-  --faint: #7189a3;
-  --accent: #38bdf8;
-  --accent-soft: #38bdf81f;
+  --bg: #0a0a0a;
+  --bg-veil: #0a0a0ae6;
+  --surface: #161616;
+  --surface-2: #1f1f1f;
+  --line: #2a2a2a;
+  --line-strong: #3a3a3a;
+  --ink: #fafafa;
+  --dim: #b4b4b4;
+  --faint: #8f8f8f;
+  --accent: #60a5fa;
+  --accent-soft: #60a5fa1f;
   --accent-2: #34d399;
   --accent-2-soft: #34d3991f;
 
-  --grain-opacity: 0.03;
-}
-
-[data-theme="light"] {
-  color-scheme: light;
-
-  --bg: #f7fafd;
-  --bg-veil: #f7fafdd9;
-  --surface: #ffffff;
-  --surface-2: #e9f1f9;
-  --line: #0a112114;
-  --line-strong: #0a112133;
-  --ink: #06101f;
-  --dim: #3f556e;
-  /* Dark enough to clear 4.5:1 on --bg, because --faint carries the eyebrow
-     and rail labels, which are the smallest type on the page. */
-  --faint: #5e738c;
-  --accent: #0176ba;
-  --accent-soft: #0176ba14;
-  --accent-2: #05745a;
-  --accent-2-soft: #05745a14;
-
-  --grain-opacity: 0.018;
+  --shadow-card: 0 1px 1px 0 rgb(0 0 0 / 0.3);
+  --shadow-panel: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --shadow-float: 0 4px 6px -2px rgb(0 0 0 / 0.3), 0 12px 24px -6px rgb(0 0 0 / 0.5);
 }
 
 @theme inline {
@@ -70,417 +73,149 @@
   --color-accent-2: var(--accent-2);
   --color-accent-2-soft: var(--accent-2-soft);
 
-  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-mono-jb), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-card: var(--shadow-card);
+  --shadow-panel: var(--shadow-panel);
+  --shadow-float: var(--shadow-float);
 
-  --breakpoint-3xl: 100rem;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* ------------------------------------------------------------------
    Base
 ------------------------------------------------------------------ */
 
-* {
-  border-color: var(--line);
-}
+/* Base and component rules live in cascade layers so Tailwind's utilities
+   always win. Unlayered, `a { color: inherit }` silently beat every text-*
+   class on a link. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-}
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
 
-body {
-  background-color: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-sans);
-  font-feature-settings: "calt" 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
 
-/* A single sheet of film grain over the whole page. Cheap, static, and it
-   stops large flat areas from reading as a default template. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+  ::selection {
+    background: var(--accent);
+    color: #fff;
+  }
 
-::selection {
-  background: var(--accent);
-  color: var(--bg);
-}
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* ------------------------------------------------------------------
-   Type primitives
------------------------------------------------------------------- */
-
-/* Outfit is geometric, so display sizes need real weight behind them and
-   tighter tracking than the serif this replaced. Line-height opens a little
-   because the ascenders are taller. */
-.display {
-  font-family: var(--font-display);
-  font-weight: 550;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
-}
-
-/* Sub-display headings. Body and display are now one family, so weight and
-   tracking are the only things separating a heading from a paragraph. Line
-   height is deliberately left to the call site. */
-.heading {
-  font-weight: 550;
-  letter-spacing: -0.02em;
-}
-
-/* Sky blue into green, left to right. Used on the one phrase per page that
-   should carry the accent. */
-.text-gradient {
-  background-image: linear-gradient(100deg, var(--accent), var(--accent-2));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.measure {
-  max-width: 62ch;
-}
-
-.measure-tight {
-  max-width: 46ch;
-}
-
-/* Numbered rail used down the left of every section. */
-.rail-index {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.1em;
-  color: var(--faint);
-  font-variant-numeric: tabular-nums;
-}
-
-/* ------------------------------------------------------------------
-   Reveal: hand-rolled scroll entrance. No animation library; the whole
-   thing is one IntersectionObserver and two custom properties.
------------------------------------------------------------------- */
-
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(var(--reveal-shift, 14px));
-  transition:
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
-}
-
-[data-reveal="shown"] {
-  opacity: 1;
-  transform: none;
-}
-
-/* Hairline that draws itself in. */
-.rule-draw {
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-[data-reveal="shown"] .rule-draw,
-.rule-draw[data-reveal="shown"] {
-  transform: scaleX(1);
-}
-
-/* ------------------------------------------------------------------
-   Underline that grows from the left on hover, used on every outbound link.
------------------------------------------------------------------- */
-
-.link {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0% 1px;
-  transition: background-size 320ms cubic-bezier(0.22, 1, 0.36, 1);
-  padding-bottom: 1px;
-}
-
-.link:hover,
-.link:focus-visible {
-  background-size: 100% 1px;
-}
-
-.link-static {
-  background-size: 100% 1px;
-  background-image: linear-gradient(var(--line-strong), var(--line-strong));
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  padding-bottom: 1px;
-  transition: background-image 320ms ease;
-}
-
-.link-static:hover,
-.link-static:focus-visible {
-  background-image: linear-gradient(currentColor, currentColor);
-}
-
-/* ------------------------------------------------------------------
-   Motifs. The same small set of moving pieces the GitHub README uses:
-   a blinking caret, lines that take turns, rings that ripple out from a
-   phone, an arrow that hunts and settles. All CSS, all compositor-only
-   (opacity and transform), and every one has a still frame under
-   prefers-reduced-motion further down.
------------------------------------------------------------------- */
-
-.caret {
-  animation: caret-blink 1s steps(1) infinite;
-}
-@keyframes caret-blink {
-  50% {
-    opacity: 0;
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
 
-/* Lines that take turns in the same spot. Three children, 9s loop. */
-.cycler {
-  position: relative;
-  display: block;
-  height: 1.3em;
-}
-.cycler > * {
-  position: absolute;
-  inset: 0 auto auto 0;
-  white-space: nowrap;
-  opacity: 0;
-  animation: cycler 9s infinite both;
-}
-.cycler > :nth-child(2) {
-  animation-delay: 3s;
-}
-.cycler > :nth-child(3) {
-  animation-delay: 6s;
-}
-@keyframes cycler {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
+/* ------------------------------------------------------------------
+   Type. One family, Inter. Weight, size and tracking do the work.
+------------------------------------------------------------------ */
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
   }
-  6%,
-  28% {
-    opacity: 1;
-    transform: none;
+
+  .heading {
+    font-weight: 600;
+    letter-spacing: -0.015em;
   }
-  33%,
-  100% {
-    opacity: 0;
-    transform: translateY(-6px);
+
+  /* A small label in sentence case. Says what a block is, quietly. */
+  .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--faint);
+  }
+
+  .measure {
+    max-width: 64ch;
+  }
+
+  .measure-tight {
+    max-width: 46ch;
+  }
+
+  /* Numbers in a sequence: the case study's sections, a timeline. */
+  .rail-index {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ------------------------------------------------------------------
+     Links: underline grows from the left on hover.
+  ------------------------------------------------------------------ */
+
+  .link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    padding-bottom: 1px;
+  }
+
+  .link:hover,
+  .link:focus-visible {
+    background-size: 100% 1px;
   }
 }
 
-/* Rings rippling out from a point. */
+/* ------------------------------------------------------------------
+   The Finder demo is the one piece of motion on the page, and it answers
+   what you do with it. These are its only keyframes.
+------------------------------------------------------------------ */
+
 .ripple {
-  animation: ripple 4.5s infinite ease-out both;
+  animation: ripple 3.2s infinite ease-out both;
 }
 @keyframes ripple {
   0% {
-    transform: scale(0.35);
-    opacity: 0.9;
+    transform: scale(0.4);
+    opacity: 0.8;
   }
   100% {
-    transform: scale(1.6);
+    transform: scale(1.5);
     opacity: 0;
   }
 }
 
-/* The Finder's haptic beat. Duration is set inline from distance. */
+/* The haptic beat. Its duration is set inline from distance. */
 .beat {
   animation: beat 1.6s infinite ease-out;
 }
 @keyframes beat {
   0% {
-    transform: scale(0.82);
-    opacity: 0.85;
+    transform: scale(0.84);
+    opacity: 0.8;
   }
   100% {
-    transform: scale(1.18);
+    transform: scale(1.16);
     opacity: 0;
-  }
-}
-
-.spin {
-  animation: spin 4s linear infinite;
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.ghost {
-  animation: ghost 3.2s ease-in-out infinite;
-}
-@keyframes ghost {
-  0%,
-  35% {
-    opacity: 1;
-  }
-  50%,
-  85% {
-    opacity: 0.12;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.flare {
-  animation: flare 2.4s ease-in-out infinite;
-}
-@keyframes flare {
-  0%,
-  40%,
-  100% {
-    background-color: var(--surface-2);
-    box-shadow: none;
-  }
-  50%,
-  70% {
-    background-color: #fffbe8;
-    box-shadow: 0 0 36px 6px #fde68a99;
-  }
-}
-
-/* One letter at a time, for the Space code. */
-.pop {
-  animation: pop 4s infinite both;
-}
-@keyframes pop {
-  0% {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  8%,
-  86% {
-    opacity: 1;
-    transform: none;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 32s linear infinite;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* A short dash running round the loop diagram. */
-.comet {
-  animation: comet 10s linear infinite;
-}
-@keyframes comet {
-  to {
-    stroke-dashoffset: -100;
-  }
-}
-
-/* Each loop step lights up in turn, 2s apiece over the same 10s. */
-.loop-step {
-  animation: loop-step 10s infinite both;
-}
-@keyframes loop-step {
-  0%,
-  20% {
-    border-color: var(--accent);
-    color: var(--ink);
-    background-color: var(--accent-soft);
-  }
-  24%,
-  100% {
-    border-color: var(--line-strong);
-    color: var(--dim);
-    background-color: var(--surface);
-  }
-}
-
-/* Countdown ring: two minutes of privacy, compressed into eight seconds. */
-.countdown {
-  animation: countdown 8s linear infinite;
-}
-@keyframes countdown {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: 100;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cycler > * {
-    animation: none;
-    opacity: 0;
-  }
-  .cycler > :last-child {
-    opacity: 1;
-  }
-  .ripple,
-  .beat,
-  .spin,
-  .ghost,
-  .flare,
-  .pop,
-  .comet,
-  .countdown {
-    animation: none;
-    opacity: 1;
-  }
-  .ripple {
-    opacity: 0.35;
-  }
-  .marquee {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-  }
-  .marquee-dup {
-    display: none;
-  }
-  .marquee-copy {
-    flex-wrap: wrap;
-  }
-  .loop-step {
-    animation: none;
   }
 }
 
@@ -500,9 +235,6 @@ a {
   border: 3px solid var(--bg);
   border-radius: 999px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--faint);
-}
 
 /* ------------------------------------------------------------------
    Respect the user. Always.
@@ -519,21 +251,9 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-  }
-  .rule-draw {
-    transform: none;
-  }
-}
-
-@media print {
-  body::after {
-    display: none;
-  }
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
+  .ripple,
+  .beat {
+    animation: none;
+    opacity: 0.35;
   }
 }

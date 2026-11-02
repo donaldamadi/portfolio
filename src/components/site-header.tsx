@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils";
 
 const nav = [
   { label: "PinDey", href: "/#pindey" },
-  { label: "How I work", href: "/#how" },
-  { label: "Writing", href: "/#writing" },
-  { label: "Long version", href: "/about" },
+  { label: "React Native", href: "/#react-native" },
+  { label: "Work", href: "/#work" },
+  { label: "Experience", href: "/#experience" },
+  { label: "About", href: "/about" },
 ];
 
 export function SiteHeader() {
@@ -27,27 +28,25 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         lifted ? "border-b border-line backdrop-blur-xl" : "border-b border-transparent",
       )}
       style={lifted ? { backgroundColor: "var(--bg-veil)" } : undefined}
     >
       <Shell>
         <div className="flex h-16 items-center justify-between gap-6">
-          <Link href="/" className="group flex items-baseline gap-2.5" aria-label="Donald Amadi, home">
-            <span className="heading text-lg text-ink">Donald Amadi</span>
-            <span className="hidden font-mono text-[0.625rem] tracking-[0.14em] text-faint sm:inline">
-              PRODUCT ENGINEER
-            </span>
+          <Link href="/" className="flex items-center gap-2.5" aria-label="Donald Amadi, home">
+            <span className="grid size-7 place-items-center rounded-lg bg-ink text-[0.8125rem] font-semibold text-bg">DA</span>
+            <span className="heading text-[1rem] text-ink">Donald Amadi</span>
           </Link>
 
           <div className="flex items-center gap-1 sm:gap-3">
-            <nav aria-label="Sections" className="hidden items-center gap-1 md:flex">
+            <nav aria-label="Sections" className="hidden items-center gap-0.5 lg:flex">
               {nav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-full px-3 py-1.5 text-[0.8125rem] text-dim transition-colors hover:text-ink"
+                  className="rounded-lg px-3 py-1.5 text-[0.875rem] text-dim transition-colors hover:bg-surface-2 hover:text-ink"
                 >
                   {item.label}
                 </Link>
@@ -59,10 +58,9 @@ export function SiteHeader() {
 
             <Link
               href="/#contact"
-              className="rounded-full bg-ink px-3.5 py-1.5 text-[0.8125rem] font-medium transition-opacity hover:opacity-85"
-              style={{ color: "var(--bg)" }}
+              className="rounded-[9px] bg-ink px-3.5 py-1.5 text-[0.875rem] font-medium text-bg transition-opacity hover:opacity-90"
             >
-              Get in touch
+              Contact
             </Link>
           </div>
         </div>

@@ -1,104 +1,109 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { profile } from "@/content/profile";
-import { volunteering } from "@/content/work";
-import { ExperienceLedger } from "@/components/experience-ledger";
-import { Section, Shell } from "@/components/primitives";
+import { projects, volunteering } from "@/content/work";
+import { BadgeList, ExternalLink, Panel, Section, Shell, Tray, buttonClass } from "@/components/primitives";
 
 const description =
-  "The long version: from fintech mobile engineer to product engineer, why PinDey exists, how I work with AI, and the full record.";
+  "About Donald Amadi: from fintech mobile engineer to product engineer, React Native and React, why PinDey exists, and the rest of the record.";
 
 export const metadata: Metadata = {
-  title: "The long version",
+  title: "About",
   description,
   alternates: { canonical: "/about" },
-  openGraph: { type: "profile", title: `The long version · ${profile.shortName}`, description, url: "/about" },
+  openGraph: { type: "profile", title: `About, ${profile.shortName}`, description, url: "/about" },
 };
 
-/**
- * The deeper story lives here, for anyone who chooses to open it. The home
- * page stays visual; this page is allowed to be read.
- */
+/** The longer story, for anyone who chooses to read it. The home page stays scannable. */
 export default function AboutPage() {
   return (
     <>
-      <article className="pb-20 pt-32 sm:pt-40">
+      <article className="pb-8 pt-28 sm:pt-36">
         <Shell>
-          <Link href="/" className="link inline-flex items-center gap-2 font-mono text-[0.6875rem] text-faint">
-            <span aria-hidden="true">←</span> The short version
+          <Link href="/" className="link text-[0.9375rem] text-dim">
+            Back to the home page
           </Link>
 
-          <p className="eyebrow mt-10" data-reveal>
-            The long version
-          </p>
-          <h1 className="display mt-6 text-[clamp(2.75rem,8vw,5.5rem)] text-ink" data-reveal>
-            Got five minutes?
-          </h1>
+          <h1 className="display mt-8 text-[clamp(2.5rem,6vw,4rem)] text-ink">About me</h1>
+          <p className="mt-3 text-[1.0625rem] text-dim">The longer story, in about five minutes.</p>
 
-          <div className="measure mt-12 space-y-6 text-[1.125rem] leading-[1.75] text-dim">
+          <div className="measure mt-10 space-y-6 text-[1.125rem] leading-[1.75] text-dim">
             {profile.longVersion.map((paragraph) => (
-              <p key={paragraph} data-reveal>
-                {paragraph}
-              </p>
+              <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
 
-          <p
-            className="display mt-14 max-w-[30ch] border-l pl-6 text-[clamp(1.375rem,2.6vw,2rem)] leading-[1.25] text-ink"
-            style={{ borderColor: "var(--accent)" }}
-            data-reveal
-          >
+          <p className="measure mt-10 border-l-2 border-accent pl-5 text-[1.25rem] font-medium leading-snug text-ink">
             {profile.coda}
           </p>
         </Shell>
       </article>
 
-      <ExperienceLedger />
+      <Section id="record" title="The rest of the record" intro="Education, teaching, and a few smaller projects.">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Tray>
+            <Panel className="h-full p-5 sm:p-6">
+              <h3 className="heading text-[1.125rem] text-ink">{profile.education.school}</h3>
+              <p className="mt-1 text-[0.9375rem] text-dim">
+                {profile.education.degree}, class of {profile.education.graduated}
+              </p>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-dim">{profile.education.note}</p>
+            </Panel>
+          </Tray>
 
-      <Section id="also" index="03" label="Also" title="The rest of the record.">
-        <div className="grid gap-12 sm:grid-cols-2 lg:gap-20">
-          <div data-reveal>
-            <p className="eyebrow">Education</p>
-            <h3 className="mt-5 text-[1.0625rem] text-ink">{profile.education.school}</h3>
-            <p className="mt-1 text-[0.9375rem] text-dim">{profile.education.degree}</p>
-            <p className="mt-1 font-mono text-[0.625rem] tracking-wide text-faint">
-              {profile.education.location} · Class of {profile.education.graduated}
-            </p>
-            <p className="measure-tight mt-4 text-[0.875rem] leading-relaxed text-faint">{profile.education.note}</p>
-          </div>
+          <Tray>
+            <Panel className="h-full p-5 sm:p-6">
+              <h3 className="heading text-[1.125rem] text-ink">Teaching and hackathons</h3>
+              <ul className="mt-3 space-y-4">
+                {volunteering.map((item) => (
+                  <li key={item.org}>
+                    <p className="text-[1rem] font-medium text-ink">
+                      {item.org}, {item.role.toLowerCase()} ({item.period})
+                    </p>
+                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-dim">{item.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </Panel>
+          </Tray>
 
-          <div data-reveal style={{ ["--reveal-delay" as string]: "70ms" }}>
-            <p className="eyebrow">Teaching and hackathons</p>
-            <ul className="mt-5 space-y-6">
-              {volunteering.map((item) => (
-                <li key={item.org}>
-                  <h3 className="text-[1.0625rem] text-ink">{item.org}</h3>
-                  <p className="mt-1 font-mono text-[0.625rem] tracking-wide text-faint">
-                    {item.role} · {item.period}
-                  </p>
-                  <p className="measure-tight mt-2 text-[0.875rem] leading-relaxed text-faint">{item.body}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {projects.map((project) => (
+            <Tray key={project.name}>
+              <Panel className="flex h-full flex-col p-5 sm:p-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="heading text-[1.125rem] text-ink">{project.name}</h3>
+                  <p className="text-[0.8125rem] text-faint">{project.period}</p>
+                </div>
+                <p className="mt-1 text-[0.9375rem] text-dim">{project.tagline}</p>
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-dim">{project.description}</p>
+                <BadgeList items={project.stack} className="mt-4" />
+                {project.links?.length ? (
+                  <div className="mt-auto pt-4">
+                    {project.links.map((link) => (
+                      <ExternalLink key={link.href} href={link.href} className="text-[0.9375rem]">
+                        {link.label}
+                      </ExternalLink>
+                    ))}
+                  </div>
+                ) : null}
+              </Panel>
+            </Tray>
+          ))}
         </div>
 
-        <div className="mt-16 rounded-2xl border border-line bg-surface p-6 sm:p-8" data-reveal>
-          <p className="eyebrow">Practicalities</p>
-          <p className="measure mt-4 text-[1rem] leading-relaxed text-dim">{profile.practicalities}</p>
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <a
-              href="/Donald-Amadi-CV.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[0.875rem] text-ink transition-colors hover:border-line-strong"
-            >
+        <div className="mt-5 rounded-2xl border border-line p-5 sm:p-7">
+          <h3 className="heading text-[1.125rem] text-ink">Practicalities</h3>
+          <p className="measure mt-2 text-[1rem] leading-relaxed text-dim">{profile.practicalities}</p>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            <a href={`mailto:${profile.email}`} className={buttonClass("primary")}>
+              Email me
+            </a>
+            <a href="/Donald-Amadi-CV.pdf" target="_blank" rel="noreferrer" className={buttonClass("outline")}>
               Download CV
-              <span className="font-mono text-[0.625rem] text-faint">PDF</span>
             </a>
-            <a href={`mailto:${profile.email}`} className="link text-[0.9375rem] text-ink">
-              {profile.email}
-            </a>
+            <Link href="/#experience" className={buttonClass("quiet")}>
+              See my experience
+            </Link>
           </div>
         </div>
       </Section>

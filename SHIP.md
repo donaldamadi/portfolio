@@ -51,7 +51,7 @@ domain is written down.
 | Path | What it does |
 | --- | --- |
 | `/work` | 308 to `/#work`, because there's no index page, so a hand-trimmed URL lands somewhere useful |
-| `/about` | The long version: the full story, the experience ledger, education and practicalities |
+| `/about` | The longer story, education, teaching, smaller projects and practicalities |
 | `/cv`, `/resume` | 307 to the CV PDF. Easier to say out loud than a filename |
 | `/opengraph-image` | Generated at build time, not a PNG anyone has to remember to update |
 | `/sitemap.xml`, `/robots.txt` | Generated from the content layer |
@@ -86,6 +86,9 @@ Still worth a second look:
   user numbers until you add them. Both are marked `TODO(donald)`.
 - `src/content/profile.ts` → `practicalities`: relocation and sponsorship, now only on `/about`. Keep it,
   trim it, or move it to the CV.
+- `src/content/work.ts` → `work`: Ofin Eko is listed as React Native (confirmed Nov 2026). Expo or bare,
+  and store links, are TODOs. React work is PinDey's web apps, Uplines (Equivator), Adduce and the job
+  scraper. Don't add a React Native claim that you can't demo or talk through.
 - `src/content/work.ts` → `offTheClock`: two lines of your own prose, unattributed and unlabelled.
   Delete the block if you'd rather keep that separate from work.
 - The SnapPay dates (`Apr 2026 - Jun 2026`) overlap Zedcrest and MedPal. That's accurate to your CV

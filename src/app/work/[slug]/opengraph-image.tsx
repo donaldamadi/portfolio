@@ -14,8 +14,8 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
   const { slug } = await params;
   const study = getCaseStudy(slug);
 
-  const eyebrow = `CASE STUDY · ${(study?.kicker ?? "Work").toUpperCase()}`;
-  const footnote = [study?.company, study?.period].filter(Boolean).join(" · ");
+  const eyebrow = `Case study: ${study?.kicker ?? "Work"}`;
+  const footnote = [study?.company, study?.period].filter(Boolean).join(", ");
 
   return new ImageResponse(
     (
@@ -26,14 +26,14 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#05070d",
+          background: "#fafafa",
           padding: "72px 80px",
           fontFamily: "sans-serif",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 10, height: 10, borderRadius: 999, background: "#34d399" }} />
-          <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, color: "#667e97" }}>{eyebrow}</div>
+          <div style={{ width: 10, height: 10, borderRadius: 999, background: "#2563eb" }} />
+          <div style={{ display: "flex", fontSize: 24, color: "#525252" }}>{eyebrow}</div>
         </div>
 
         <div
@@ -41,7 +41,7 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
             display: "flex",
             fontSize: 66,
             lineHeight: 1.06,
-            color: "#f3f8fd",
+            color: "#0a0a0a",
             letterSpacing: -2,
             maxWidth: 1000,
           }}
@@ -50,8 +50,8 @@ export default async function CaseStudyOgImage({ params }: { params: Promise<{ s
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%" }}>
-          <div style={{ display: "flex", fontSize: 26, color: "#f3f8fd" }}>{profile.name}</div>
-          <div style={{ display: "flex", fontSize: 20, color: "#667e97" }}>{footnote}</div>
+          <div style={{ display: "flex", fontSize: 26, color: "#0a0a0a" }}>{profile.name}</div>
+          <div style={{ display: "flex", fontSize: 22, color: "#6b6b6b" }}>{footnote}</div>
         </div>
       </div>
     ),

@@ -71,3 +71,22 @@ export type Article = {
   readonly publication: string;
   readonly href: string;
 };
+
+/** The platform filter on the work list. A project can sit under more than one. */
+export type Platform = "React Native" | "React" | "Flutter" | "Native" | "Node.js";
+
+export type Work = {
+  readonly id: string;
+  readonly name: string;
+  readonly org: string;
+  readonly period: string;
+  readonly platforms: readonly Platform[];
+  /** One line: what it is, in plain words. */
+  readonly what: string;
+  /** Two or three sentences: what I did and what was interesting about it. */
+  readonly body: string;
+  readonly stack: readonly string[];
+  /** A case study on this site, if there is one. */
+  readonly caseStudy?: string;
+  readonly links?: readonly Link[];
+};

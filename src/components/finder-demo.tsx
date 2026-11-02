@@ -237,7 +237,7 @@ export function FinderDemo() {
           tabIndex={0}
           onKeyDown={onKeyDown}
           onClick={onFieldClick}
-          className="relative aspect-[40/28] w-full select-none overflow-hidden rounded-2xl border border-line bg-surface-2"
+          className="relative aspect-[40/28] w-full select-none overflow-hidden rounded-[12px] border border-line bg-surface-2"
         >
           {CROWD.map((p, i) => (
             <span
@@ -252,7 +252,7 @@ export function FinderDemo() {
             <span
               key={i}
               aria-hidden="true"
-              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-md border border-line-strong bg-surface px-1.5 py-0.5 font-mono text-[0.5625rem] uppercase tracking-wider text-faint sm:text-[0.625rem]"
+              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-md border border-line bg-surface px-1.5 py-0.5 text-[0.625rem] font-medium text-faint shadow-card sm:text-[0.6875rem]"
               style={{ left: `${(bar.x / W) * 100}%`, top: `${(bar.y / H) * 100}%` }}
             >
               bar
@@ -286,7 +286,7 @@ export function FinderDemo() {
             style={{ left: `${(you.x / W) * 100}%`, top: `${(you.y / H) * 100}%` }}
           >
             <span className="block size-4 rounded-full border-2 border-bg bg-accent shadow-[0_0_0_6px_var(--accent-soft)]" />
-            <span className="absolute top-full -mt-1 font-mono text-[0.625rem] text-accent">you</span>
+            <span className="absolute top-full -mt-1 text-[0.6875rem] font-medium text-accent">you</span>
           </span>
         </div>
 
@@ -301,9 +301,9 @@ export function FinderDemo() {
               setSmooth(false);
               setAutoplay(true);
             }}
-            className="rounded-full border border-line px-3 py-1 font-mono text-[0.6875rem] text-dim transition-colors hover:border-line-strong hover:text-ink"
+            className="rounded-lg border border-line bg-surface px-3 py-1 text-[0.8125rem] text-dim shadow-card transition-colors hover:border-line-strong hover:text-ink"
           >
-            {autoplay ? "walking by itself" : "let it walk"}
+            {autoplay ? "Walking by itself" : "Let it walk"}
           </button>
         </div>
       </div>
@@ -313,7 +313,7 @@ export function FinderDemo() {
         className={cn(
           // Side by side with the room on desktop; a compact row on phones, so the
           // dial stays on screen while your thumb is in the room.
-          "flex items-center gap-5 rounded-2xl border p-4 transition-colors duration-500 sm:p-8 lg:flex-col lg:justify-center lg:gap-0",
+          "flex items-center gap-5 rounded-[12px] border p-4 shadow-card transition-colors duration-500 sm:p-8 lg:flex-col lg:justify-center lg:gap-0",
           phase === "found" ? "border-accent-2 bg-accent-2-soft" : "border-line bg-surface",
         )}
       >
@@ -357,13 +357,13 @@ export function FinderDemo() {
 
         <div className="min-w-0 lg:text-center">
           <p className="eyebrow lg:hidden">Finding Tolu</p>
-          <p className="mt-2 font-mono text-[2rem] leading-none text-ink tabular-nums lg:mt-6">
+          <p className="mt-2 text-[2rem] font-semibold leading-none text-ink tabular-nums lg:mt-6">
             {metres}
             <span className="ml-1 text-[1rem] text-faint">m</span>
           </p>
           <p
             className={cn(
-              "mt-2 font-mono text-[0.875rem]",
+              "mt-2 text-[0.9375rem] font-medium",
               phase !== "far" || trend === "warmer" ? "text-accent-2" : trend === "colder" ? "text-accent" : "text-dim",
             )}
           >
