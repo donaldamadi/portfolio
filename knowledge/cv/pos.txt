@@ -1,0 +1,72 @@
+# Android POS and payments CV
+
+DONALD AMADI
+Senior Product Engineer | Android POS & Payments | AI-Forward  donaldamadi15@gmail.com linkedin.com/in/donald-amadi github.com/donaldamadi  donaldamadi.dev
+Professional Summary Senior Product Engineer with 5+ years building Android payment applications for Nigerian fintech. At Zedcrest I built a POS application for Android terminals on a vendor Java/Kotlin card SDK (card detection, EMV kernel, PIN pad, online authorisation, receipt printing), with a native bridge where the terminal side owns transaction state, so a killed activity mid-authorisation never loses whether money moved, and new terminals plug in as adapters. Around it: wallets, transfers, bill payments, QR pay, KYC, AES-encrypted networking, idempotent disbursement and repayment, and field debugging on real devices. I work AI-forward with agents and skill files I author.
+Core Skills POS & payments: Android POS terminals, vendor card SDKs (card detection, EMV kernel, PIN pad, online authorisation, thermal printer), card-present transaction lifecycle, receipt generation (thermal and PDF), QR pay, wallets, transfers, bill payments, Paystack, Rave/Flutterwave, KYC (Prembly, HyperVerge). Android: Kotlin, Java, Android SDK, activity/process lifecycle and state restoration, background execution, Bluetooth, Jetpack Compose, Flutter/Dart with Platform Channels (MethodChannel/EventChannel). Security & reliability: AES request/response encryption with key refresh-and-retry, session handling, biometrics, idempotent money movement, reconciliation against the payment rail, resumable state machines. Testing & release: terminal and device testing, production triage with Sentry and Crashlytics, Bitrise, Codemagic, GitHub Actions, Shorebird, Play Console releases.
+AI-Forward Engineering How I ship: agentic loops (plan, act, verify, correct) with explicit guardrails and stop conditions. Coding agents implement, refactor and review; static analysis, tests and my own review gate every merge. Harness & context engineering: skill files and CLAUDE.md/AGENTS.md hierarchies that let agents work inside real conventions. Decomposed SnapPay’s live codebase into feature-scoped skill documents, and productised the approach as flutter skill gen on pub.dev. Tools: Claude Code, Cursor, Copilot, MCP servers.
+Education
+University of Lagos Bachelor of Science in Computer Engineering
+August 2023 Lagos, Nigeria
+Experience
+Zedcrest Group
+March 2024 – Current Mobile Engineer, Full-time (Zedvance Personal & Business Banking) Lagos, Nigeria
+• Built a Flutter POS application for Android payment terminals on top of a vendor Java/Kotlin card SDK covering card detection, the EMV kernel, PIN pad, online authorisation and thermal receipt printing, for a roughly 30-second multi-stage card-present transaction (detect, read, PIN, authorise, print).
+• Designed the native bridge: a MethodChannel sends commands to the terminal and an EventChannel streams its timeline (card presented, PIN entered, authorising, printing) to the operator UI, rather than one opaque charge() call that hides state the operator needs.
+• Made the native side the transaction’s source of truth: if Android reclaims the activity or the Dart isolate dies mid-authorisation, the terminal still knows whether money moved and the UI re-derives state on resume, so a half-finished transaction never leaks into the next one.
+• Kept the channel contract thin and versioned (serialised domain types, never SDK objects), so card-present flows run across terminal models and vendor SDK builds from one Flutter UI and adding a terminal means writing an adapter.
+• Built ExtraCash embedded lending in Zedvance: open-banking (Mono) eligibility, KYC tiers, automated decisioning, instant wallet disbursement with idempotent retries against the ledger, and card repayment via Rave/Flutterwave reconciled against the card rail.
+• Enhanced the core banking app with new service modules (cable, electricity, advanced search), and built a business-banking app for SMEs with streamlined payments, account management and transaction tracking. September 2026 – Present PinDey | pindey.app Founder & Product Engineer, own product (Android and iOS) Lagos, Nigeria
+• Designed and shipped PinDey solo, a live app for finding friends in crowded places, on Google Play and the App Store.
+•
+Built on-device Bluetooth proximity for indoor “right here” range, background distance on the lock screen, flares that ring a friend’s phone and flash the screen, and retry-safe writes over weak networks via idempotency keys.
+SnapPay
+April 2026 – June 2026 Flutter Engineer, Contract (SnapPay) Remote (Nigeria)
+• Delivered features for a production Nigerian fintech app (wallets, transfers, airtime/data/electricity bill payments, group & personal savings, invoices, QR pay, ticketing, rewards), shipping backwards-compatible, feature-flag-gated changes to live users.
+• Engineered an AES-encrypted networking layer with request/response encryption and automatic encryption-key refresh-and-retry on HTTP 403, plus session-expiry auto-logout on HTTP 401.
+• Integrated Prembly KYC (BVN/NIN/liveness), biometric authentication, QR scan-to-pay, PDF receipt generation and deep linking, on a layered MVVM core (Provider, get it, dartz functional error handling).
+• Authored modular, AI-loadable skill documents decomposing the codebase by feature so AI agents could work safely within it, applying harness and context engineering to a live app.
+MedPal
+June 2025 – Present Flutter Engineer, Contract (MedPal Provider)
+Remote
+• Built real-time provider-to-patient video and voice consultations with the Agora RTC engine, wired into the full telemedicine session lifecycle (incoming request, accept, in-call controls, completion) for a healthcare-provider platform.
+• Integrated Firebase AI (Vertex AI / Gemini) to power AI-assisted medical-specialty selection during provider onboarding.
+• Delivered provider earnings and payouts (available balance), payments, availability scheduling, QR generation, biometric login, and document/consent capture.
+• Led full English/Spanish internationalisation, migrating every user-facing string to gen-l10n (480+ keys) with CI parity tests, across a Clean Architecture, Cubit (flutter bloc), go router and get it codebase with multi-flavor Firebase (dev/staging/prod).
+Equivator
+October 2024 – May 2025 Senior Frontend Developer, Contract (Uplines Web/Mobile) Saudi Arabia (Remote)
+• Contributed to web and mobile platforms for the Uplines project, including native iOS widgets (Swift/SwiftUI) that boosted daily active users by 10% and UX enhancements that increased engagement by 20%.
+• Integrated advanced analytics (Firebase, CleverTap), enabling 30% faster data-driven decisions, and partnered with backend/design teams to improve scalability by 15%.
+• Spearheaded new features (gift points, tutorials, onboarding) and resolved critical bugs via Sentry and Firebase Crashlytics, improving stability by 30%.
+MAX
+March 2024 – December 2024 Flutter Mobile Developer, Full-time (PAMS Mobile, Falcon Web App) Lagos, Nigeria
+• Re-architected a legacy codebase to Clean Architecture, cutting bugs by 60% and improving scalability.
+• Built a multilingual testing app with voice playback, improving accessibility for diverse demographics.
+• Built and enhanced Falcon web app’s real-time map interface to track and monitor riders/drivers, integrating live geolocation, speed, and distance data for improved operational visibility.
+Creative Advanced Technologies
+June 2022 – August 2024 Flutter Mobile Developer, Contract (Tamata, Taza) Dubai, United Arab Emirates
+• Delivered a 25% UX improvement and 40% performance gain in an e-commerce app serving 500,000+ users through RxBloc optimisation and targeted performance tuning.
+• Improved workflows by leading code reviews and task tracking (Bitbucket, Jira) and deploying a Bitrise CI/CD pipeline, cutting release times by 50% and achieving a 90% build success rate.
+• Integrated Shorebird for code push, reducing deployment time by 70% and enabling faster delivery of updates on Android and iOS.
+Platnova
+October 2023 – April 2024 Flutter Mobile Developer, Full-time (Platnova) Lagos, Nigeria
+• Built a multi-currency wallet (5,000+ monthly transactions) with Paystack integration, improving efficiency and engagement.
+• Led UI enhancements including a dark mode and design review contributions, boosting retention.
+First Bank of Nigeria
+February 2022 – January 2024 Flutter Mobile Developer, Contract (LitApp) Lagos, Nigeria
+• Built core flows of a multifunctional banking app: self-transfer, inter/intra-bank transfers, airtime purchases and bill payments, contributing to a 35% improvement in user experience and a 50% rise in customer satisfaction ratings.
+•
+Iterated on usability with the UI/UX team, driving a 30% increase in session duration, a 15% improvement in retention and 10% more positive app reviews.
+Student Paddy
+June 2021 – June 2022 Lead Mobile Developer (StudentPaddy) Lagos, Nigeria
+• Led the build of an educational social app for iOS and Android in Flutter, with real-time in-app chat, Firebase push notifications and deep linking to drive engagement.
+Algorism Limited
+May 2021 – November 2021 Software Developer Intern (RealtyProx, TaskProx) Lagos, Nigeria
+• Designed a real-time bidding system for real estate and built reusable, performance-optimised Flutter components for property transactions.
+Projects & Open Source flutter skill gen | Dart, CLI, pub.dev, Claude API 2025 – Current
+• Authored and published an open-source (MIT) Dart CLI that scans a Flutter project, detects its architecture, state management, navigation, DI, networking and storage, and generates Agent-Skills-compliant context for AI coding assistants in 8 formats (SKILL.md, CLAUDE.md, AGENTS.md, Cursor, Copilot, Windsurf, Gemini, Antigravity).
+• Watch mode with debounce, pre-commit/post-merge git hooks with backup-and-restore, a generated GitHub Actions workflow that keeps context in sync in CI, and optional Claude API synthesis with a deterministic template fallback. Write-up published on Level Up Coding. May 2022 – Current multi image layout | Flutter, Dart, pub.dev
+• Authored and maintain an open-source (MIT) Flutter package, now on its second major version with 16 community forks: picks a gallery layout from the media count for network or local images and video, with a swipeable, zoomable fullscreen viewer, placeholders and captions on Android and iOS. Ofin Eko | React Native January 2025 – July 2025
+• Architected and built solo a bilingual (English/Yoruba) app for reading and listening to every Lagos State law: offline-first with aggressive caching, text-to-speech and audio streaming, and deep links straight to a specific law or bookmark.
+• Owned the full release to the Google Play Store and Apple App Store, and maintain it post-launch from user feedback.
+Leadership & Community Melodia Academy, Lead Tutor (2022): mentored a team of 3 engineers in Flutter and ran code review on their projects. Andela Hackathon for Justice (2021): built a prison record-keeping app to tackle pretrial overcrowding. Writing: technical articles on Level Up Coding (Medium), most recently on context engineering for AI coding agents (2026).

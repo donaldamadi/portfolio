@@ -7,6 +7,7 @@ const sections = [
   { label: "PinDey", href: "/#pindey" },
   { label: "React Native", href: "/#react-native" },
   { label: "Work", href: "/#work" },
+  { label: "Play the career run", href: "/#play" },
   { label: "Experience", href: "/#experience" },
   { label: "How I work", href: "/#how" },
   { label: "Open source and writing", href: "/#open-source" },

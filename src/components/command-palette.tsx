@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { caseStudies } from "@/content/case-studies";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
+import { unlock } from "@/lib/achievements";
+import { openAsk } from "./ask-ai";
+import { playUi } from "@/lib/sound";
 
 /**
  * A command is plain data. What it does is decided by `run` below, in an event
@@ -13,7 +16,8 @@ import { cn } from "@/lib/utils";
 type Action =
   | { kind: "section"; hash: string }
   | { kind: "route"; href: string }
-  | { kind: "link"; href: string };
+  | { kind: "link"; href: string }
+  | { kind: "ask" };
 
 type Command = {
   id: string;
@@ -31,9 +35,11 @@ const section = (id: string, label: string): Command => ({
 });
 
 const COMMANDS: readonly Command[] = [
+  { id: "ask", label: "Ask my AI", group: "Navigate", hint: "Questions about my work", action: { kind: "ask" } },
   section("pindey", "PinDey"),
   section("react-native", "React Native"),
   section("work", "Work"),
+  section("play", "Play the career run"),
   section("experience", "Experience"),
   section("how", "How I work"),
   section("open-source", "Open source and writing"),
@@ -94,6 +100,9 @@ export function CommandPalette() {
       const el = document.querySelector(action.hash);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       else router.push(`/${action.hash}`);
+    } else if (action.kind === "ask") {
+      playUi("open");
+      openAsk();
     } else if (action.kind === "route") {
       router.push(action.href);
     } else {
@@ -113,6 +122,7 @@ export function CommandPalette() {
         event.preventDefault();
         restoreFocusTo.current = document.activeElement as HTMLElement | null;
         setOpen((prev) => !prev);
+        unlock("shortcut");
       }
       if (event.key === "Escape" && open) {
         event.preventDefault();
@@ -142,6 +152,7 @@ export function CommandPalette() {
         onClick={(event) => {
           restoreFocusTo.current = event.currentTarget;
           setOpen(true);
+          unlock("shortcut");
         }}
         className="hidden items-center gap-2 rounded-[9px] border border-line bg-surface px-2.5 py-1.5 text-[0.8125rem] text-faint shadow-card transition-colors hover:border-line-strong hover:text-dim sm:inline-flex"
       >

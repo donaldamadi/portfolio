@@ -14,14 +14,16 @@
 :root {
   color-scheme: light;
 
-  --bg: #fafafa;
-  --bg-veil: #fafafae6;
+  /* A very light cool tint, borrowed from the blue accent, so white panels
+     lift off the page instead of sitting flush on near-white. */
+  --bg: #f5f7fb;
+  --bg-veil: #f5f7fbe6;
   /* A panel that sits on the page. */
   --surface: #ffffff;
-  /* The grey tray a panel sits in, and quiet fills. */
-  --surface-2: #f4f4f5;
-  --line: #e5e5e5;
-  --line-strong: #d4d4d4;
+  /* The tray a panel sits in, and quiet fills. Same tint, one step deeper. */
+  --surface-2: #edf1f7;
+  --line: #e1e6ee;
+  --line-strong: #cdd4df;
   --ink: #0a0a0a;
   --dim: #525252;
   /* Clears 4.5:1 on both --bg and --surface. */
@@ -31,6 +33,8 @@
   /* PinDey's own colour. Only the PinDey section uses it. */
   --accent-2: #047857;
   --accent-2-soft: #04785714;
+  /* Bugs in the career run, and nothing else. */
+  --danger: #c2410c;
 
   --shadow-card: 0 1px 1px 0 rgb(0 0 0 / 0.05);
   --shadow-panel: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.08);
@@ -53,6 +57,7 @@
   --accent-soft: #60a5fa1f;
   --accent-2: #34d399;
   --accent-2-soft: #34d3991f;
+  --danger: #fb923c;
 
   --shadow-card: 0 1px 1px 0 rgb(0 0 0 / 0.3);
   --shadow-panel: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.4);

@@ -14,8 +14,8 @@ export function Contact() {
             <div>
               <h2 className="display text-[clamp(2rem,4.4vw,3rem)] text-ink">Let&rsquo;s talk.</h2>
               <p className="measure mt-4 text-[1.0625rem] leading-relaxed text-dim">
-                Hiring for React Native, mobile or a product engineer who can carry a feature from the screen to the
-                database? Email is the quickest way to reach me, and LinkedIn works too.
+                Need someone who can carry a product from the first screen to the database, on mobile, the web or the
+                backend? Email is the quickest way to reach me, and LinkedIn works too.
               </p>
               <a href={`mailto:${profile.email}`} className="link mt-6 inline-block text-[1.25rem] font-medium text-ink">
                 {profile.email}

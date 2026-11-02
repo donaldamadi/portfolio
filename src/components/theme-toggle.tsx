@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
+import { unlock } from "@/lib/achievements";
 
 /**
  * The theme lives on <html data-theme>, set before first paint by the bootstrap
@@ -25,6 +26,7 @@ export function ThemeToggle() {
   const toggle = () => {
     const next: Theme = theme === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
+    unlock("night-shift");
     try {
       localStorage.setItem(THEME_STORAGE_KEY, next);
     } catch {
@@ -38,6 +40,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
+      data-sound={isLight ? "toggle-off" : "toggle-on"}
       aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
       title={isLight ? "Dark" : "Light"}
       className="grid size-8 place-items-center rounded-[9px] border border-line bg-surface text-dim shadow-card transition-colors hover:border-line-strong hover:text-ink"
